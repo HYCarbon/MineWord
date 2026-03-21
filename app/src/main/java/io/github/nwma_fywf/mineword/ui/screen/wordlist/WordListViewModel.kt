@@ -15,6 +15,17 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
     val words: StateFlow<List<Word>> = repository.getAllWords()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    fun insertWord(word: String, definition: String) {
+        viewModelScope.launch {
+            repository.insertWord(
+                Word(
+                    word = word,
+                    definition = definition,
+                )
+            )
+        }
+    }
+
     fun deleteWord(word: Word) {
         viewModelScope.launch {
             repository.deleteWord(word)

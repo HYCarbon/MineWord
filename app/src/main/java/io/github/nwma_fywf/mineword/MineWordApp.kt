@@ -69,9 +69,6 @@ fun MineWordApp() {
                     )
                     WordListScreen(
                         viewModel = viewModel,
-                        onNavigateToAddWord = {
-                            // TODO: 打开添加单词对话框
-                        }
                     )
                 },
                 settingsScreen = {
