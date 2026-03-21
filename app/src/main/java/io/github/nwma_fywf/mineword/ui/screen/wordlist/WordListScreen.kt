@@ -29,8 +29,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.github.nwma_fywf.mineword.ui.component.AddWordDialog
+import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.ui.component.WordCard
+import io.github.nwma_fywf.mineword.ui.component.WordDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,6 +40,7 @@ fun WordListScreen(
 ) {
     val words by viewModel.words.collectAsState()
     var showAddDialog by remember { mutableStateOf(false) }
+    var editingWord by remember { mutableStateOf<Word?>(null) }
 
     Scaffold(
         topBar = {
@@ -86,7 +88,10 @@ fun WordListScreen(
                         backgroundContent = {},
                         enableDismissFromStartToEnd = false,
                     ) {
-                        WordCard(word = word)
+                        WordCard(
+                            word = word,
+                            onClick = { editingWord = word },
+                        )
                     }
                 }
             }
@@ -94,12 +99,23 @@ fun WordListScreen(
     }
 
     if (showAddDialog) {
-        AddWordDialog(
+        WordDialog(
             onDismiss = { showAddDialog = false },
             onConfirm = { word, definition ->
                 viewModel.insertWord(word, definition)
                 showAddDialog = false
             },
+        )
+    }
+
+    editingWord?.let { word ->
+        WordDialog(
+            onDismiss = { editingWord = null },
+            onConfirm = { newWord, newDefinition ->
+                viewModel.updateWord(word, newWord, newDefinition)
+                editingWord = null
+            },
+            existingWord = word,
         )
     }
 }

@@ -26,6 +26,12 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
         }
     }
 
+    fun updateWord(word: Word, newWord: String, newDefinition: String) {
+        viewModelScope.launch {
+            repository.updateWord(word.copy(word = newWord, definition = newDefinition))
+        }
+    }
+
     fun deleteWord(word: Word) {
         viewModelScope.launch {
             repository.deleteWord(word)

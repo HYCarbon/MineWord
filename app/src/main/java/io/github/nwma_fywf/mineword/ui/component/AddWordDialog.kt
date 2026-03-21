@@ -19,15 +19,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.data.local.Word
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddWordDialog(
+fun WordDialog(
     onDismiss: () -> Unit,
     onConfirm: (word: String, definition: String) -> Unit,
+    existingWord: Word? = null,
 ) {
-    var word by remember { mutableStateOf("") }
-    var definition by remember { mutableStateOf("") }
+    val isEditing = existingWord != null
+    var word by remember { mutableStateOf(existingWord?.word ?: "") }
+    var definition by remember { mutableStateOf(existingWord?.definition ?: "") }
 
     val sheetState = rememberModalBottomSheetState()
 
@@ -42,7 +45,7 @@ fun AddWordDialog(
                 .padding(bottom = 32.dp),
         ) {
             Text(
-                text = "添加单词",
+                text = if (isEditing) "编辑单词" else "添加单词",
                 style = MaterialTheme.typography.titleLarge,
             )
             Spacer(modifier = Modifier.height(16.dp))
