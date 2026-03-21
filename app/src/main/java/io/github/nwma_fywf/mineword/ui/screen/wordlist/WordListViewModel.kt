@@ -15,20 +15,21 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
     val words: StateFlow<List<Word>> = repository.getAllWords()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    fun insertWord(word: String, definition: String) {
+    fun insertWord(word: String, definition: String, tags: String = "") {
         viewModelScope.launch {
             repository.insertWord(
                 Word(
                     word = word,
                     definition = definition,
+                    tags = tags,
                 )
             )
         }
     }
 
-    fun updateWord(word: Word, newWord: String, newDefinition: String) {
+    fun updateWord(word: Word, newWord: String, newDefinition: String, newTags: String = "") {
         viewModelScope.launch {
-            repository.updateWord(word.copy(word = newWord, definition = newDefinition))
+            repository.updateWord(word.copy(word = newWord, definition = newDefinition, tags = newTags))
         }
     }
 

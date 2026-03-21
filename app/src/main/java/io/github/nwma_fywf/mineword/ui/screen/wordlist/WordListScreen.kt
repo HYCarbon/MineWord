@@ -101,8 +101,8 @@ fun WordListScreen(
     if (showAddDialog) {
         WordDialog(
             onDismiss = { showAddDialog = false },
-            onConfirm = { word, definition ->
-                viewModel.insertWord(word, definition)
+            onConfirm = { word, definition, tags ->
+                viewModel.insertWord(word, definition, tags)
                 showAddDialog = false
             },
         )
@@ -111,8 +111,8 @@ fun WordListScreen(
     editingWord?.let { word ->
         WordDialog(
             onDismiss = { editingWord = null },
-            onConfirm = { newWord, newDefinition ->
-                viewModel.updateWord(word, newWord, newDefinition)
+            onConfirm = { newWord, newDefinition, newTags ->
+                viewModel.updateWord(word, newWord, newDefinition, newTags)
                 editingWord = null
             },
             existingWord = word,

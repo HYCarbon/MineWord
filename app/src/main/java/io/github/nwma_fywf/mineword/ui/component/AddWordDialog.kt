@@ -25,12 +25,13 @@ import io.github.nwma_fywf.mineword.data.local.Word
 @Composable
 fun WordDialog(
     onDismiss: () -> Unit,
-    onConfirm: (word: String, definition: String) -> Unit,
+    onConfirm: (word: String, definition: String, tags: String) -> Unit,
     existingWord: Word? = null,
 ) {
     val isEditing = existingWord != null
     var word by remember { mutableStateOf(existingWord?.word ?: "") }
     var definition by remember { mutableStateOf(existingWord?.definition ?: "") }
+    var tags by remember { mutableStateOf(existingWord?.tags ?: "") }
 
     val sheetState = rememberModalBottomSheetState()
 
@@ -64,11 +65,20 @@ fun WordDialog(
                 label = { Text("释义") },
                 minLines = 2,
             )
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = tags,
+                onValueChange = { tags = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("标签（逗号分隔）") },
+                singleLine = true,
+                placeholder = { Text("如: CET-4, 动词") },
+            )
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
                     if (word.isNotBlank() && definition.isNotBlank()) {
-                        onConfirm(word.trim(), definition.trim())
+                        onConfirm(word.trim(), definition.trim(), tags.trim())
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
