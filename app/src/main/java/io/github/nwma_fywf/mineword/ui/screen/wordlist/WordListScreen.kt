@@ -33,7 +33,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
@@ -54,6 +56,9 @@ fun WordListScreen(
     var showAddDialog by remember { mutableStateOf(false) }
     var editingWord by remember { mutableStateOf<Word?>(null) }
     var wordToDelete by remember { mutableStateOf<Word?>(null) }
+    var addDuplicateWarning by remember { mutableStateOf<String?>(null) }
+    var editDuplicateWarning by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -137,24 +142,40 @@ fun WordListScreen(
 
     if (showAddDialog) {
         WordDialog(
-            onDismiss = { showAddDialog = false },
+            onDismiss = { showAddDialog = false; addDuplicateWarning = null },
             onConfirm = { word, definition, tags ->
-                viewModel.insertWord(word, definition, tags)
-                showAddDialog = false
+                scope.launch {
+                    if (viewModel.checkDuplicate(word)) {
+                        addDuplicateWarning = "单词 \"$word\" 已存在"
+                    } else {
+                        viewModel.insertWord(word, definition, tags)
+                        showAddDialog = false
+                        addDuplicateWarning = null
+                    }
+                }
             },
             existingTags = existingTags,
+            duplicateWarning = addDuplicateWarning,
         )
     }
 
     editingWord?.let { word ->
         WordDialog(
-            onDismiss = { editingWord = null },
+            onDismiss = { editingWord = null; editDuplicateWarning = null },
             onConfirm = { newWord, newDefinition, newTags ->
-                viewModel.updateWord(word, newWord, newDefinition, newTags)
-                editingWord = null
+                scope.launch {
+                    if (viewModel.checkDuplicate(newWord, excludeId = word.id)) {
+                        editDuplicateWarning = "单词 \"$newWord\" 已存在"
+                    } else {
+                        viewModel.updateWord(word, newWord, newDefinition, newTags)
+                        editingWord = null
+                        editDuplicateWarning = null
+                    }
+                }
             },
             existingWord = word,
             existingTags = existingTags,
+            duplicateWarning = editDuplicateWarning,
         )
     }
 

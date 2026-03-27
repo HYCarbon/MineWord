@@ -36,6 +36,7 @@ fun WordDialog(
     onConfirm: (word: String, definition: String, tags: String) -> Unit,
     existingWord: Word? = null,
     existingTags: List<String> = emptyList(),
+    duplicateWarning: String? = null,
 ) {
     val isEditing = existingWord != null
     var word by remember { mutableStateOf(existingWord?.word ?: "") }
@@ -65,7 +66,16 @@ fun WordDialog(
                 modifier = Modifier.fillMaxWidth(),
                 label = { Text("单词") },
                 singleLine = true,
+                isError = duplicateWarning != null,
             )
+            if (duplicateWarning != null) {
+                Text(
+                    text = duplicateWarning,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(start = 16.dp, top = 4.dp),
+                )
+            }
             Spacer(modifier = Modifier.height(12.dp))
             OutlinedTextField(
                 value = definition,

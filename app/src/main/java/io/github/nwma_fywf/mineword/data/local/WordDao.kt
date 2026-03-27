@@ -30,4 +30,7 @@ interface WordDao {
 
     @Query("SELECT tags FROM words WHERE tags != ''")
     fun getAllTagsRaw(): Flow<List<String>>
+
+    @Query("SELECT * FROM words WHERE LOWER(word) = LOWER(:word) LIMIT 1")
+    suspend fun getWordByWord(word: String): Word?
 }

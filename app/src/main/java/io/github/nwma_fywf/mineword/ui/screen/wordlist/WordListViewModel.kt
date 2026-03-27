@@ -47,6 +47,11 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
         _searchQuery.value = ""
     }
 
+    suspend fun checkDuplicate(word: String, excludeId: Long? = null): Boolean {
+        val existing = repository.getWordByWord(word)
+        return existing != null && existing.id != excludeId
+    }
+
     fun insertWord(word: String, definition: String, tags: String = "") {
         viewModelScope.launch {
             repository.insertWord(
