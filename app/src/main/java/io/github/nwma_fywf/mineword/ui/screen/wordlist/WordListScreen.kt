@@ -49,6 +49,7 @@ fun WordListScreen(
 ) {
     val words by viewModel.words.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
+    val existingTags by viewModel.existingTags.collectAsState()
     var showAddDialog by remember { mutableStateOf(false) }
     var editingWord by remember { mutableStateOf<Word?>(null) }
 
@@ -138,6 +139,7 @@ fun WordListScreen(
                 viewModel.insertWord(word, definition, tags)
                 showAddDialog = false
             },
+            existingTags = existingTags,
         )
     }
 
@@ -149,6 +151,7 @@ fun WordListScreen(
                 editingWord = null
             },
             existingWord = word,
+            existingTags = existingTags,
         )
     }
 }

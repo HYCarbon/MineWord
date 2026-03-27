@@ -16,4 +16,6 @@ class WordRepository(private val wordDao: WordDao) {
     suspend fun updateWord(word: Word) = wordDao.updateWord(word)
 
     suspend fun deleteWord(word: Word) = wordDao.deleteWord(word)
+
+    fun getAllTagsRaw(): Flow<List<String>> = wordDao.getAllTagsRaw()
 }

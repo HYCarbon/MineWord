@@ -27,4 +27,7 @@ interface WordDao {
 
     @Delete
     suspend fun deleteWord(word: Word)
+
+    @Query("SELECT tags FROM words WHERE tags != ''")
+    fun getAllTagsRaw(): Flow<List<String>>
 }
