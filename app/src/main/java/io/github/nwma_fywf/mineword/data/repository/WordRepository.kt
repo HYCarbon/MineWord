@@ -9,6 +9,8 @@ class WordRepository(private val wordDao: WordDao) {
 
     suspend fun getWordById(id: Long): Word? = wordDao.getWordById(id)
 
+    fun searchWords(query: String): Flow<List<Word>> = wordDao.searchWords(query)
+
     suspend fun insertWord(word: Word): Long = wordDao.insertWord(word)
 
     suspend fun updateWord(word: Word) = wordDao.updateWord(word)

@@ -16,6 +16,9 @@ interface WordDao {
     @Query("SELECT * FROM words WHERE id = :id")
     suspend fun getWordById(id: Long): Word?
 
+    @Query("SELECT * FROM words WHERE word LIKE '%' || :query || '%' OR definition LIKE '%' || :query || '%' OR tags LIKE '%' || :query || '%' ORDER BY createdAt DESC")
+    fun searchWords(query: String): Flow<List<Word>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWord(word: Word): Long
 
