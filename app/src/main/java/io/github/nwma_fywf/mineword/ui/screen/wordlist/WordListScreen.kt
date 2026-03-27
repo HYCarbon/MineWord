@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.ui.component.ConfirmDeleteDialog
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.ui.component.WordCard
 import io.github.nwma_fywf.mineword.ui.component.WordDialog
@@ -52,6 +53,7 @@ fun WordListScreen(
     val existingTags by viewModel.existingTags.collectAsState()
     var showAddDialog by remember { mutableStateOf(false) }
     var editingWord by remember { mutableStateOf<Word?>(null) }
+    var wordToDelete by remember { mutableStateOf<Word?>(null) }
 
     Scaffold(
         topBar = {
@@ -114,7 +116,8 @@ fun WordListScreen(
                     val dismissState = rememberSwipeToDismissBoxState()
                     LaunchedEffect(dismissState.currentValue) {
                         if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
-                            viewModel.deleteWord(word)
+                            wordToDelete = word
+                            dismissState.reset()
                         }
                     }
                     SwipeToDismissBox(
@@ -152,6 +155,17 @@ fun WordListScreen(
             },
             existingWord = word,
             existingTags = existingTags,
+        )
+    }
+
+    wordToDelete?.let { word ->
+        ConfirmDeleteDialog(
+            word = word.word,
+            onConfirm = {
+                viewModel.deleteWord(word)
+                wordToDelete = null
+            },
+            onDismiss = { wordToDelete = null },
         )
     }
 }
