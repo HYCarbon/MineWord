@@ -34,51 +34,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import io.github.nwma_fywf.mineword.data.local.ExampleSentence
-import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.ui.component.ConfirmDeleteDialog
 import io.github.nwma_fywf.mineword.ui.component.WordCard
-import io.github.nwma_fywf.mineword.ui.component.WordDialog
-import io.github.nwma_fywf.mineword.ui.component.ExampleSentenceEntry
-import io.github.nwma_fywf.mineword.ui.component.MeaningEntry
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WordListScreen(
     viewModel: WordListViewModel,
     onNavigateToAddWord: () -> Unit,
+    onNavigateToEditWord: (Long) -> Unit,
 ) {
     val words by viewModel.words.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
-    val existingTags by viewModel.existingTags.collectAsState()
-    var editingWord by remember { mutableStateOf<Word?>(null) }
     var wordToDelete by remember { mutableStateOf<Word?>(null) }
     var deleteMeaningCount by remember { mutableIntStateOf(0) }
-    var editDuplicateWarning by remember { mutableStateOf<String?>(null) }
-    var editingMeanings by remember { mutableStateOf<List<Meaning>>(emptyList()) }
-    var editingExampleSentences by remember { mutableStateOf<List<ExampleSentence>>(emptyList()) }
-    val scope = rememberCoroutineScope()
-
-    LaunchedEffect(editingWord) {
-        if (editingWord != null) {
-            editingMeanings = viewModel.getMeanings(editingWord!!.id)
-                .first()
-            editingExampleSentences = viewModel.getExampleSentences(editingWord!!.id)
-                .first()
-        } else {
-            editingMeanings = emptyList()
-            editingExampleSentences = emptyList()
-        }
-    }
 
     Scaffold(
         topBar = {
@@ -157,42 +132,12 @@ fun WordListScreen(
                             word = word,
                             meanings = meanings,
                             exampleSentences = exampleSentences,
-                            onClick = { editingWord = word },
+                            onClick = { onNavigateToEditWord(word.id) },
                         )
                     }
                 }
             }
         }
-    }
-
-    editingWord?.let { word ->
-        WordDialog(
-            onDismiss = { editingWord = null; editDuplicateWarning = null },
-            onConfirm = { newWord, phoneticUK, phoneticUS, meaningEntries, exampleSentenceEntries, newTags ->
-                scope.launch {
-                    if (viewModel.checkDuplicate(newWord, excludeId = word.id)) {
-                        editDuplicateWarning = "单词 \"$newWord\" 已存在"
-                    } else {
-                        val meanings = meaningEntries.mapIndexed { index, entry ->
-                            Meaning(
-                                wordId = word.id,
-                                partOfSpeech = entry.partOfSpeech.ifBlank { null },
-                                definition = entry.definition,
-                                order = index
-                            )
-                        }
-                        viewModel.updateWord(word, newWord, phoneticUK, phoneticUS, meanings, exampleSentenceEntries, newTags)
-                        editingWord = null
-                        editDuplicateWarning = null
-                    }
-                }
-            },
-            existingWord = word,
-            existingMeanings = editingMeanings,
-            existingExampleSentences = editingExampleSentences,
-            existingTags = existingTags,
-            duplicateWarning = editDuplicateWarning,
-        )
     }
 
     wordToDelete?.let { word ->
