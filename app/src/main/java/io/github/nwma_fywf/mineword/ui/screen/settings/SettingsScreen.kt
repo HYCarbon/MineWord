@@ -42,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.data.local.FontStyle
 import io.github.nwma_fywf.mineword.data.local.ThemeMode
 import io.github.nwma_fywf.mineword.data.repository.DuplicateStrategy
 import java.text.SimpleDateFormat
@@ -53,6 +54,7 @@ fun SettingsScreen(
     viewModel: SettingsViewModel
 ) {
     val themeMode by viewModel.themeMode.collectAsState()
+    val fontStyle by viewModel.fontStyle.collectAsState()
     val isExporting by viewModel.isExporting.collectAsState()
     val isImporting by viewModel.isImporting.collectAsState()
     val importDialogState by viewModel.importDialogState.collectAsState()
@@ -126,6 +128,48 @@ fun SettingsScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
+            text = "字体设置",
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+        ) {
+            Column(
+                modifier = Modifier
+                    .selectableGroup()
+                    .padding(8.dp)
+            ) {
+                FontStyleOption(
+                    text = "默认",
+                    selected = fontStyle == FontStyle.DEFAULT,
+                    onClick = { viewModel.setFontStyle(FontStyle.DEFAULT) }
+                )
+                FontStyleOption(
+                    text = "衬线体 (Serif)",
+                    selected = fontStyle == FontStyle.SERIF,
+                    onClick = { viewModel.setFontStyle(FontStyle.SERIF) }
+                )
+                FontStyleOption(
+                    text = "无衬线体 (Sans Serif)",
+                    selected = fontStyle == FontStyle.SANS_SERIF,
+                    onClick = { viewModel.setFontStyle(FontStyle.SANS_SERIF) }
+                )
+                FontStyleOption(
+                    text = "等宽字体 (Monospace)",
+                    selected = fontStyle == FontStyle.MONOSPACE,
+                    onClick = { viewModel.setFontStyle(FontStyle.MONOSPACE) }
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
             text = "数据管理",
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -178,6 +222,35 @@ fun SettingsScreen(
         ImportResultDialog(
             result = result,
             onDismiss = { viewModel.dismissImportResultDialog() }
+        )
+    }
+}
+
+@Composable
+private fun FontStyleOption(
+    text: String,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .selectable(
+                selected = selected,
+                onClick = onClick,
+                role = Role.RadioButton
+            )
+            .padding(vertical = 12.dp, horizontal = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RadioButton(
+            selected = selected,
+            onClick = null
+        )
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(start = 16.dp)
         )
     }
 }

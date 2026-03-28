@@ -19,6 +19,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import io.github.nwma_fywf.mineword.data.local.FontStyle
 import io.github.nwma_fywf.mineword.data.local.ThemeMode
 import io.github.nwma_fywf.mineword.ui.navigation.NavGraph
 import io.github.nwma_fywf.mineword.ui.navigation.Screen
@@ -38,8 +39,9 @@ import io.github.nwma_fywf.mineword.ui.theme.MineWordTheme
 fun MineWordApp() {
     val application = androidx.compose.ui.platform.LocalContext.current.applicationContext as MineWordApplication
     val themeMode by application.themePreferences.themeMode.collectAsState(initial = ThemeMode.SYSTEM)
+    val fontStyle by application.themePreferences.fontStyle.collectAsState(initial = FontStyle.DEFAULT)
 
-    MineWordTheme(themeMode = themeMode) {
+    MineWordTheme(themeMode = themeMode, fontStyle = fontStyle) {
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination

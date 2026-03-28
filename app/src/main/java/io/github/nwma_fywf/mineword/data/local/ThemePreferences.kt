@@ -17,10 +17,18 @@ enum class ThemeMode {
     DARK
 }
 
+enum class FontStyle {
+    DEFAULT,
+    SERIF,
+    SANS_SERIF,
+    MONOSPACE
+}
+
 class ThemePreferences(private val context: Context) {
 
     companion object {
         private val THEME_MODE_KEY = stringPreferencesKey("theme_mode")
+        private val FONT_STYLE_KEY = stringPreferencesKey("font_style")
     }
 
     val themeMode: Flow<ThemeMode> = context.dataStore.data.map { preferences ->
@@ -35,6 +43,21 @@ class ThemePreferences(private val context: Context) {
     suspend fun setThemeMode(mode: ThemeMode) {
         context.dataStore.edit { preferences ->
             preferences[THEME_MODE_KEY] = mode.name
+        }
+    }
+
+    val fontStyle: Flow<FontStyle> = context.dataStore.data.map { preferences ->
+        val styleString = preferences[FONT_STYLE_KEY] ?: FontStyle.DEFAULT.name
+        try {
+            FontStyle.valueOf(styleString)
+        } catch (e: IllegalArgumentException) {
+            FontStyle.DEFAULT
+        }
+    }
+
+    suspend fun setFontStyle(style: FontStyle) {
+        context.dataStore.edit { preferences ->
+            preferences[FONT_STYLE_KEY] = style.name
         }
     }
 }

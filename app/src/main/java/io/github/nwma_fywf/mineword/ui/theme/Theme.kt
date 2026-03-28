@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalContext
+import io.github.nwma_fywf.mineword.data.local.FontStyle
 import io.github.nwma_fywf.mineword.data.local.ThemeMode
 
 private val DarkColorScheme = darkColorScheme(
@@ -29,6 +30,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun MineWordTheme(
     themeMode: ThemeMode = ThemeMode.SYSTEM,
+    fontStyle: FontStyle = FontStyle.DEFAULT,
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
@@ -48,9 +50,16 @@ fun MineWordTheme(
         else -> LightColorScheme
     }
 
+    val typography = when (fontStyle) {
+        FontStyle.DEFAULT -> defaultTypography
+        FontStyle.SERIF -> serifTypography
+        FontStyle.SANS_SERIF -> sansSerifTypography
+        FontStyle.MONOSPACE -> monospaceTypography
+    }
+
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = typography,
         content = content
     )
 }

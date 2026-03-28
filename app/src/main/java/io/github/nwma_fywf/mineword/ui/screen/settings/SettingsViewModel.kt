@@ -12,6 +12,7 @@ import io.github.nwma_fywf.mineword.data.repository.DuplicateStrategy
 import io.github.nwma_fywf.mineword.data.repository.ImportResult
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
 import io.github.nwma_fywf.mineword.data.local.ThemeMode
+import io.github.nwma_fywf.mineword.data.local.FontStyle
 import io.github.nwma_fywf.mineword.data.local.ThemePreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -51,6 +52,13 @@ class SettingsViewModel(
             initialValue = ThemeMode.SYSTEM
         )
 
+    val fontStyle: StateFlow<FontStyle> = themePreferences.fontStyle
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = FontStyle.DEFAULT
+        )
+
     private val _isExporting = MutableStateFlow(false)
     val isExporting: StateFlow<Boolean> = _isExporting.asStateFlow()
 
@@ -69,6 +77,12 @@ class SettingsViewModel(
     fun setThemeMode(mode: ThemeMode) {
         viewModelScope.launch {
             themePreferences.setThemeMode(mode)
+        }
+    }
+
+    fun setFontStyle(style: FontStyle) {
+        viewModelScope.launch {
+            themePreferences.setFontStyle(style)
         }
     }
 
