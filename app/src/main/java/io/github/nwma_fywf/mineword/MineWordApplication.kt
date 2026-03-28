@@ -6,5 +6,5 @@ import io.github.nwma_fywf.mineword.data.repository.WordRepository
 
 class MineWordApplication : Application() {
     val database by lazy { WordDatabase.getDatabase(this) }
-    val repository by lazy { WordRepository(database.wordDao()) }
+    val repository by lazy { WordRepository(database.wordDao(), database.meaningDao()) }
 }

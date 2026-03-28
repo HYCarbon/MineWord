@@ -16,7 +16,14 @@ interface WordDao {
     @Query("SELECT * FROM words WHERE id = :id")
     suspend fun getWordById(id: Long): Word?
 
-    @Query("SELECT * FROM words WHERE word LIKE '%' || :query || '%' OR definition LIKE '%' || :query || '%' OR tags LIKE '%' || :query || '%' ORDER BY createdAt DESC")
+    @Query("""
+        SELECT DISTINCT w.* FROM words w
+        LEFT JOIN meanings m ON w.id = m.wordId
+        WHERE w.word LIKE '%' || :query || '%'
+           OR m.definition LIKE '%' || :query || '%'
+           OR w.tags LIKE '%' || :query || '%'
+        ORDER BY w.createdAt DESC
+    """)
     fun searchWords(query: String): Flow<List<Word>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

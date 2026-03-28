@@ -18,12 +18,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
+import io.github.nwma_fywf.mineword.ui.util.MeaningParser
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun WordCard(
     word: Word,
+    meanings: List<Meaning>,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -40,10 +43,7 @@ fun WordCard(
                 fontWeight = FontWeight.Bold,
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = word.definition,
-                style = MaterialTheme.typography.bodyMedium,
-            )
+            MeaningsContent(meanings = meanings)
             val tags = word.tags.split(",").map { it.trim() }.filter { it.isNotEmpty() }
             if (tags.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
@@ -54,6 +54,54 @@ fun WordCard(
                             label = { Text(tag, style = MaterialTheme.typography.labelSmall) },
                         )
                     }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun MeaningsContent(meanings: List<Meaning>) {
+    if (meanings.isEmpty()) {
+        Text(
+            text = "（无释义）",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        return
+    }
+
+    val grouped = MeaningParser.groupByPos(meanings)
+    val showGroupHeaders = grouped.keys.any { it != null }
+
+    if (!showGroupHeaders && meanings.size == 1) {
+        Text(
+            text = meanings[0].definition,
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        return
+    }
+
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        grouped.forEach { (pos, posMeanings) ->
+            if (pos != null) {
+                Text(
+                    text = "[$pos]",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
+            if (posMeanings.size == 1 && !showGroupHeaders) {
+                Text(
+                    text = posMeanings[0].definition,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            } else {
+                posMeanings.forEachIndexed { index, meaning ->
+                    Text(
+                        text = "${index + 1}. ${meaning.definition}",
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
                 }
             }
         }

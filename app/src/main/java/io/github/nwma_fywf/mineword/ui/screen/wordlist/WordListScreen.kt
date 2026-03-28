@@ -31,17 +31,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import io.github.nwma_fywf.mineword.ui.component.ConfirmDeleteDialog
+import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
+import io.github.nwma_fywf.mineword.ui.component.ConfirmDeleteDialog
+import io.github.nwma_fywf.mineword.ui.component.MeaningEntry
 import io.github.nwma_fywf.mineword.ui.component.WordCard
 import io.github.nwma_fywf.mineword.ui.component.WordDialog
 
@@ -56,9 +60,20 @@ fun WordListScreen(
     var showAddDialog by remember { mutableStateOf(false) }
     var editingWord by remember { mutableStateOf<Word?>(null) }
     var wordToDelete by remember { mutableStateOf<Word?>(null) }
+    var deleteMeaningCount by remember { mutableIntStateOf(0) }
     var addDuplicateWarning by remember { mutableStateOf<String?>(null) }
     var editDuplicateWarning by remember { mutableStateOf<String?>(null) }
+    var editingMeanings by remember { mutableStateOf<List<Meaning>>(emptyList()) }
     val scope = rememberCoroutineScope()
+
+    LaunchedEffect(editingWord) {
+        if (editingWord != null) {
+            editingMeanings = viewModel.getMeanings(editingWord!!.id)
+                .first()
+        } else {
+            editingMeanings = emptyList()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -118,10 +133,12 @@ fun WordListScreen(
                     items = words,
                     key = { it.id },
                 ) { word ->
+                    val meanings by viewModel.getMeanings(word.id).collectAsState(initial = emptyList())
                     val dismissState = rememberSwipeToDismissBoxState()
                     LaunchedEffect(dismissState.currentValue) {
                         if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
                             wordToDelete = word
+                            deleteMeaningCount = meanings.size
                             dismissState.reset()
                         }
                     }
@@ -132,6 +149,7 @@ fun WordListScreen(
                     ) {
                         WordCard(
                             word = word,
+                            meanings = meanings,
                             onClick = { editingWord = word },
                         )
                     }
@@ -143,12 +161,20 @@ fun WordListScreen(
     if (showAddDialog) {
         WordDialog(
             onDismiss = { showAddDialog = false; addDuplicateWarning = null },
-            onConfirm = { word, definition, tags ->
+            onConfirm = { word, meaningEntries, tags ->
                 scope.launch {
                     if (viewModel.checkDuplicate(word)) {
                         addDuplicateWarning = "单词 \"$word\" 已存在"
                     } else {
-                        viewModel.insertWord(word, definition, tags)
+                        val meanings = meaningEntries.mapIndexed { index, entry ->
+                            Meaning(
+                                wordId = 0,
+                                partOfSpeech = entry.partOfSpeech.ifBlank { null },
+                                definition = entry.definition,
+                                order = index
+                            )
+                        }
+                        viewModel.insertWord(word, meanings, tags)
                         showAddDialog = false
                         addDuplicateWarning = null
                     }
@@ -162,18 +188,27 @@ fun WordListScreen(
     editingWord?.let { word ->
         WordDialog(
             onDismiss = { editingWord = null; editDuplicateWarning = null },
-            onConfirm = { newWord, newDefinition, newTags ->
+            onConfirm = { newWord, meaningEntries, newTags ->
                 scope.launch {
                     if (viewModel.checkDuplicate(newWord, excludeId = word.id)) {
                         editDuplicateWarning = "单词 \"$newWord\" 已存在"
                     } else {
-                        viewModel.updateWord(word, newWord, newDefinition, newTags)
+                        val meanings = meaningEntries.mapIndexed { index, entry ->
+                            Meaning(
+                                wordId = word.id,
+                                partOfSpeech = entry.partOfSpeech.ifBlank { null },
+                                definition = entry.definition,
+                                order = index
+                            )
+                        }
+                        viewModel.updateWord(word, newWord, meanings, newTags)
                         editingWord = null
                         editDuplicateWarning = null
                     }
                 }
             },
             existingWord = word,
+            existingMeanings = editingMeanings,
             existingTags = existingTags,
             duplicateWarning = editDuplicateWarning,
         )
@@ -182,6 +217,7 @@ fun WordListScreen(
     wordToDelete?.let { word ->
         ConfirmDeleteDialog(
             word = word.word,
+            meaningCount = deleteMeaningCount,
             onConfirm = {
                 viewModel.deleteWord(word)
                 wordToDelete = null

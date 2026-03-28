@@ -3,6 +3,7 @@ package io.github.nwma_fywf.mineword.ui.screen.wordlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 class WordListViewModel(private val repository: WordRepository) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
@@ -52,21 +54,26 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
         return existing != null && existing.id != excludeId
     }
 
-    fun insertWord(word: String, definition: String, tags: String = "") {
+    fun getMeanings(wordId: Long) = repository.getMeaningsByWordId(wordId)
+
+    suspend fun getMeaningCount(wordId: Long): Int = repository.getMeaningCount(wordId)
+
+    fun insertWord(word: String, meanings: List<Meaning>, tags: String = "") {
         viewModelScope.launch {
-            repository.insertWord(
+            val id = repository.insertWord(
                 Word(
                     word = word,
-                    definition = definition,
                     tags = tags,
                 )
             )
+            repository.saveMeanings(id, meanings)
         }
     }
 
-    fun updateWord(word: Word, newWord: String, newDefinition: String, newTags: String = "") {
+    fun updateWord(word: Word, newWord: String, newMeanings: List<Meaning>, newTags: String = "") {
         viewModelScope.launch {
-            repository.updateWord(word.copy(word = newWord, definition = newDefinition, tags = newTags))
+            repository.updateWord(word.copy(word = newWord, tags = newTags))
+            repository.saveMeanings(word.id, newMeanings)
         }
     }
 
