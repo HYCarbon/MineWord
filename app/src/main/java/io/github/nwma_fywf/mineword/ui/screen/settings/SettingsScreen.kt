@@ -69,10 +69,10 @@ fun SettingsScreen(
     }
 
     val importLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.OpenDocument()
-    ) { uri ->
-        uri?.let {
-            viewModel.processImportFile(it)
+        contract = ActivityResultContracts.OpenMultipleDocuments()
+    ) { uris ->
+        if (uris.isNotEmpty()) {
+            viewModel.processImportFiles(uris)
         }
     }
 
@@ -153,8 +153,8 @@ fun SettingsScreen(
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
                 DataManagementOption(
-                    title = "导入数据",
-                    subtitle = "从JSON文件导入单词",
+                    title = "批量导入",
+                    subtitle = "选择多个JSON文件批量导入单词",
                     isLoading = isImporting,
                     onClick = {
                         importLauncher.launch(arrayOf("application/json"))
@@ -379,6 +379,14 @@ private fun ImportResultDialog(
                     }
                     if (result.skipCount > 0) {
                         Text("跳过: ${result.skipCount}")
+                    }
+                    if (result.duplicateWords.isNotEmpty()) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "注意: ${result.duplicateWords.size} 个重复单词未处理",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error
+                        )
                     }
                 }
             }

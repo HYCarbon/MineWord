@@ -2,6 +2,7 @@ package io.github.nwma_fywf.mineword.ui.screen.settings
 
 import android.content.Context
 import android.net.Uri
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -96,20 +97,47 @@ class SettingsViewModel(
         }
     }
 
-    fun processImportFile(uri: Uri) {
+    fun processImportFiles(uris: List<Uri>) {
         viewModelScope.launch {
             _isImporting.value = true
             try {
-                val inputStream = context.contentResolver.openInputStream(uri)
-                val jsonString = inputStream?.bufferedReader()?.use { it.readText() } ?: throw Exception("无法读取文件")
                 val json = Json { ignoreUnknownKeys = true }
-                val exportData = json.decodeFromString<ExportData>(jsonString)
-                
-                val existingWords = repository.getWordByWord("")
+                val allWords = mutableListOf<ExportWord>()
+                var fileCount = 0
+
+                for (uri in uris) {
+                    val inputStream = context.contentResolver.openInputStream(uri)
+                    val jsonString = inputStream?.bufferedReader()?.use { it.readText() }
+                    if (jsonString != null) {
+                        try {
+                            val exportData = json.decodeFromString<ExportData>(jsonString)
+                            allWords.addAll(exportData.words)
+                            fileCount++
+                        } catch (e: Exception) {
+                            // 忽略格式错误的文件
+                        }
+                    }
+                }
+
+                if (allWords.isEmpty()) {
+                    _importResultDialogState.value = ImportResultDialogState(
+                        isVisible = true,
+                        result = ImportResult(
+                            totalCount = 0,
+                            successCount = 0,
+                            skipCount = 0,
+                            replacedCount = 0,
+                            mergedCount = 0,
+                            duplicateWords = emptyList()
+                        )
+                    )
+                    return@launch
+                }
+
                 val duplicateWords = mutableListOf<String>()
-                for (word in exportData.words) {
+                for (word in allWords) {
                     val existing = repository.getWordByWord(word.word)
-                    if (existing != null) {
+                    if (existing != null && word.word !in duplicateWords) {
                         duplicateWords.add(word.word)
                     }
                 }
@@ -117,11 +145,11 @@ class SettingsViewModel(
                 if (duplicateWords.isNotEmpty()) {
                     _importDialogState.value = ImportDialogState(
                         isVisible = true,
-                        pendingWords = exportData.words,
+                        pendingWords = allWords,
                         duplicateWords = duplicateWords
                     )
                 } else {
-                    val result = repository.importWords(exportData.words, DuplicateStrategy.SKIP)
+                    val result = repository.importWords(allWords, DuplicateStrategy.SKIP)
                     _importResultDialogState.value = ImportResultDialogState(
                         isVisible = true,
                         result = result
