@@ -28,6 +28,8 @@ import io.github.nwma_fywf.mineword.ui.screen.addword.AddWordViewModel
 import io.github.nwma_fywf.mineword.ui.screen.editword.EditWordScreen
 import io.github.nwma_fywf.mineword.ui.screen.editword.EditWordViewModel
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizScreen
+import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailScreen
+import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailViewModel
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizViewModel
 import io.github.nwma_fywf.mineword.ui.screen.settings.SettingsScreen
 import io.github.nwma_fywf.mineword.ui.screen.settings.SettingsViewModel
@@ -89,8 +91,23 @@ fun MineWordApp() {
                         onNavigateToAddWord = {
                             navController.navigate(Screen.AddWord.route)
                         },
-                        onNavigateToEditWord = { wordId ->
-                            navController.navigate(Screen.EditWord.createRoute(wordId))
+                        onNavigateToWordDetail = { wordId ->
+                            navController.navigate(Screen.WordDetail.createRoute(wordId))
+                        },
+                    )
+                },
+                wordDetailScreen = { wordId ->
+                    val viewModel: WordDetailViewModel = viewModel(
+                        factory = WordDetailViewModel.provideFactory(
+                            (navController.context.applicationContext as MineWordApplication).repository
+                        )
+                    )
+                    WordDetailScreen(
+                        viewModel = viewModel,
+                        wordId = wordId,
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToEdit = { id ->
+                            navController.navigate(Screen.EditWord.createRoute(id))
                         },
                     )
                 },

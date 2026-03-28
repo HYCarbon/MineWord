@@ -19,6 +19,7 @@ fun NavGraph(
     modifier: Modifier = Modifier,
     wordListScreen: @Composable () -> Unit,
     addWordScreen: @Composable () -> Unit,
+    wordDetailScreen: @Composable (Long) -> Unit,
     editWordScreen: @Composable (Long) -> Unit,
     quizScreen: @Composable () -> Unit,
     settingsScreen: @Composable () -> Unit,
@@ -91,6 +92,13 @@ fun NavGraph(
         }
         composable(Screen.AddWord.route) {
             addWordScreen()
+        }
+        composable(
+            route = Screen.WordDetail.route,
+            arguments = listOf(navArgument("wordId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val wordId = backStackEntry.arguments?.getLong("wordId") ?: return@composable
+            wordDetailScreen(wordId)
         }
         composable(
             route = Screen.EditWord.route,

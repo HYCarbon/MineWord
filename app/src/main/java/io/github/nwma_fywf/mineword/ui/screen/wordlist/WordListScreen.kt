@@ -48,7 +48,7 @@ import io.github.nwma_fywf.mineword.ui.component.WordCard
 fun WordListScreen(
     viewModel: WordListViewModel,
     onNavigateToAddWord: () -> Unit,
-    onNavigateToEditWord: (Long) -> Unit,
+    onNavigateToWordDetail: (Long) -> Unit,
 ) {
     val words by viewModel.words.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
@@ -132,7 +132,7 @@ fun WordListScreen(
                             word = word,
                             meanings = meanings,
                             exampleSentences = exampleSentences,
-                            onClick = { onNavigateToEditWord(word.id) },
+                            onClick = { onNavigateToWordDetail(word.id) },
                         )
                     }
                 }

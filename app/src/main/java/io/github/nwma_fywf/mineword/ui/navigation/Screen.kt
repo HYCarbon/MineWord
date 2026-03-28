@@ -3,6 +3,9 @@ package io.github.nwma_fywf.mineword.ui.navigation
 sealed class Screen(val route: String) {
     data object WordList : Screen("word_list")
     data object AddWord : Screen("add_word")
+    data object WordDetail : Screen("word_detail/{wordId}") {
+        fun createRoute(wordId: Long) = "word_detail/$wordId"
+    }
     data object EditWord : Screen("edit_word/{wordId}") {
         fun createRoute(wordId: Long) = "edit_word/$wordId"
     }
