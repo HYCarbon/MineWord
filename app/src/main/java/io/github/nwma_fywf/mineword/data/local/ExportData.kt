@@ -23,6 +23,9 @@ data class ExportWord(
     val phoneticUS: String? = null,
     val audioUrl: String? = null,
     val tags: String = "",
+    val synonyms: String = "",
+    val phraseCollocations: String = "",
+    val personalNotes: String = "",
     val meanings: List<ExportMeaning> = emptyList(),
     val exampleSentences: List<ExportExampleSentence> = emptyList()
 )

@@ -82,6 +82,9 @@ class WordRepository(
                 phoneticUS = word.phoneticUS,
                 audioUrl = word.audioUrl,
                 tags = word.tags,
+                synonyms = word.synonyms,
+                phraseCollocations = word.phraseCollocations,
+                personalNotes = word.personalNotes,
                 meanings = meanings.map { m ->
                     ExportMeaning(
                         partOfSpeech = m.partOfSpeech,
@@ -126,7 +129,10 @@ class WordRepository(
                             phoneticUK = exportWord.phoneticUK,
                             phoneticUS = exportWord.phoneticUS,
                             audioUrl = exportWord.audioUrl,
-                            tags = exportWord.tags
+                            tags = exportWord.tags,
+                            synonyms = exportWord.synonyms,
+                            phraseCollocations = exportWord.phraseCollocations,
+                            personalNotes = exportWord.personalNotes
                         )
                         wordDao.updateWord(newWord)
                         saveMeanings(newWord.id, exportWord.meanings.map { m ->
@@ -162,7 +168,12 @@ class WordRepository(
                             existingWord.tags
                         }
 
-                        val newWord = existingWord.copy(tags = updatedTags)
+                        val newWord = existingWord.copy(
+                            tags = updatedTags,
+                            synonyms = if (exportWord.synonyms.isNotEmpty()) exportWord.synonyms else existingWord.synonyms,
+                            phraseCollocations = if (exportWord.phraseCollocations.isNotEmpty()) exportWord.phraseCollocations else existingWord.phraseCollocations,
+                            personalNotes = if (exportWord.personalNotes.isNotEmpty()) exportWord.personalNotes else existingWord.personalNotes
+                        )
                         wordDao.updateWord(newWord)
                         saveMeanings(newWord.id, existingMeanings)
                         saveExampleSentences(newWord.id, existingSentences)
@@ -175,7 +186,10 @@ class WordRepository(
                     phoneticUK = exportWord.phoneticUK,
                     phoneticUS = exportWord.phoneticUS,
                     audioUrl = exportWord.audioUrl,
-                    tags = exportWord.tags
+                    tags = exportWord.tags,
+                    synonyms = exportWord.synonyms,
+                    phraseCollocations = exportWord.phraseCollocations,
+                    personalNotes = exportWord.personalNotes
                 )
                 val wordId = wordDao.insertWord(newWord)
                 saveMeanings(wordId, exportWord.meanings.map { m ->

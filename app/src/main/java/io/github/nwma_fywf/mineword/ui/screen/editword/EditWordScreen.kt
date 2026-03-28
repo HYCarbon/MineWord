@@ -69,6 +69,9 @@ fun EditWordScreen(
     val meaningEntries = remember { mutableStateListOf<MeaningEntry>() }
     val exampleSentences = remember { mutableStateListOf<ExampleSentenceEntry>() }
     var tags by remember { mutableStateOf(TextFieldValue("")) }
+    var synonyms by remember { mutableStateOf("") }
+    var phraseCollocations by remember { mutableStateOf("") }
+    var personalNotes by remember { mutableStateOf("") }
     var duplicateWarning by remember { mutableStateOf<String?>(null) }
     var dataLoaded by remember { mutableStateOf(false) }
 
@@ -83,6 +86,9 @@ fun EditWordScreen(
                 phoneticUK = data.word.phoneticUK ?: ""
                 phoneticUS = data.word.phoneticUS ?: ""
                 tags = TextFieldValue(data.word.tags ?: "")
+                synonyms = data.word.synonyms ?: ""
+                phraseCollocations = data.word.phraseCollocations ?: ""
+                personalNotes = data.word.personalNotes ?: ""
                 meaningEntries.clear()
                 meaningEntries.addAll(data.meanings.map { MeaningEntry(it.partOfSpeech ?: "", it.definition) })
                 if (meaningEntries.isEmpty()) {
@@ -143,6 +149,9 @@ fun EditWordScreen(
                                             meanings = meanings,
                                             exampleSentences = examples,
                                             tags = tags.text.trim(),
+                                            synonyms = synonyms.trim(),
+                                            phraseCollocations = phraseCollocations.trim(),
+                                            personalNotes = personalNotes.trim(),
                                             onComplete = onNavigateBack
                                         )
                                     }
@@ -334,6 +343,36 @@ fun EditWordScreen(
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = synonyms,
+                onValueChange = { synonyms = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("同义词") },
+                placeholder = { Text("如: happy, joyful, delighted") },
+                minLines = 2,
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = phraseCollocations,
+                onValueChange = { phraseCollocations = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("短语搭配") },
+                placeholder = { Text("如: make progress, take action") },
+                minLines = 2,
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = personalNotes,
+                onValueChange = { personalNotes = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("个人笔记") },
+                placeholder = { Text("添加你的个人笔记...") },
+                minLines = 3,
+            )
         }
     }
 }

@@ -61,6 +61,9 @@ class EditWordViewModel(private val repository: WordRepository) : ViewModel() {
         meanings: List<Meaning>,
         exampleSentences: List<ExampleSentence>,
         tags: String,
+        synonyms: String,
+        phraseCollocations: String,
+        personalNotes: String,
         onComplete: () -> Unit
     ) {
         viewModelScope.launch {
@@ -68,7 +71,10 @@ class EditWordViewModel(private val repository: WordRepository) : ViewModel() {
                 word = newWord,
                 phoneticUK = phoneticUK,
                 phoneticUS = phoneticUS,
-                tags = tags
+                tags = tags,
+                synonyms = synonyms,
+                phraseCollocations = phraseCollocations,
+                personalNotes = personalNotes
             )
             repository.updateWord(updatedWord)
             repository.saveMeanings(word.id, meanings)

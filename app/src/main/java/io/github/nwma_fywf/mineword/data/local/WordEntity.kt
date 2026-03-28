@@ -12,5 +12,8 @@ data class Word(
     val phoneticUS: String? = null,
     val audioUrl: String? = null,
     val tags: String = "",
+    val synonyms: String = "",
+    val phraseCollocations: String = "",
+    val personalNotes: String = "",
     val createdAt: Long = System.currentTimeMillis()
 )

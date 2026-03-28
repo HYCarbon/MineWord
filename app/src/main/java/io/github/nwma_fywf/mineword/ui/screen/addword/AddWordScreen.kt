@@ -66,6 +66,9 @@ fun AddWordScreen(
     val meaningEntries = remember { mutableStateListOf(MeaningEntry()) }
     val exampleSentences = remember { mutableStateListOf(ExampleSentenceEntry()) }
     var tags by remember { mutableStateOf(TextFieldValue("")) }
+    var synonyms by remember { mutableStateOf("") }
+    var phraseCollocations by remember { mutableStateOf("") }
+    var personalNotes by remember { mutableStateOf("") }
     var duplicateWarning by remember { mutableStateOf<String?>(null) }
 
     val canSave = word.isNotBlank() && meaningEntries.any { it.definition.isNotBlank() }
@@ -111,6 +114,9 @@ fun AddWordScreen(
                                         meanings = meanings,
                                         exampleSentences = examples,
                                         tags = tags.text.trim(),
+                                        synonyms = synonyms.trim(),
+                                        phraseCollocations = phraseCollocations.trim(),
+                                        personalNotes = personalNotes.trim(),
                                         onComplete = onNavigateBack
                                     )
                                 }
@@ -301,6 +307,36 @@ fun AddWordScreen(
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = synonyms,
+                onValueChange = { synonyms = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("同义词") },
+                placeholder = { Text("如: happy, joyful, delighted") },
+                minLines = 2,
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = phraseCollocations,
+                onValueChange = { phraseCollocations = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("短语搭配") },
+                placeholder = { Text("如: make progress, take action") },
+                minLines = 2,
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = personalNotes,
+                onValueChange = { personalNotes = it },
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text("个人笔记") },
+                placeholder = { Text("添加你的个人笔记...") },
+                minLines = 3,
+            )
         }
     }
 }

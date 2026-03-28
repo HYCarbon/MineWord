@@ -38,6 +38,9 @@ class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
         meanings: List<Meaning>,
         exampleSentences: List<ExampleSentence> = emptyList(),
         tags: String = "",
+        synonyms: String = "",
+        phraseCollocations: String = "",
+        personalNotes: String = "",
         onComplete: () -> Unit
     ) {
         viewModelScope.launch {
@@ -47,6 +50,9 @@ class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
                     phoneticUK = phoneticUK,
                     phoneticUS = phoneticUS,
                     tags = tags,
+                    synonyms = synonyms,
+                    phraseCollocations = phraseCollocations,
+                    personalNotes = personalNotes,
                 )
             )
             repository.saveMeanings(id, meanings)
