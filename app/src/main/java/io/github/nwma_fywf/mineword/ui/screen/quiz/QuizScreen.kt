@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -104,8 +106,9 @@ private fun WordQuizContent(
         onValueChange = onUserInputChanged,
         label = { Text("输入词义") },
         modifier = Modifier.fillMaxWidth(),
-        singleLine = false,
-        maxLines = 3,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(imeAction = androidx.compose.ui.text.input.ImeAction.Done),
+        keyboardActions = KeyboardActions(onDone = { onSubmit() }),
     )
     Spacer(modifier = Modifier.height(16.dp))
     Button(
