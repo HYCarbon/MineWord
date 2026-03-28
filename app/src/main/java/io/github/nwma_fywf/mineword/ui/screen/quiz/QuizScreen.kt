@@ -63,13 +63,8 @@ fun QuizScreen(
                         )
                     }
                 }
-                is QuizViewModel.QuizState.ExactMatch -> {
-                    ExactMatchContent(
-                        word = state.word,
-                        onConfirm = viewModel::confirmExactMatch,
-                        onSkip = viewModel::nextWord,
-                    )
-                }
+                is QuizViewModel.QuizState.ExactMatch -> {}
+                is QuizViewModel.QuizState.Correct -> {}
                 is QuizViewModel.QuizState.UserJudgment -> {
                     UserJudgmentContent(
                         word = state.word,
@@ -78,16 +73,9 @@ fun QuizScreen(
                         onIncorrect = viewModel::userJudgmentIncorrect,
                     )
                 }
-                is QuizViewModel.QuizState.Correct -> {
-                    CorrectContent(
-                        word = state.word,
-                        newMeaningAdded = state.newMeaningAdded,
-                        onNext = viewModel::nextWord,
-                    )
-                }
                 is QuizViewModel.QuizState.Incorrect -> {
                     IncorrectContent(
-                        word = state.word,
+                        correctMeanings = state.correctMeanings,
                         userInput = state.userInput,
                         onNext = viewModel::nextWord,
                     )
@@ -125,38 +113,6 @@ private fun WordQuizContent(
         modifier = Modifier.fillMaxWidth(),
     ) {
         Text("提交")
-    }
-}
-
-@Composable
-private fun ExactMatchContent(
-    word: Word,
-    onConfirm: () -> Unit,
-    onSkip: () -> Unit,
-) {
-    Text(
-        text = "完全匹配！",
-        style = MaterialTheme.typography.headlineSmall,
-        color = MaterialTheme.colorScheme.primary,
-    )
-    Spacer(modifier = Modifier.height(8.dp))
-    Text(
-        text = "你输入的释义与已有释义完全一致。",
-        style = MaterialTheme.typography.bodyMedium,
-    )
-    Spacer(modifier = Modifier.height(24.dp))
-    Button(
-        onClick = onConfirm,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Text("确认正确")
-    }
-    Spacer(modifier = Modifier.height(8.dp))
-    Button(
-        onClick = onSkip,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Text("下一个单词")
     }
 }
 
@@ -199,40 +155,8 @@ private fun UserJudgmentContent(
 }
 
 @Composable
-private fun CorrectContent(
-    word: Word,
-    newMeaningAdded: Boolean,
-    onNext: () -> Unit,
-) {
-    Text(
-        text = "回答正确！",
-        style = MaterialTheme.typography.headlineMedium,
-        color = MaterialTheme.colorScheme.primary,
-    )
-    Spacer(modifier = Modifier.height(16.dp))
-    if (newMeaningAdded) {
-        Text(
-            text = "新释义已添加。",
-            style = MaterialTheme.typography.bodyMedium,
-        )
-    } else {
-        Text(
-            text = "释义完全匹配。",
-            style = MaterialTheme.typography.bodyMedium,
-        )
-    }
-    Spacer(modifier = Modifier.height(24.dp))
-    Button(
-        onClick = onNext,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Text("下一个单词")
-    }
-}
-
-@Composable
 private fun IncorrectContent(
-    word: Word,
+    correctMeanings: List<io.github.nwma_fywf.mineword.data.local.Meaning>,
     userInput: String,
     onNext: () -> Unit,
 ) {
@@ -246,6 +170,18 @@ private fun IncorrectContent(
         text = "你的释义：$userInput",
         style = MaterialTheme.typography.bodyMedium,
     )
+    Spacer(modifier = Modifier.height(16.dp))
+    Text(
+        text = "正确答案：",
+        style = MaterialTheme.typography.bodyLarge,
+    )
+    correctMeanings.forEach { meaning ->
+        Text(
+            text = meaning.definition,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.primary,
+        )
+    }
     Spacer(modifier = Modifier.height(24.dp))
     Button(
         onClick = onNext,

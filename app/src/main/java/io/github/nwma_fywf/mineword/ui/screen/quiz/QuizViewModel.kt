@@ -32,14 +32,14 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
     sealed class QuizState {
         data object Idle : QuizState()
         data object WaitingInput : QuizState()
-        data class ExactMatch(val word: Word) : QuizState()
+        data object ExactMatch : QuizState()
         data class UserJudgment(
             val word: Word,
             val userInput: String,
             val existingMeanings: List<Meaning>
         ) : QuizState()
-        data class Correct(val word: Word, val newMeaningAdded: Boolean) : QuizState()
-        data class Incorrect(val word: Word, val userInput: String) : QuizState()
+        data object Correct : QuizState()
+        data class Incorrect(val correctMeanings: List<Meaning>, val userInput: String) : QuizState()
     }
 
     init {
@@ -90,7 +90,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         }
 
         if (exactMatch) {
-            _quizState.value = QuizState.ExactMatch(word)
+            selectRandomWord()
         } else {
             _quizState.value = QuizState.UserJudgment(
                 word = word,
@@ -112,7 +112,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                     order = state.existingMeanings.size
                 )
                 repository.saveMeanings(word.id, state.existingMeanings + newMeaning)
-                _quizState.value = QuizState.Correct(word, newMeaningAdded = true)
+                selectRandomWord()
             }
         }
     }
@@ -120,14 +120,10 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
     fun userJudgmentIncorrect() {
         val state = _quizState.value
         if (state is QuizState.UserJudgment) {
-            _quizState.value = QuizState.Incorrect(state.word, state.userInput)
-        }
-    }
-
-    fun confirmExactMatch() {
-        val state = _quizState.value
-        if (state is QuizState.ExactMatch) {
-            _quizState.value = QuizState.Correct(state.word, newMeaningAdded = false)
+            _quizState.value = QuizState.Incorrect(
+                correctMeanings = state.existingMeanings,
+                userInput = state.userInput
+            )
         }
     }
 
