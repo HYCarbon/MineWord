@@ -11,6 +11,7 @@ fun NavGraph(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     wordListScreen: @Composable () -> Unit,
+    quizScreen: @Composable () -> Unit,
     settingsScreen: @Composable () -> Unit,
 ) {
     NavHost(
@@ -20,6 +21,9 @@ fun NavGraph(
     ) {
         composable(Screen.WordList.route) {
             wordListScreen()
+        }
+        composable(Screen.Quiz.route) {
+            quizScreen()
         }
         composable(Screen.Settings.route) {
             settingsScreen()
