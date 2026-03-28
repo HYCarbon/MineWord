@@ -59,6 +59,13 @@ class SettingsViewModel(
             initialValue = FontStyle.DEFAULT
         )
 
+    val customFontPath: StateFlow<String?> = themePreferences.customFontPath
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = null
+        )
+
     private val _isExporting = MutableStateFlow(false)
     val isExporting: StateFlow<Boolean> = _isExporting.asStateFlow()
 
@@ -83,6 +90,37 @@ class SettingsViewModel(
     fun setFontStyle(style: FontStyle) {
         viewModelScope.launch {
             themePreferences.setFontStyle(style)
+        }
+    }
+
+    fun setCustomFontFromUri(uri: Uri) {
+        viewModelScope.launch {
+            try {
+                val fontFileName = "custom_font.ttf"
+                val fontFile = java.io.File(context.filesDir, fontFileName)
+                
+                context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                    fontFile.outputStream().use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+                }
+                
+                themePreferences.setFontStyle(FontStyle.CUSTOM)
+                themePreferences.setCustomFontPath(fontFile.absolutePath)
+            } catch (e: Exception) {
+                Toast.makeText(context, "字体加载失败: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    fun clearCustomFont() {
+        viewModelScope.launch {
+            val fontFile = java.io.File(context.filesDir, "custom_font.ttf")
+            if (fontFile.exists()) {
+                fontFile.delete()
+            }
+            themePreferences.setFontStyle(FontStyle.DEFAULT)
+            themePreferences.setCustomFontPath(null)
         }
     }
 

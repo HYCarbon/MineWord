@@ -21,7 +21,8 @@ enum class FontStyle {
     DEFAULT,
     SERIF,
     SANS_SERIF,
-    MONOSPACE
+    MONOSPACE,
+    CUSTOM
 }
 
 class ThemePreferences(private val context: Context) {
@@ -29,6 +30,7 @@ class ThemePreferences(private val context: Context) {
     companion object {
         private val THEME_MODE_KEY = stringPreferencesKey("theme_mode")
         private val FONT_STYLE_KEY = stringPreferencesKey("font_style")
+        private val CUSTOM_FONT_PATH_KEY = stringPreferencesKey("custom_font_path")
     }
 
     val themeMode: Flow<ThemeMode> = context.dataStore.data.map { preferences ->
@@ -58,6 +60,20 @@ class ThemePreferences(private val context: Context) {
     suspend fun setFontStyle(style: FontStyle) {
         context.dataStore.edit { preferences ->
             preferences[FONT_STYLE_KEY] = style.name
+        }
+    }
+
+    val customFontPath: Flow<String?> = context.dataStore.data.map { preferences ->
+        preferences[CUSTOM_FONT_PATH_KEY]
+    }
+
+    suspend fun setCustomFontPath(path: String?) {
+        context.dataStore.edit { preferences ->
+            if (path != null) {
+                preferences[CUSTOM_FONT_PATH_KEY] = path
+            } else {
+                preferences.remove(CUSTOM_FONT_PATH_KEY)
+            }
         }
     }
 }

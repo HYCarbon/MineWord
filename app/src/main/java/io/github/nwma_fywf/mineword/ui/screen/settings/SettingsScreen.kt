@@ -55,6 +55,7 @@ fun SettingsScreen(
 ) {
     val themeMode by viewModel.themeMode.collectAsState()
     val fontStyle by viewModel.fontStyle.collectAsState()
+    val customFontPath by viewModel.customFontPath.collectAsState()
     val isExporting by viewModel.isExporting.collectAsState()
     val isImporting by viewModel.isImporting.collectAsState()
     val importDialogState by viewModel.importDialogState.collectAsState()
@@ -75,6 +76,14 @@ fun SettingsScreen(
     ) { uris ->
         if (uris.isNotEmpty()) {
             viewModel.processImportFiles(uris)
+        }
+    }
+
+    val fontFileLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument()
+    ) { uri ->
+        uri?.let {
+            viewModel.setCustomFontFromUri(it)
         }
     }
 
@@ -163,6 +172,41 @@ fun SettingsScreen(
                     text = "等宽字体 (Monospace)",
                     selected = fontStyle == FontStyle.MONOSPACE,
                     onClick = { viewModel.setFontStyle(FontStyle.MONOSPACE) }
+                )
+
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+                Text(
+                    text = "自定义字体",
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp)
+                )
+
+                if (fontStyle == FontStyle.CUSTOM && customFontPath != null) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 8.dp, vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "已选择自定义字体",
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.weight(1f)
+                        )
+                        TextButton(onClick = { viewModel.clearCustomFont() }) {
+                            Text("清除")
+                        }
+                    }
+                }
+
+                DataManagementOption(
+                    title = "从文件选择字体",
+                    subtitle = "选择 .ttf 或 .otf 字体文件",
+                    isLoading = false,
+                    onClick = {
+                        fontFileLauncher.launch(arrayOf("font/ttf", "font/otf", "application/x-font-ttf", "application/x-font-otf"))
+                    }
                 )
             }
         }
