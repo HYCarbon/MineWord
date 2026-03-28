@@ -69,6 +69,7 @@ fun QuizScreen(
                     UserJudgmentContent(
                         word = state.word,
                         userInput = state.userInput,
+                        existingMeanings = state.existingMeanings,
                         onCorrect = viewModel::userJudgmentCorrect,
                         onIncorrect = viewModel::userJudgmentIncorrect,
                     )
@@ -120,6 +121,7 @@ private fun WordQuizContent(
 private fun UserJudgmentContent(
     word: Word,
     userInput: String,
+    existingMeanings: List<io.github.nwma_fywf.mineword.data.local.Meaning>,
     onCorrect: () -> Unit,
     onIncorrect: () -> Unit,
 ) {
@@ -133,6 +135,18 @@ private fun UserJudgmentContent(
         text = "你的释义：$userInput",
         style = MaterialTheme.typography.bodyMedium,
     )
+    Spacer(modifier = Modifier.height(16.dp))
+    Text(
+        text = "已记录的释义：",
+        style = MaterialTheme.typography.bodyLarge,
+    )
+    existingMeanings.forEach { meaning ->
+        Text(
+            text = meaning.definition,
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.primary,
+        )
+    }
     Spacer(modifier = Modifier.height(16.dp))
     Text(
         text = "请判断你的释义是否正确：",
