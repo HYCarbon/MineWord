@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -33,6 +34,9 @@ class ThemePreferences(private val context: Context) {
         private val USE_DYNAMIC_COLOR_KEY = booleanPreferencesKey("use_dynamic_color")
         private val FONT_STYLE_KEY = stringPreferencesKey("font_style")
         private val CUSTOM_FONT_PATH_KEY = stringPreferencesKey("custom_font_path")
+        private val CUSTOM_PRIMARY_KEY = intPreferencesKey("custom_primary")
+        private val CUSTOM_SECONDARY_KEY = intPreferencesKey("custom_secondary")
+        private val CUSTOM_TERTIARY_KEY = intPreferencesKey("custom_tertiary")
     }
 
     val themeMode: Flow<ThemeMode> = context.dataStore.data.map { preferences ->
@@ -86,6 +90,64 @@ class ThemePreferences(private val context: Context) {
             } else {
                 preferences.remove(CUSTOM_FONT_PATH_KEY)
             }
+        }
+    }
+
+    val customPrimaryColor: Flow<Int?> = context.dataStore.data.map { preferences ->
+        preferences[CUSTOM_PRIMARY_KEY]
+    }
+
+    val customSecondaryColor: Flow<Int?> = context.dataStore.data.map { preferences ->
+        preferences[CUSTOM_SECONDARY_KEY]
+    }
+
+    val customTertiaryColor: Flow<Int?> = context.dataStore.data.map { preferences ->
+        preferences[CUSTOM_TERTIARY_KEY]
+    }
+
+    suspend fun setCustomPrimaryColor(color: Int?) {
+        context.dataStore.edit { preferences ->
+            if (color != null) {
+                preferences[CUSTOM_PRIMARY_KEY] = color
+            } else {
+                preferences.remove(CUSTOM_PRIMARY_KEY)
+            }
+        }
+    }
+
+    suspend fun setCustomSecondaryColor(color: Int?) {
+        context.dataStore.edit { preferences ->
+            if (color != null) {
+                preferences[CUSTOM_SECONDARY_KEY] = color
+            } else {
+                preferences.remove(CUSTOM_SECONDARY_KEY)
+            }
+        }
+    }
+
+    suspend fun setCustomTertiaryColor(color: Int?) {
+        context.dataStore.edit { preferences ->
+            if (color != null) {
+                preferences[CUSTOM_TERTIARY_KEY] = color
+            } else {
+                preferences.remove(CUSTOM_TERTIARY_KEY)
+            }
+        }
+    }
+
+    suspend fun setCustomThemeColor(primary: Int, secondary: Int, tertiary: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[CUSTOM_PRIMARY_KEY] = primary
+            preferences[CUSTOM_SECONDARY_KEY] = secondary
+            preferences[CUSTOM_TERTIARY_KEY] = tertiary
+        }
+    }
+
+    suspend fun clearCustomThemeColor() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(CUSTOM_PRIMARY_KEY)
+            preferences.remove(CUSTOM_SECONDARY_KEY)
+            preferences.remove(CUSTOM_TERTIARY_KEY)
         }
     }
 }

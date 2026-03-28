@@ -73,6 +73,27 @@ class SettingsViewModel(
             initialValue = null
         )
 
+    val customPrimaryColor: StateFlow<Int?> = themePreferences.customPrimaryColor
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = null
+        )
+
+    val customSecondaryColor: StateFlow<Int?> = themePreferences.customSecondaryColor
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = null
+        )
+
+    val customTertiaryColor: StateFlow<Int?> = themePreferences.customTertiaryColor
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = null
+        )
+
     private val _isExporting = MutableStateFlow(false)
     val isExporting: StateFlow<Boolean> = _isExporting.asStateFlow()
 
@@ -134,6 +155,20 @@ class SettingsViewModel(
             }
             themePreferences.setFontStyle(FontStyle.DEFAULT)
             themePreferences.setCustomFontPath(null)
+        }
+    }
+
+    fun setCustomThemeColor(primary: Int, secondary: Int, tertiary: Int) {
+        viewModelScope.launch {
+            themePreferences.setCustomThemeColor(primary, secondary, tertiary)
+            themePreferences.setUseDynamicColor(false)
+        }
+    }
+
+    fun clearCustomThemeColor() {
+        viewModelScope.launch {
+            themePreferences.clearCustomThemeColor()
+            themePreferences.setUseDynamicColor(true)
         }
     }
 

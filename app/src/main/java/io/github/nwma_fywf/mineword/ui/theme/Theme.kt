@@ -9,6 +9,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -38,6 +39,9 @@ fun MineWordTheme(
     useDynamicColor: Boolean = true,
     fontStyle: FontStyle = FontStyle.DEFAULT,
     customFontPath: String? = null,
+    customPrimaryColor: Int? = null,
+    customSecondaryColor: Int? = null,
+    customTertiaryColor: Int? = null,
     content: @Composable () -> Unit
 ) {
     val darkTheme = when (themeMode) {
@@ -50,6 +54,25 @@ fun MineWordTheme(
         useDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+
+        customPrimaryColor != null -> {
+            val primary = Color(customPrimaryColor)
+            val secondary = Color(customSecondaryColor ?: 0xFF625b71.toInt())
+            val tertiary = Color(customTertiaryColor ?: 0xFF7D5260.toInt())
+            if (darkTheme) {
+                darkColorScheme(
+                    primary = primary.copy(alpha = 0.8f),
+                    secondary = secondary.copy(alpha = 0.8f),
+                    tertiary = tertiary.copy(alpha = 0.8f)
+                )
+            } else {
+                lightColorScheme(
+                    primary = primary,
+                    secondary = secondary,
+                    tertiary = tertiary
+                )
+            }
         }
 
         darkTheme -> DarkColorScheme

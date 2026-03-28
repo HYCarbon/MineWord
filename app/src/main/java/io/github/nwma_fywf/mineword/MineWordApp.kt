@@ -44,8 +44,19 @@ fun MineWordApp() {
     val useDynamicColor by application.themePreferences.useDynamicColor.collectAsState(initial = true)
     val fontStyle by application.themePreferences.fontStyle.collectAsState(initial = FontStyle.DEFAULT)
     val customFontPath by application.themePreferences.customFontPath.collectAsState(initial = null)
+    val customPrimaryColor by application.themePreferences.customPrimaryColor.collectAsState(initial = null)
+    val customSecondaryColor by application.themePreferences.customSecondaryColor.collectAsState(initial = null)
+    val customTertiaryColor by application.themePreferences.customTertiaryColor.collectAsState(initial = null)
 
-    MineWordTheme(themeMode = themeMode, useDynamicColor = useDynamicColor, fontStyle = fontStyle, customFontPath = customFontPath) {
+    MineWordTheme(
+        themeMode = themeMode,
+        useDynamicColor = useDynamicColor,
+        fontStyle = fontStyle,
+        customFontPath = customFontPath,
+        customPrimaryColor = customPrimaryColor,
+        customSecondaryColor = customSecondaryColor,
+        customTertiaryColor = customTertiaryColor
+    ) {
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
