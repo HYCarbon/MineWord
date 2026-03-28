@@ -11,6 +11,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -18,18 +19,26 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import io.github.nwma_fywf.mineword.data.local.ThemeMode
 import io.github.nwma_fywf.mineword.ui.navigation.NavGraph
 import io.github.nwma_fywf.mineword.ui.navigation.Screen
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizScreen
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizViewModel
 import io.github.nwma_fywf.mineword.ui.screen.settings.SettingsScreen
+import io.github.nwma_fywf.mineword.ui.screen.settings.SettingsViewModel
 import io.github.nwma_fywf.mineword.ui.screen.wordlist.WordListScreen
 import io.github.nwma_fywf.mineword.ui.screen.wordlist.WordListViewModel
 import io.github.nwma_fywf.mineword.ui.theme.MineWordTheme
 
 @Composable
 fun MineWordApp() {
-    MineWordTheme {
+    val application = androidx.compose.ui.platform.LocalContext.current.applicationContext as MineWordApplication
+    val themeMode by application.themePreferences.themeMode.collectAsState(initial = ThemeMode.SYSTEM)
+    val settingsViewModel: SettingsViewModel = viewModel(
+        factory = SettingsViewModel.provideFactory(application.themePreferences)
+    )
+
+    MineWordTheme(themeMode = themeMode) {
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
@@ -86,7 +95,7 @@ fun MineWordApp() {
                     )
                 },
                 settingsScreen = {
-                    SettingsScreen()
+                    SettingsScreen(viewModel = settingsViewModel)
                 }
             )
         }
