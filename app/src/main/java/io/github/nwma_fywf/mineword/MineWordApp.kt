@@ -41,10 +41,11 @@ import io.github.nwma_fywf.mineword.ui.theme.MineWordTheme
 fun MineWordApp() {
     val application = androidx.compose.ui.platform.LocalContext.current.applicationContext as MineWordApplication
     val themeMode by application.themePreferences.themeMode.collectAsState(initial = ThemeMode.SYSTEM)
+    val useDynamicColor by application.themePreferences.useDynamicColor.collectAsState(initial = true)
     val fontStyle by application.themePreferences.fontStyle.collectAsState(initial = FontStyle.DEFAULT)
     val customFontPath by application.themePreferences.customFontPath.collectAsState(initial = null)
 
-    MineWordTheme(themeMode = themeMode, fontStyle = fontStyle, customFontPath = customFontPath) {
+    MineWordTheme(themeMode = themeMode, useDynamicColor = useDynamicColor, fontStyle = fontStyle, customFontPath = customFontPath) {
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination

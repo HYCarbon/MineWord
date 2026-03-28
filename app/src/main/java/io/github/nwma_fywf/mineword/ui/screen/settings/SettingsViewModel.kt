@@ -52,6 +52,13 @@ class SettingsViewModel(
             initialValue = ThemeMode.SYSTEM
         )
 
+    val useDynamicColor: StateFlow<Boolean> = themePreferences.useDynamicColor
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = true
+        )
+
     val fontStyle: StateFlow<FontStyle> = themePreferences.fontStyle
         .stateIn(
             scope = viewModelScope,
@@ -84,6 +91,12 @@ class SettingsViewModel(
     fun setThemeMode(mode: ThemeMode) {
         viewModelScope.launch {
             themePreferences.setThemeMode(mode)
+        }
+    }
+
+    fun setUseDynamicColor(use: Boolean) {
+        viewModelScope.launch {
+            themePreferences.setUseDynamicColor(use)
         }
     }
 

@@ -30,6 +30,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -56,6 +57,7 @@ fun SettingsScreen(
     viewModel: SettingsViewModel
 ) {
     val themeMode by viewModel.themeMode.collectAsState()
+    val useDynamicColor by viewModel.useDynamicColor.collectAsState()
     val fontStyle by viewModel.fontStyle.collectAsState()
     val customFontPath by viewModel.customFontPath.collectAsState()
     val isExporting by viewModel.isExporting.collectAsState()
@@ -134,6 +136,31 @@ fun SettingsScreen(
                     selected = themeMode == ThemeMode.DARK,
                     onClick = { viewModel.setThemeMode(ThemeMode.DARK) }
                 )
+
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 12.dp, horizontal = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = "莫奈取色",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                        Text(
+                            text = "使用系统壁纸颜色（Android 12+）",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    Switch(
+                        checked = useDynamicColor,
+                        onCheckedChange = { viewModel.setUseDynamicColor(it) }
+                    )
+                }
             }
         }
 

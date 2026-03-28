@@ -35,9 +35,9 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun MineWordTheme(
     themeMode: ThemeMode = ThemeMode.SYSTEM,
+    useDynamicColor: Boolean = true,
     fontStyle: FontStyle = FontStyle.DEFAULT,
     customFontPath: String? = null,
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val darkTheme = when (themeMode) {
@@ -47,7 +47,7 @@ fun MineWordTheme(
     }
 
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+        useDynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
