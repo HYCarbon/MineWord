@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.ui.util.MeaningParser
@@ -27,6 +28,7 @@ import io.github.nwma_fywf.mineword.ui.util.MeaningParser
 fun WordCard(
     word: Word,
     meanings: List<Meaning>,
+    exampleSentences: List<ExampleSentence> = emptyList(),
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -42,8 +44,30 @@ fun WordCard(
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
             )
+            if (!word.phoneticUK.isNullOrBlank() || !word.phoneticUS.isNullOrBlank()) {
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = buildString {
+                        if (!word.phoneticUK.isNullOrBlank()) {
+                            append("英 ${word.phoneticUK}")
+                        }
+                        if (!word.phoneticUK.isNullOrBlank() && !word.phoneticUS.isNullOrBlank()) {
+                            append("  ")
+                        }
+                        if (!word.phoneticUS.isNullOrBlank()) {
+                            append("美 ${word.phoneticUS}")
+                        }
+                    },
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
             Spacer(modifier = Modifier.height(4.dp))
             MeaningsContent(meanings = meanings)
+            if (exampleSentences.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
+                ExampleSentencesContent(sentences = exampleSentences)
+            }
             val tags = word.tags.split(",").map { it.trim() }.filter { it.isNotEmpty() }
             if (tags.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
@@ -101,6 +125,27 @@ private fun MeaningsContent(meanings: List<Meaning>) {
                     Text(
                         text = "${index + 1}. ${meaning.definition}",
                         style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ExampleSentencesContent(sentences: List<ExampleSentence>) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        sentences.take(2).forEach { sentence ->
+            Column {
+                Text(
+                    text = sentence.sentence,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                if (!sentence.translation.isNullOrBlank()) {
+                    Text(
+                        text = sentence.translation,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
             }

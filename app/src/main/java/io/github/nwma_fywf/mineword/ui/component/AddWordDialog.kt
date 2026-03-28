@@ -45,6 +45,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
 
@@ -53,23 +54,33 @@ data class MeaningEntry(
     val definition: String = ""
 )
 
+data class ExampleSentenceEntry(
+    val sentence: String = "",
+    val translation: String = ""
+)
+
 private val COMMON_PARTS_OF_SPEECH = listOf("动词", "名词", "形容词", "副词", "介词", "连词", "代词", "感叹词")
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun WordDialog(
     onDismiss: () -> Unit,
-    onConfirm: (word: String, meanings: List<MeaningEntry>, tags: String) -> Unit,
+    onConfirm: (word: String, phoneticUK: String?, phoneticUS: String?, meanings: List<MeaningEntry>, exampleSentences: List<ExampleSentenceEntry>, tags: String) -> Unit,
     existingWord: Word? = null,
     existingMeanings: List<Meaning> = emptyList(),
+    existingExampleSentences: List<ExampleSentence> = emptyList(),
     existingTags: List<String> = emptyList(),
     duplicateWarning: String? = null,
 ) {
     val isEditing = existingWord != null
     var word by remember { mutableStateOf(existingWord?.word ?: "") }
+    var phoneticUK by remember { mutableStateOf(existingWord?.phoneticUK ?: "") }
+    var phoneticUS by remember { mutableStateOf(existingWord?.phoneticUS ?: "") }
     val meaningEntries = remember { mutableStateListOf<MeaningEntry>() }
+    val exampleSentenceEntries = remember { mutableStateListOf<ExampleSentenceEntry>() }
     var tags by remember { mutableStateOf(TextFieldValue(existingWord?.tags ?: "")) }
     var meaningsLoaded by remember { mutableStateOf(false) }
+    var examplesLoaded by remember { mutableStateOf(false) }
 
     LaunchedEffect(existingMeanings.hashCode()) {
         if (existingMeanings.isNotEmpty() && !meaningsLoaded) {
@@ -77,9 +88,19 @@ fun WordDialog(
             meaningEntries.addAll(existingMeanings.map { MeaningEntry(it.partOfSpeech ?: "", it.definition) })
             meaningsLoaded = true
         }
-        // Ensure at least one entry
         if (meaningEntries.isEmpty()) {
             meaningEntries.add(MeaningEntry())
+        }
+    }
+
+    LaunchedEffect(existingExampleSentences.hashCode()) {
+        if (existingExampleSentences.isNotEmpty() && !examplesLoaded) {
+            exampleSentenceEntries.clear()
+            exampleSentenceEntries.addAll(existingExampleSentences.map { ExampleSentenceEntry(it.sentence, it.translation ?: "") })
+            examplesLoaded = true
+        }
+        if (exampleSentenceEntries.isEmpty()) {
+            exampleSentenceEntries.add(ExampleSentenceEntry())
         }
     }
 
@@ -115,6 +136,28 @@ fun WordDialog(
                     color = MaterialTheme.colorScheme.error,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.padding(start = 16.dp, top = 4.dp),
+                )
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                OutlinedTextField(
+                    value = phoneticUK,
+                    onValueChange = { phoneticUK = it },
+                    modifier = Modifier.weight(1f),
+                    label = { Text("英式音标") },
+                    singleLine = true,
+                    placeholder = { Text("/brɪtɪʃ/") },
+                )
+                OutlinedTextField(
+                    value = phoneticUS,
+                    onValueChange = { phoneticUS = it },
+                    modifier = Modifier.weight(1f),
+                    label = { Text("美式音标") },
+                    singleLine = true,
+                    placeholder = { Text("/ˈæmerɪkən/") },
                 )
             }
             Spacer(modifier = Modifier.height(12.dp))
@@ -155,6 +198,53 @@ fun WordDialog(
                 Icon(Icons.Filled.Add, contentDescription = null)
                 Spacer(modifier = Modifier.width(4.dp))
                 Text("添加释义")
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text = "例句",
+                style = MaterialTheme.typography.labelLarge,
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+
+            exampleSentenceEntries.forEachIndexed { index, entry ->
+                Column {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        OutlinedTextField(
+                            value = entry.sentence,
+                            onValueChange = { exampleSentenceEntries[index] = entry.copy(sentence = it) },
+                            modifier = Modifier.weight(1f),
+                            label = { Text("例句 ${index + 1}", style = MaterialTheme.typography.bodySmall) },
+                            minLines = 2,
+                        )
+                        if (exampleSentenceEntries.size > 1) {
+                            IconButton(onClick = { exampleSentenceEntries.removeAt(index) }) {
+                                Icon(Icons.Filled.Close, contentDescription = "删除")
+                            }
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
+                    OutlinedTextField(
+                        value = entry.translation,
+                        onValueChange = { exampleSentenceEntries[index] = entry.copy(translation = it) },
+                        modifier = Modifier.fillMaxWidth(),
+                        label = { Text("翻译", style = MaterialTheme.typography.bodySmall) },
+                        singleLine = true,
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            TextButton(
+                onClick = { exampleSentenceEntries.add(ExampleSentenceEntry()) },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Icon(Icons.Filled.Add, contentDescription = null)
+                Spacer(modifier = Modifier.width(4.dp))
+                Text("添加例句")
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -210,7 +300,15 @@ fun WordDialog(
             TextButton(
                 onClick = {
                     val validMeanings = meaningEntries.filter { it.definition.isNotBlank() }
-                    onConfirm(word.trim(), validMeanings, tags.text.trim())
+                    val validExamples = exampleSentenceEntries.filter { it.sentence.isNotBlank() }
+                    onConfirm(
+                        word.trim(),
+                        phoneticUK.ifBlank { null },
+                        phoneticUS.ifBlank { null },
+                        validMeanings,
+                        validExamples,
+                        tags.text.trim()
+                    )
                 },
                 modifier = Modifier.fillMaxWidth(),
                 enabled = canSave,

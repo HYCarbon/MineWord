@@ -3,9 +3,12 @@ package io.github.nwma_fywf.mineword.ui.screen.wordlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
+import io.github.nwma_fywf.mineword.ui.component.ExampleSentenceEntry
+import io.github.nwma_fywf.mineword.ui.component.MeaningEntry
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -56,6 +59,8 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
 
     fun getMeanings(wordId: Long) = repository.getMeaningsByWordId(wordId)
 
+    fun getExampleSentences(wordId: Long) = repository.getExampleSentencesByWordId(wordId)
+
     suspend fun getMeaningCount(wordId: Long): Int = repository.getMeaningCount(wordId)
 
     fun insertWord(word: String, meanings: List<Meaning>, tags: String = "") {
@@ -70,10 +75,34 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
         }
     }
 
-    fun updateWord(word: Word, newWord: String, newMeanings: List<Meaning>, newTags: String = "") {
+    fun updateWord(
+        word: Word,
+        newWord: String,
+        phoneticUK: String?,
+        phoneticUS: String?,
+        newMeanings: List<Meaning>,
+        newExampleSentences: List<ExampleSentenceEntry>,
+        newTags: String = ""
+    ) {
         viewModelScope.launch {
-            repository.updateWord(word.copy(word = newWord, tags = newTags))
+            repository.updateWord(
+                word.copy(
+                    word = newWord,
+                    phoneticUK = phoneticUK,
+                    phoneticUS = phoneticUS,
+                    tags = newTags
+                )
+            )
             repository.saveMeanings(word.id, newMeanings)
+            val exampleSentences = newExampleSentences.mapIndexed { index, entry ->
+                ExampleSentence(
+                    wordId = word.id,
+                    sentence = entry.sentence,
+                    translation = entry.translation.ifBlank { null },
+                    order = index
+                )
+            }
+            repository.saveExampleSentences(word.id, exampleSentences)
         }
     }
 

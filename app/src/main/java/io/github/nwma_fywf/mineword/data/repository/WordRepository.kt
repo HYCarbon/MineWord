@@ -1,5 +1,7 @@
 package io.github.nwma_fywf.mineword.data.repository
 
+import io.github.nwma_fywf.mineword.data.local.ExampleSentence
+import io.github.nwma_fywf.mineword.data.local.ExampleSentenceDao
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.MeaningDao
 import io.github.nwma_fywf.mineword.data.local.Word
@@ -8,7 +10,8 @@ import kotlinx.coroutines.flow.Flow
 
 class WordRepository(
     private val wordDao: WordDao,
-    private val meaningDao: MeaningDao
+    private val meaningDao: MeaningDao,
+    private val exampleSentenceDao: ExampleSentenceDao
 ) {
     fun getAllWords(): Flow<List<Word>> = wordDao.getAllWords()
 
@@ -36,6 +39,16 @@ class WordRepository(
         meaningDao.deleteByWordId(wordId)
         if (meanings.isNotEmpty()) {
             meaningDao.insertAll(meanings.map { it.copy(wordId = wordId) })
+        }
+    }
+
+    fun getExampleSentencesByWordId(wordId: Long): Flow<List<ExampleSentence>> =
+        exampleSentenceDao.getSentencesByWordId(wordId)
+
+    suspend fun saveExampleSentences(wordId: Long, sentences: List<ExampleSentence>) {
+        exampleSentenceDao.deleteByWordId(wordId)
+        if (sentences.isNotEmpty()) {
+            exampleSentenceDao.insertAll(sentences.map { it.copy(wordId = wordId) })
         }
     }
 }

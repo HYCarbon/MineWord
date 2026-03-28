@@ -3,6 +3,7 @@ package io.github.nwma_fywf.mineword.ui.screen.addword
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
@@ -30,15 +31,28 @@ class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
         return repository.getWordByWord(word) != null
     }
 
-    fun insertWord(word: String, meanings: List<Meaning>, tags: String = "", onComplete: () -> Unit) {
+    fun insertWord(
+        word: String,
+        phoneticUK: String? = null,
+        phoneticUS: String? = null,
+        meanings: List<Meaning>,
+        exampleSentences: List<ExampleSentence> = emptyList(),
+        tags: String = "",
+        onComplete: () -> Unit
+    ) {
         viewModelScope.launch {
             val id = repository.insertWord(
                 Word(
                     word = word,
+                    phoneticUK = phoneticUK,
+                    phoneticUS = phoneticUS,
                     tags = tags,
                 )
             )
             repository.saveMeanings(id, meanings)
+            if (exampleSentences.isNotEmpty()) {
+                repository.saveExampleSentences(id, exampleSentences)
+            }
             onComplete()
         }
     }

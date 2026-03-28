@@ -42,11 +42,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.ui.component.ConfirmDeleteDialog
 import io.github.nwma_fywf.mineword.ui.component.WordCard
 import io.github.nwma_fywf.mineword.ui.component.WordDialog
+import io.github.nwma_fywf.mineword.ui.component.ExampleSentenceEntry
+import io.github.nwma_fywf.mineword.ui.component.MeaningEntry
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,14 +65,18 @@ fun WordListScreen(
     var deleteMeaningCount by remember { mutableIntStateOf(0) }
     var editDuplicateWarning by remember { mutableStateOf<String?>(null) }
     var editingMeanings by remember { mutableStateOf<List<Meaning>>(emptyList()) }
+    var editingExampleSentences by remember { mutableStateOf<List<ExampleSentence>>(emptyList()) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(editingWord) {
         if (editingWord != null) {
             editingMeanings = viewModel.getMeanings(editingWord!!.id)
                 .first()
+            editingExampleSentences = viewModel.getExampleSentences(editingWord!!.id)
+                .first()
         } else {
             editingMeanings = emptyList()
+            editingExampleSentences = emptyList()
         }
     }
 
@@ -132,6 +139,7 @@ fun WordListScreen(
                     key = { it.id },
                 ) { word ->
                     val meanings by viewModel.getMeanings(word.id).collectAsState(initial = emptyList())
+                    val exampleSentences by viewModel.getExampleSentences(word.id).collectAsState(initial = emptyList())
                     val dismissState = rememberSwipeToDismissBoxState()
                     LaunchedEffect(dismissState.currentValue) {
                         if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
@@ -148,6 +156,7 @@ fun WordListScreen(
                         WordCard(
                             word = word,
                             meanings = meanings,
+                            exampleSentences = exampleSentences,
                             onClick = { editingWord = word },
                         )
                     }
@@ -159,7 +168,7 @@ fun WordListScreen(
     editingWord?.let { word ->
         WordDialog(
             onDismiss = { editingWord = null; editDuplicateWarning = null },
-            onConfirm = { newWord, meaningEntries, newTags ->
+            onConfirm = { newWord, phoneticUK, phoneticUS, meaningEntries, exampleSentenceEntries, newTags ->
                 scope.launch {
                     if (viewModel.checkDuplicate(newWord, excludeId = word.id)) {
                         editDuplicateWarning = "单词 \"$newWord\" 已存在"
@@ -172,7 +181,7 @@ fun WordListScreen(
                                 order = index
                             )
                         }
-                        viewModel.updateWord(word, newWord, meanings, newTags)
+                        viewModel.updateWord(word, newWord, phoneticUK, phoneticUS, meanings, exampleSentenceEntries, newTags)
                         editingWord = null
                         editDuplicateWarning = null
                     }
@@ -180,6 +189,7 @@ fun WordListScreen(
             },
             existingWord = word,
             existingMeanings = editingMeanings,
+            existingExampleSentences = editingExampleSentences,
             existingTags = existingTags,
             duplicateWarning = editDuplicateWarning,
         )
