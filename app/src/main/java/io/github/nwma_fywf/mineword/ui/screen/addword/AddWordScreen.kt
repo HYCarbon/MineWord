@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
@@ -37,7 +39,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import io.github.nwma_fywf.mineword.data.local.ExampleSentence
@@ -60,11 +65,40 @@ fun AddWordScreen(
     val existingTags by viewModel.existingTags.collectAsState()
     val scope = rememberCoroutineScope()
 
+    val wordFocusRequester = remember { FocusRequester() }
+    val phoneticUKFocusRequester = remember { FocusRequester() }
+    val phoneticUSFocusRequester = remember { FocusRequester() }
+    val meaningFocusRequester = remember { FocusRequester() }
+    val exampleSentenceFocusRequester = remember { FocusRequester() }
+    val exampleTranslationFocusRequester = remember { FocusRequester() }
+    val tagsFocusRequester = remember { FocusRequester() }
+    val synonymsFocusRequester = remember { FocusRequester() }
+    val phraseCollocationsFocusRequester = remember { FocusRequester() }
+    val personalNotesFocusRequester = remember { FocusRequester() }
+
+    val meaningFocusRequesters = remember { mutableStateListOf<FocusRequester>() }
+    val exampleFocusRequesters = remember { mutableStateListOf<FocusRequester>() }
+    val exampleTranslationFocusRequesters = remember { mutableStateListOf<FocusRequester>() }
+
     var word by remember { mutableStateOf("") }
     var phoneticUK by remember { mutableStateOf("") }
     var phoneticUS by remember { mutableStateOf("") }
     val meaningEntries = remember { mutableStateListOf(MeaningEntry()) }
+    if (meaningFocusRequesters.isEmpty() && meaningEntries.isNotEmpty()) {
+        meaningFocusRequesters.add(meaningFocusRequester)
+        for (i in 1 until meaningEntries.size) {
+            meaningFocusRequesters.add(FocusRequester())
+        }
+    }
     val exampleSentences = remember { mutableStateListOf(ExampleSentenceEntry()) }
+    if (exampleFocusRequesters.isEmpty() && exampleSentences.isNotEmpty()) {
+        exampleFocusRequesters.add(exampleSentenceFocusRequester)
+        exampleTranslationFocusRequesters.add(exampleTranslationFocusRequester)
+        for (i in 1 until exampleSentences.size) {
+            exampleFocusRequesters.add(FocusRequester())
+            exampleTranslationFocusRequesters.add(FocusRequester())
+        }
+    }
     var tags by remember { mutableStateOf(TextFieldValue("")) }
     var synonyms by remember { mutableStateOf("") }
     var phraseCollocations by remember { mutableStateOf("") }
@@ -144,10 +178,16 @@ fun AddWordScreen(
                     word = it
                     duplicateWarning = null
                 },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(wordFocusRequester),
                 label = { Text("单词") },
                 singleLine = true,
                 isError = duplicateWarning != null,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = { phoneticUKFocusRequester.requestFocus() }
+                ),
             )
             if (duplicateWarning != null) {
                 Text(
@@ -165,18 +205,30 @@ fun AddWordScreen(
                 OutlinedTextField(
                     value = phoneticUK,
                     onValueChange = { phoneticUK = it },
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .focusRequester(phoneticUKFocusRequester),
                     label = { Text("英式音标") },
                     singleLine = true,
                     placeholder = { Text("/brɪtɪʃ/") },
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    keyboardActions = KeyboardActions(
+                        onNext = { phoneticUSFocusRequester.requestFocus() }
+                    ),
                 )
                 OutlinedTextField(
                     value = phoneticUS,
                     onValueChange = { phoneticUS = it },
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier
+                        .weight(1f)
+                        .focusRequester(phoneticUSFocusRequester),
                     label = { Text("美式音标") },
                     singleLine = true,
                     placeholder = { Text("/ˈæmerɪkən/") },
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    keyboardActions = KeyboardActions(
+                        onNext = { meaningFocusRequester.requestFocus() }
+                    ),
                 )
             }
             Spacer(modifier = Modifier.height(12.dp))
@@ -198,6 +250,8 @@ fun AddWordScreen(
                         }
                     },
                     showDelete = meaningEntries.size > 1,
+                    focusRequester = if (index == 0) meaningFocusRequester else meaningFocusRequesters.getOrNull(index),
+                    nextFocusRequester = if (index == meaningEntries.lastIndex) exampleSentenceFocusRequester else null,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
@@ -227,17 +281,35 @@ fun AddWordScreen(
                         OutlinedTextField(
                             value = entry.sentence,
                             onValueChange = { exampleSentences[index] = entry.copy(sentence = it) },
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .focusRequester(exampleFocusRequesters.getOrElse(index) { FocusRequester() }),
                             label = { Text("例句 ${index + 1}", style = MaterialTheme.typography.bodySmall) },
                             minLines = 2,
+                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                            keyboardActions = KeyboardActions(
+                                onNext = { exampleTranslationFocusRequesters.getOrNull(index)?.requestFocus() ?: tagsFocusRequester.requestFocus() }
+                            ),
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         OutlinedTextField(
                             value = entry.translation,
                             onValueChange = { exampleSentences[index] = entry.copy(translation = it) },
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .focusRequester(exampleTranslationFocusRequesters.getOrElse(index) { FocusRequester() }),
                             label = { Text("翻译", style = MaterialTheme.typography.bodySmall) },
                             singleLine = true,
+                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                            keyboardActions = KeyboardActions(
+                                onNext = {
+                                    if (index == exampleSentences.lastIndex) {
+                                        tagsFocusRequester.requestFocus()
+                                    } else {
+                                        exampleFocusRequesters.getOrNull(index + 1)?.requestFocus()
+                                    }
+                                }
+                            ),
                         )
                     }
                     if (exampleSentences.size > 1) {
@@ -262,10 +334,16 @@ fun AddWordScreen(
             OutlinedTextField(
                 value = tags,
                 onValueChange = { tags = it },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(tagsFocusRequester),
                 label = { Text("标签（逗号分隔）") },
                 singleLine = true,
                 placeholder = { Text("如: CET-4, 动词") },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = { synonymsFocusRequester.requestFocus() }
+                ),
             )
             if (existingTags.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
@@ -312,30 +390,48 @@ fun AddWordScreen(
             OutlinedTextField(
                 value = synonyms,
                 onValueChange = { synonyms = it },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(synonymsFocusRequester),
                 label = { Text("同义词") },
                 placeholder = { Text("如: happy, joyful, delighted") },
                 minLines = 2,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = { phraseCollocationsFocusRequester.requestFocus() }
+                ),
             )
 
             Spacer(modifier = Modifier.height(12.dp))
             OutlinedTextField(
                 value = phraseCollocations,
                 onValueChange = { phraseCollocations = it },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(phraseCollocationsFocusRequester),
                 label = { Text("短语搭配") },
                 placeholder = { Text("如: make progress, take action") },
                 minLines = 2,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = { personalNotesFocusRequester.requestFocus() }
+                ),
             )
 
             Spacer(modifier = Modifier.height(12.dp))
             OutlinedTextField(
                 value = personalNotes,
                 onValueChange = { personalNotes = it },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(personalNotesFocusRequester),
                 label = { Text("个人笔记") },
                 placeholder = { Text("添加你的个人笔记...") },
                 minLines = 3,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+                keyboardActions = KeyboardActions(
+                    onDone = { }
+                ),
             )
         }
     }

@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
@@ -42,7 +44,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import io.github.nwma_fywf.mineword.data.local.ExampleSentence
@@ -326,16 +331,18 @@ fun MeaningEntryRow(
     onEntryChange: (MeaningEntry) -> Unit,
     onDelete: () -> Unit,
     showDelete: Boolean,
+    focusRequester: FocusRequester? = null,
+    nextFocusRequester: FocusRequester? = null,
 ) {
     var posExpanded by remember { mutableStateOf(false) }
     var posInput by remember { mutableStateOf(entry.partOfSpeech) }
     var showCustomInput by remember { mutableStateOf(entry.partOfSpeech.isNotEmpty() && entry.partOfSpeech !in COMMON_PARTS_OF_SPEECH) }
+    val definitionFocusRequester = remember { FocusRequester() }
 
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        // Part of speech dropdown
         ExposedDropdownMenuBox(
             expanded = posExpanded,
             onExpandedChange = { posExpanded = it },
@@ -350,11 +357,16 @@ fun MeaningEntryRow(
                 },
                 modifier = Modifier
                     .menuAnchor(MenuAnchorType.PrimaryNotEditable)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .then(focusRequester?.let { Modifier.focusRequester(it) } ?: Modifier),
                 label = { Text("词性", style = MaterialTheme.typography.bodySmall) },
                 singleLine = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = posExpanded) },
                 readOnly = !showCustomInput,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = { nextFocusRequester?.requestFocus() ?: definitionFocusRequester.requestFocus() }
+                ),
             )
             ExposedDropdownMenu(
                 expanded = posExpanded,
@@ -396,13 +408,18 @@ fun MeaningEntryRow(
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        // Definition input
         OutlinedTextField(
             value = entry.definition,
             onValueChange = { onEntryChange(entry.copy(definition = it)) },
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .focusRequester(definitionFocusRequester),
             label = { Text("释义", style = MaterialTheme.typography.bodySmall) },
             singleLine = true,
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+            keyboardActions = KeyboardActions(
+                onNext = { nextFocusRequester?.requestFocus() }
+            ),
         )
 
         if (showDelete) {
