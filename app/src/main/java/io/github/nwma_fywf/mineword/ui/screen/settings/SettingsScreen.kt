@@ -39,6 +39,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -75,6 +76,7 @@ fun SettingsScreen(
     val importDialogState by viewModel.importDialogState.collectAsState()
     val importResultDialogState by viewModel.importResultDialogState.collectAsState()
     val exportResult by viewModel.exportResult.collectAsState()
+    var showColorPickerDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     val exportLauncher = rememberLauncherForActivityResult(
@@ -225,6 +227,20 @@ fun SettingsScreen(
                         }
                     }
                 }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    DataManagementOption(
+                        title = "自定义 RGB 颜色",
+                        subtitle = "输入 RGB 值自定义主题色",
+                        isLoading = false,
+                        onClick = { showColorPickerDialog = true }
+                    )
+                }
             }
         }
 
@@ -360,6 +376,16 @@ fun SettingsScreen(
         ImportResultDialog(
             result = result,
             onDismiss = { viewModel.dismissImportResultDialog() }
+        )
+    }
+
+    if (showColorPickerDialog) {
+        CustomColorPickerDialog(
+            onColorSelected = { primary, secondary, tertiary ->
+                viewModel.setCustomThemeColor(primary, secondary, tertiary)
+                showColorPickerDialog = false
+            },
+            onDismiss = { showColorPickerDialog = false }
         )
     }
 }
@@ -605,6 +631,118 @@ private fun ImportResultDialog(
         confirmButton = {
             Button(onClick = onDismiss) {
                 Text("确定")
+            }
+        }
+    )
+}
+
+@Composable
+private fun CustomColorPickerDialog(
+    onColorSelected: (Int, Int, Int) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var red by remember { mutableStateOf("25") }
+    var green by remember { mutableStateOf("25") }
+    var blue by remember { mutableStateOf("25") }
+
+    val previewColor = Color(
+        red = (red.toIntOrNull() ?: 0).coerceIn(0, 255) / 255f,
+        green = (green.toIntOrNull() ?: 0).coerceIn(0, 255) / 255f,
+        blue = (blue.toIntOrNull() ?: 0).coerceIn(0, 255) / 255f
+    )
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("自定义 RGB 颜色") },
+        text = {
+            Column {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .background(previewColor, MaterialTheme.shapes.medium)
+                        .border(1.dp, MaterialTheme.colorScheme.outline, MaterialTheme.shapes.medium),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "预览",
+                        color = if ((red.toIntOrNull() ?: 0) > 127 ||
+                            (green.toIntOrNull() ?: 0) > 127 ||
+                            (blue.toIntOrNull() ?: 0) > 127) Color.Black else Color.White
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("R:", modifier = Modifier.width(24.dp))
+                    TextField(
+                        value = red,
+                        onValueChange = { if (it.length <= 3) red = it.filter { c -> c.isDigit() } },
+                        modifier = Modifier.weight(1f),
+                        singleLine = true
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("G:", modifier = Modifier.width(24.dp))
+                    TextField(
+                        value = green,
+                        onValueChange = { if (it.length <= 3) green = it.filter { c -> c.isDigit() } },
+                        modifier = Modifier.weight(1f),
+                        singleLine = true
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("B:", modifier = Modifier.width(24.dp))
+                    TextField(
+                        value = blue,
+                        onValueChange = { if (it.length <= 3) blue = it.filter { c -> c.isDigit() } },
+                        modifier = Modifier.weight(1f),
+                        singleLine = true
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "范围: 0-255",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    val r = (red.toIntOrNull() ?: 0).coerceIn(0, 255)
+                    val g = (green.toIntOrNull() ?: 0).coerceIn(0, 255)
+                    val b = (blue.toIntOrNull() ?: 0).coerceIn(0, 255)
+                    val color = Color(r / 255f, g / 255f, b / 255f).toArgb()
+                    onColorSelected(color, color, color)
+                }
+            ) {
+                Text("应用")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("取消")
             }
         }
     )
