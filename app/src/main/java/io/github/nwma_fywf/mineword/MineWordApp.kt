@@ -36,9 +36,6 @@ import io.github.nwma_fywf.mineword.ui.theme.MineWordTheme
 fun MineWordApp() {
     val application = androidx.compose.ui.platform.LocalContext.current.applicationContext as MineWordApplication
     val themeMode by application.themePreferences.themeMode.collectAsState(initial = ThemeMode.SYSTEM)
-    val settingsViewModel: SettingsViewModel = viewModel(
-        factory = SettingsViewModel.provideFactory(application.themePreferences)
-    )
 
     MineWordTheme(themeMode = themeMode) {
         val navController = rememberNavController()
@@ -111,7 +108,15 @@ fun MineWordApp() {
                     )
                 },
                 settingsScreen = {
-                    SettingsScreen(viewModel = settingsViewModel)
+                    val application = androidx.compose.ui.platform.LocalContext.current.applicationContext as MineWordApplication
+                    val settingsVm: SettingsViewModel = viewModel(
+                        factory = SettingsViewModel.provideFactory(
+                            application.themePreferences,
+                            application.repository,
+                            navController.context
+                        )
+                    )
+                    SettingsScreen(viewModel = settingsVm)
                 }
             )
         }
