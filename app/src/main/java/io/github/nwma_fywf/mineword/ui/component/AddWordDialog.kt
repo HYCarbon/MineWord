@@ -223,7 +223,7 @@ fun WordDialog(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MeaningEntryRow(
+fun MeaningEntryRow(
     entry: MeaningEntry,
     onEntryChange: (MeaningEntry) -> Unit,
     onDelete: () -> Unit,

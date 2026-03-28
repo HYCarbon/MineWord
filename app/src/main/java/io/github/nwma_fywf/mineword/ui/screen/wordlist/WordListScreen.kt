@@ -45,7 +45,6 @@ import androidx.compose.ui.unit.dp
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.ui.component.ConfirmDeleteDialog
-import io.github.nwma_fywf.mineword.ui.component.MeaningEntry
 import io.github.nwma_fywf.mineword.ui.component.WordCard
 import io.github.nwma_fywf.mineword.ui.component.WordDialog
 
@@ -53,15 +52,14 @@ import io.github.nwma_fywf.mineword.ui.component.WordDialog
 @Composable
 fun WordListScreen(
     viewModel: WordListViewModel,
+    onNavigateToAddWord: () -> Unit,
 ) {
     val words by viewModel.words.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
     val existingTags by viewModel.existingTags.collectAsState()
-    var showAddDialog by remember { mutableStateOf(false) }
     var editingWord by remember { mutableStateOf<Word?>(null) }
     var wordToDelete by remember { mutableStateOf<Word?>(null) }
     var deleteMeaningCount by remember { mutableIntStateOf(0) }
-    var addDuplicateWarning by remember { mutableStateOf<String?>(null) }
     var editDuplicateWarning by remember { mutableStateOf<String?>(null) }
     var editingMeanings by remember { mutableStateOf<List<Meaning>>(emptyList()) }
     val scope = rememberCoroutineScope()
@@ -80,7 +78,7 @@ fun WordListScreen(
             TopAppBar(title = { Text("单词列表") })
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { showAddDialog = true }) {
+            FloatingActionButton(onClick = onNavigateToAddWord) {
                 Icon(Icons.Filled.Add, contentDescription = "添加单词")
             }
         }
@@ -156,33 +154,6 @@ fun WordListScreen(
                 }
             }
         }
-    }
-
-    if (showAddDialog) {
-        WordDialog(
-            onDismiss = { showAddDialog = false; addDuplicateWarning = null },
-            onConfirm = { word, meaningEntries, tags ->
-                scope.launch {
-                    if (viewModel.checkDuplicate(word)) {
-                        addDuplicateWarning = "单词 \"$word\" 已存在"
-                    } else {
-                        val meanings = meaningEntries.mapIndexed { index, entry ->
-                            Meaning(
-                                wordId = 0,
-                                partOfSpeech = entry.partOfSpeech.ifBlank { null },
-                                definition = entry.definition,
-                                order = index
-                            )
-                        }
-                        viewModel.insertWord(word, meanings, tags)
-                        showAddDialog = false
-                        addDuplicateWarning = null
-                    }
-                }
-            },
-            existingTags = existingTags,
-            duplicateWarning = addDuplicateWarning,
-        )
     }
 
     editingWord?.let { word ->

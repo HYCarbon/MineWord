@@ -22,6 +22,8 @@ import androidx.navigation.compose.rememberNavController
 import io.github.nwma_fywf.mineword.data.local.ThemeMode
 import io.github.nwma_fywf.mineword.ui.navigation.NavGraph
 import io.github.nwma_fywf.mineword.ui.navigation.Screen
+import io.github.nwma_fywf.mineword.ui.screen.addword.AddWordScreen
+import io.github.nwma_fywf.mineword.ui.screen.addword.AddWordViewModel
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizScreen
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizViewModel
 import io.github.nwma_fywf.mineword.ui.screen.settings.SettingsScreen
@@ -82,6 +84,20 @@ fun MineWordApp() {
                     )
                     WordListScreen(
                         viewModel = viewModel,
+                        onNavigateToAddWord = {
+                            navController.navigate(Screen.AddWord.route)
+                        },
+                    )
+                },
+                addWordScreen = {
+                    val viewModel: AddWordViewModel = viewModel(
+                        factory = AddWordViewModel.provideFactory(
+                            (navController.context.applicationContext as MineWordApplication).repository
+                        )
+                    )
+                    AddWordScreen(
+                        viewModel = viewModel,
+                        onNavigateBack = { navController.popBackStack() },
                     )
                 },
                 quizScreen = {
