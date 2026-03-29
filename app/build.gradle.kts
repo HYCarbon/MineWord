@@ -1,3 +1,8 @@
+import java.util.Properties
+
+val keystoreProperties = Properties()
+file("../keystore.properties").inputStream().use { keystoreProperties.load(it) }
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -7,6 +12,16 @@ plugins {
 
 android {
     namespace = "io.github.nwma_fywf.mineword"
+
+    signingConfigs {
+        create("release") {
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["storePassword"] as String
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+        }
+    }
+
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -25,6 +40,7 @@ android {
 
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
