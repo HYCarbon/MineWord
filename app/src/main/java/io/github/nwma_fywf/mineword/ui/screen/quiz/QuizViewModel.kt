@@ -7,12 +7,18 @@ import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class QuizViewModel(private val repository: WordRepository) : ViewModel() {
+
+    enum class QuizMode {
+        EN_TO_CN,
+        CN_TO_EN
+    }
+
+    private val _quizMode = MutableStateFlow(QuizMode.EN_TO_CN)
+    val quizMode: StateFlow<QuizMode> = _quizMode
 
     private val _allWords = MutableStateFlow<List<Word>>(emptyList())
     val allWords: StateFlow<List<Word>> = _allWords
@@ -85,18 +91,31 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         if (userInput.isEmpty()) return
 
         val existingMeanings = _currentMeanings.value
-        val exactMatch = existingMeanings.any { meaning ->
-            meaning.definition.equals(userInput, ignoreCase = true)
+        val isCorrect = when (_quizMode.value) {
+            QuizMode.EN_TO_CN -> existingMeanings.any { meaning ->
+                meaning.definition.equals(userInput, ignoreCase = true)
+            }
+            QuizMode.CN_TO_EN -> word.word.equals(userInput, ignoreCase = true)
         }
 
-        if (exactMatch) {
+        if (isCorrect) {
             selectRandomWord()
         } else {
-            _quizState.value = QuizState.UserJudgment(
-                word = word,
-                userInput = userInput,
-                existingMeanings = existingMeanings
-            )
+            when (_quizMode.value) {
+                QuizMode.EN_TO_CN -> {
+                    _quizState.value = QuizState.UserJudgment(
+                        word = word,
+                        userInput = userInput,
+                        existingMeanings = existingMeanings
+                    )
+                }
+                QuizMode.CN_TO_EN -> {
+                    _quizState.value = QuizState.Incorrect(
+                        correctMeanings = existingMeanings,
+                        userInput = userInput
+                    )
+                }
+            }
         }
     }
 
@@ -129,6 +148,15 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
 
     fun nextWord() {
         selectRandomWord()
+    }
+
+    fun switchQuizMode() {
+        _quizMode.value = when (_quizMode.value) {
+            QuizMode.EN_TO_CN -> QuizMode.CN_TO_EN
+            QuizMode.CN_TO_EN -> QuizMode.EN_TO_CN
+        }
+        _userInput.value = ""
+        _quizState.value = QuizState.WaitingInput
     }
 
     companion object {

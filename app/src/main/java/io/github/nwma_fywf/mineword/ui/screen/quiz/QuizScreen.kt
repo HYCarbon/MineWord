@@ -12,6 +12,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -31,12 +32,29 @@ fun QuizScreen(
     viewModel: QuizViewModel,
 ) {
     val currentWord by viewModel.currentWord.collectAsState()
+    val currentMeanings by viewModel.currentMeanings.collectAsState()
     val userInput by viewModel.userInput.collectAsState()
     val quizState by viewModel.quizState.collectAsState()
+    val quizMode by viewModel.quizMode.collectAsState()
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("测验") })
+            TopAppBar(
+                title = { Text("测验") },
+                actions = {
+                    OutlinedButton(
+                        onClick = viewModel::switchQuizMode,
+                        modifier = Modifier.padding(end = 8.dp)
+                    ) {
+                        Text(
+                            when (quizMode) {
+                                QuizViewModel.QuizMode.EN_TO_CN -> "汉译英"
+                                QuizViewModel.QuizMode.CN_TO_EN -> "英译汉"
+                            }
+                        )
+                    }
+                }
+            )
         }
     ) { innerPadding ->
         Column(
@@ -59,6 +77,8 @@ fun QuizScreen(
                     currentWord?.let { word ->
                         WordQuizContent(
                             word = word,
+                            meanings = currentMeanings,
+                            mode = quizMode,
                             userInput = userInput,
                             onUserInputChanged = viewModel::onUserInputChanged,
                             onSubmit = viewModel::submitAnswer,
@@ -77,11 +97,14 @@ fun QuizScreen(
                     )
                 }
                 is QuizViewModel.QuizState.Incorrect -> {
-                    IncorrectContent(
-                        correctMeanings = state.correctMeanings,
-                        userInput = state.userInput,
-                        onNext = viewModel::nextWord,
-                    )
+                    currentWord?.let { word ->
+                        IncorrectContent(
+                            word = word,
+                            mode = quizMode,
+                            userInput = state.userInput,
+                            onNext = viewModel::nextWord,
+                        )
+                    }
                 }
             }
         }
@@ -91,20 +114,49 @@ fun QuizScreen(
 @Composable
 private fun WordQuizContent(
     word: Word,
+    meanings: List<io.github.nwma_fywf.mineword.data.local.Meaning>,
+    mode: QuizViewModel.QuizMode,
     userInput: String,
     onUserInputChanged: (String) -> Unit,
     onSubmit: () -> Unit,
 ) {
-    Text(
-        text = word.word,
-        style = MaterialTheme.typography.headlineLarge,
-        textAlign = TextAlign.Center,
-    )
+    when (mode) {
+        QuizViewModel.QuizMode.EN_TO_CN -> {
+            Text(
+                text = word.word,
+                style = MaterialTheme.typography.headlineLarge,
+                textAlign = TextAlign.Center,
+            )
+        }
+        QuizViewModel.QuizMode.CN_TO_EN -> {
+            if (meanings.isNotEmpty()) {
+                Text(
+                    text = meanings.first().definition,
+                    style = MaterialTheme.typography.headlineLarge,
+                    textAlign = TextAlign.Center,
+                )
+            } else {
+                Text(
+                    text = "无释义",
+                    style = MaterialTheme.typography.headlineLarge,
+                    textAlign = TextAlign.Center,
+                    color = MaterialTheme.colorScheme.error,
+                )
+            }
+        }
+    }
     Spacer(modifier = Modifier.height(32.dp))
     OutlinedTextField(
         value = userInput,
         onValueChange = onUserInputChanged,
-        label = { Text("输入词义") },
+        label = {
+            Text(
+                when (mode) {
+                    QuizViewModel.QuizMode.EN_TO_CN -> "输入词义"
+                    QuizViewModel.QuizMode.CN_TO_EN -> "输入单词"
+                }
+            )
+        },
         modifier = Modifier.fillMaxWidth(),
         singleLine = true,
         keyboardOptions = KeyboardOptions(imeAction = androidx.compose.ui.text.input.ImeAction.Done),
@@ -173,7 +225,8 @@ private fun UserJudgmentContent(
 
 @Composable
 private fun IncorrectContent(
-    correctMeanings: List<io.github.nwma_fywf.mineword.data.local.Meaning>,
+    word: Word,
+    mode: QuizViewModel.QuizMode,
     userInput: String,
     onNext: () -> Unit,
 ) {
@@ -184,7 +237,7 @@ private fun IncorrectContent(
     )
     Spacer(modifier = Modifier.height(8.dp))
     Text(
-        text = "你的释义：$userInput",
+        text = "你的答案：$userInput",
         style = MaterialTheme.typography.bodyMedium,
     )
     Spacer(modifier = Modifier.height(16.dp))
@@ -192,13 +245,14 @@ private fun IncorrectContent(
         text = "正确答案：",
         style = MaterialTheme.typography.bodyLarge,
     )
-    correctMeanings.forEach { meaning ->
-        Text(
-            text = meaning.definition,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.primary,
-        )
-    }
+    Text(
+        text = when (mode) {
+            QuizViewModel.QuizMode.EN_TO_CN -> word.word
+            QuizViewModel.QuizMode.CN_TO_EN -> word.word
+        },
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.primary,
+    )
     Spacer(modifier = Modifier.height(24.dp))
     Button(
         onClick = onNext,
