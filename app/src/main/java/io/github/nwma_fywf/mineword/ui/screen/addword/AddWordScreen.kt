@@ -73,7 +73,6 @@ fun AddWordScreen(
     val exampleTranslationFocusRequester = remember { FocusRequester() }
     val tagsFocusRequester = remember { FocusRequester() }
     val synonymsFocusRequester = remember { FocusRequester() }
-    val phraseCollocationsFocusRequester = remember { FocusRequester() }
     val personalNotesFocusRequester = remember { FocusRequester() }
 
     val meaningFocusRequesters = remember { mutableStateListOf<FocusRequester>() }
@@ -101,7 +100,6 @@ fun AddWordScreen(
     }
     var tags by remember { mutableStateOf(TextFieldValue("")) }
     var synonyms by remember { mutableStateOf("") }
-    var phraseCollocations by remember { mutableStateOf("") }
     var personalNotes by remember { mutableStateOf("") }
     var duplicateWarning by remember { mutableStateOf<String?>(null) }
 
@@ -149,7 +147,6 @@ fun AddWordScreen(
                                         exampleSentences = examples,
                                         tags = tags.text.trim(),
                                         synonyms = synonyms.trim(),
-                                        phraseCollocations = phraseCollocations.trim(),
                                         personalNotes = personalNotes.trim(),
                                         onComplete = onNavigateBack
                                     )
@@ -395,22 +392,6 @@ fun AddWordScreen(
                     .focusRequester(synonymsFocusRequester),
                 label = { Text("同义词") },
                 placeholder = { Text("如: happy, joyful, delighted") },
-                minLines = 2,
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                keyboardActions = KeyboardActions(
-                    onNext = { phraseCollocationsFocusRequester.requestFocus() }
-                ),
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-            OutlinedTextField(
-                value = phraseCollocations,
-                onValueChange = { phraseCollocations = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .focusRequester(phraseCollocationsFocusRequester),
-                label = { Text("短语搭配") },
-                placeholder = { Text("如: make progress, take action") },
                 minLines = 2,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(

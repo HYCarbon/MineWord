@@ -9,6 +9,13 @@ sealed class Screen(val route: String) {
     data object EditWord : Screen("edit_word/{wordId}") {
         fun createRoute(wordId: Long) = "edit_word/$wordId"
     }
+    data object AddPhrase : Screen("add_phrase")
+    data object PhraseDetail : Screen("phrase_detail/{phraseId}") {
+        fun createRoute(phraseId: Long) = "phrase_detail/$phraseId"
+    }
+    data object EditPhrase : Screen("edit_phrase/{phraseId}") {
+        fun createRoute(phraseId: Long) = "edit_phrase/$phraseId"
+    }
     data object Quiz : Screen("quiz")
     data object Settings : Screen("settings")
 }

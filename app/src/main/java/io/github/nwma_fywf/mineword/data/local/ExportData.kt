@@ -24,15 +24,23 @@ data class ExportWord(
     val audioUrl: String? = null,
     val tags: String = "",
     val synonyms: String = "",
-    val phraseCollocations: String = "",
     val personalNotes: String = "",
     val meanings: List<ExportMeaning> = emptyList(),
     val exampleSentences: List<ExportExampleSentence> = emptyList()
 )
 
 @Serializable
+data class ExportPhrase(
+    val phrase: String,
+    val meaning: String = "",
+    val tags: String = "",
+    val personalNotes: String = ""
+)
+
+@Serializable
 data class ExportData(
-    val version: Int = 1,
+    val version: Int = 2,
     val exportedAt: Long = System.currentTimeMillis(),
-    val words: List<ExportWord>
+    val words: List<ExportWord> = emptyList(),
+    val phrases: List<ExportPhrase> = emptyList()
 )

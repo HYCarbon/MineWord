@@ -21,6 +21,9 @@ fun NavGraph(
     addWordScreen: @Composable () -> Unit,
     wordDetailScreen: @Composable (Long) -> Unit,
     editWordScreen: @Composable (Long) -> Unit,
+    addPhraseScreen: @Composable () -> Unit,
+    phraseDetailScreen: @Composable (Long) -> Unit,
+    editPhraseScreen: @Composable (Long) -> Unit,
     quizScreen: @Composable () -> Unit,
     settingsScreen: @Composable () -> Unit,
 ) {
@@ -106,6 +109,23 @@ fun NavGraph(
         ) { backStackEntry ->
             val wordId = backStackEntry.arguments?.getLong("wordId") ?: return@composable
             editWordScreen(wordId)
+        }
+        composable(Screen.AddPhrase.route) {
+            addPhraseScreen()
+        }
+        composable(
+            route = Screen.PhraseDetail.route,
+            arguments = listOf(navArgument("phraseId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val phraseId = backStackEntry.arguments?.getLong("phraseId") ?: return@composable
+            phraseDetailScreen(phraseId)
+        }
+        composable(
+            route = Screen.EditPhrase.route,
+            arguments = listOf(navArgument("phraseId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val phraseId = backStackEntry.arguments?.getLong("phraseId") ?: return@composable
+            editPhraseScreen(phraseId)
         }
         composable(Screen.Quiz.route) {
             quizScreen()

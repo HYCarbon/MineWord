@@ -62,7 +62,6 @@ class EditWordViewModel(private val repository: WordRepository) : ViewModel() {
         exampleSentences: List<ExampleSentence>,
         tags: String,
         synonyms: String,
-        phraseCollocations: String,
         personalNotes: String,
         onComplete: () -> Unit
     ) {
@@ -73,7 +72,6 @@ class EditWordViewModel(private val repository: WordRepository) : ViewModel() {
                 phoneticUS = phoneticUS,
                 tags = tags,
                 synonyms = synonyms,
-                phraseCollocations = phraseCollocations,
                 personalNotes = personalNotes
             )
             repository.updateWord(updatedWord)

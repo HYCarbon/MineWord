@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import io.github.nwma_fywf.mineword.data.local.ExportData
+import io.github.nwma_fywf.mineword.data.local.ExportPhrase
 import io.github.nwma_fywf.mineword.data.local.ExportWord
 import io.github.nwma_fywf.mineword.data.repository.DuplicateStrategy
 import io.github.nwma_fywf.mineword.data.repository.ImportResult
@@ -26,6 +27,7 @@ import kotlinx.serialization.json.Json
 data class ImportDialogState(
     val isVisible: Boolean = false,
     val pendingWords: List<ExportWord> = emptyList(),
+    val pendingPhrases: List<ExportPhrase> = emptyList(),
     val duplicateWords: List<String> = emptyList()
 )
 
@@ -182,9 +184,16 @@ class SettingsViewModel(
                 context.contentResolver.openOutputStream(uri)?.use { outputStream ->
                     outputStream.write(jsonString.toByteArray())
                 }
+                val wordCount = exportData.words.size
+                val phraseCount = exportData.phrases.size
+                val message = buildString {
+                    if (wordCount > 0) append("导出 $wordCount 个单词")
+                    if (wordCount > 0 && phraseCount > 0) append("，")
+                    if (phraseCount > 0) append("导出 $phraseCount 个词组")
+                }
                 _exportResult.value = ExportResultState(
                     isSuccess = true,
-                    message = "成功导出 ${exportData.words.size} 个单词"
+                    message = if (message.isNotEmpty()) message else "没有数据可导出"
                 )
             } catch (e: Exception) {
                 _exportResult.value = ExportResultState(
@@ -203,6 +212,7 @@ class SettingsViewModel(
             try {
                 val json = Json { ignoreUnknownKeys = true }
                 val allWords = mutableListOf<ExportWord>()
+                val allPhrases = mutableListOf<ExportPhrase>()
                 var fileCount = 0
 
                 for (uri in uris) {
@@ -212,6 +222,7 @@ class SettingsViewModel(
                         try {
                             val exportData = json.decodeFromString<ExportData>(jsonString)
                             allWords.addAll(exportData.words)
+                            allPhrases.addAll(exportData.phrases)
                             fileCount++
                         } catch (e: Exception) {
                             // 忽略格式错误的文件
@@ -219,7 +230,7 @@ class SettingsViewModel(
                     }
                 }
 
-                if (allWords.isEmpty()) {
+                if (allWords.isEmpty() && allPhrases.isEmpty()) {
                     _importResultDialogState.value = ImportResultDialogState(
                         isVisible = true,
                         result = ImportResult(
@@ -246,13 +257,31 @@ class SettingsViewModel(
                     _importDialogState.value = ImportDialogState(
                         isVisible = true,
                         pendingWords = allWords,
+                        pendingPhrases = allPhrases,
                         duplicateWords = duplicateWords
                     )
                 } else {
-                    val result = repository.importWords(allWords, DuplicateStrategy.SKIP)
+                    val wordResult = if (allWords.isNotEmpty()) {
+                        repository.importWords(allWords, DuplicateStrategy.SKIP)
+                    } else {
+                        ImportResult(0, 0, 0, 0, 0, emptyList())
+                    }
+                    val phraseResult = if (allPhrases.isNotEmpty()) {
+                        repository.importPhrases(allPhrases, DuplicateStrategy.SKIP)
+                    } else {
+                        ImportResult(0, 0, 0, 0, 0, emptyList())
+                    }
+                    val combinedResult = ImportResult(
+                        totalCount = wordResult.totalCount + phraseResult.totalCount,
+                        successCount = wordResult.successCount + phraseResult.successCount,
+                        skipCount = wordResult.skipCount + phraseResult.skipCount,
+                        replacedCount = wordResult.replacedCount + phraseResult.replacedCount,
+                        mergedCount = wordResult.mergedCount + phraseResult.mergedCount,
+                        duplicateWords = wordResult.duplicateWords + phraseResult.duplicateWords
+                    )
                     _importResultDialogState.value = ImportResultDialogState(
                         isVisible = true,
-                        result = result
+                        result = combinedResult
                     )
                 }
             } catch (e: Exception) {
@@ -276,12 +305,30 @@ class SettingsViewModel(
     fun onDuplicateStrategySelected(strategy: DuplicateStrategy) {
         viewModelScope.launch {
             val pendingWords = _importDialogState.value.pendingWords
+            val pendingPhrases = _importDialogState.value.pendingPhrases
             _importDialogState.value = _importDialogState.value.copy(isVisible = false)
             
-            val result = repository.importWords(pendingWords, strategy)
+            val wordResult = if (pendingWords.isNotEmpty()) {
+                repository.importWords(pendingWords, strategy)
+            } else {
+                ImportResult(0, 0, 0, 0, 0, emptyList())
+            }
+            val phraseResult = if (pendingPhrases.isNotEmpty()) {
+                repository.importPhrases(pendingPhrases, strategy)
+            } else {
+                ImportResult(0, 0, 0, 0, 0, emptyList())
+            }
+            val combinedResult = ImportResult(
+                totalCount = wordResult.totalCount + phraseResult.totalCount,
+                successCount = wordResult.successCount + phraseResult.successCount,
+                skipCount = wordResult.skipCount + phraseResult.skipCount,
+                replacedCount = wordResult.replacedCount + phraseResult.replacedCount,
+                mergedCount = wordResult.mergedCount + phraseResult.mergedCount,
+                duplicateWords = wordResult.duplicateWords + phraseResult.duplicateWords
+            )
             _importResultDialogState.value = ImportResultDialogState(
                 isVisible = true,
-                result = result
+                result = combinedResult
             )
         }
     }

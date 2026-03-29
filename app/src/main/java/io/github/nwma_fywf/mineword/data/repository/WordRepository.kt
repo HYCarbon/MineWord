@@ -3,11 +3,14 @@ package io.github.nwma_fywf.mineword.data.repository
 import io.github.nwma_fywf.mineword.data.local.ExportData
 import io.github.nwma_fywf.mineword.data.local.ExportExampleSentence
 import io.github.nwma_fywf.mineword.data.local.ExportMeaning
+import io.github.nwma_fywf.mineword.data.local.ExportPhrase
 import io.github.nwma_fywf.mineword.data.local.ExportWord
 import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.ExampleSentenceDao
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.MeaningDao
+import io.github.nwma_fywf.mineword.data.local.Phrase
+import io.github.nwma_fywf.mineword.data.local.PhraseDao
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.data.local.WordDao
 import kotlinx.coroutines.flow.Flow
@@ -30,7 +33,8 @@ enum class DuplicateStrategy {
 class WordRepository(
     private val wordDao: WordDao,
     private val meaningDao: MeaningDao,
-    private val exampleSentenceDao: ExampleSentenceDao
+    private val exampleSentenceDao: ExampleSentenceDao,
+    private val phraseDao: PhraseDao
 ) {
     fun getAllWords(): Flow<List<Word>> = wordDao.getAllWords()
 
@@ -71,6 +75,22 @@ class WordRepository(
         }
     }
 
+    fun getAllPhrases(): Flow<List<Phrase>> = phraseDao.getAllPhrases()
+
+    suspend fun getPhraseById(id: Long): Phrase? = phraseDao.getPhraseById(id)
+
+    fun searchPhrases(query: String): Flow<List<Phrase>> = phraseDao.searchPhrases(query)
+
+    suspend fun insertPhrase(phrase: Phrase): Long = phraseDao.insertPhrase(phrase)
+
+    suspend fun updatePhrase(phrase: Phrase) = phraseDao.updatePhrase(phrase)
+
+    suspend fun deletePhrase(phrase: Phrase) = phraseDao.deletePhrase(phrase)
+
+    fun getAllPhraseTagsRaw(): Flow<List<String>> = phraseDao.getAllTagsRaw()
+
+    suspend fun getPhraseByPhrase(phrase: String): Phrase? = phraseDao.getPhraseByPhrase(phrase)
+
     suspend fun exportAllData(): ExportData {
         val words = wordDao.getAllWordsOnce()
         val exportWords = words.map { word ->
@@ -83,7 +103,6 @@ class WordRepository(
                 audioUrl = word.audioUrl,
                 tags = word.tags,
                 synonyms = word.synonyms,
-                phraseCollocations = word.phraseCollocations,
                 personalNotes = word.personalNotes,
                 meanings = meanings.map { m ->
                     ExportMeaning(
@@ -101,7 +120,16 @@ class WordRepository(
                 }
             )
         }
-        return ExportData(words = exportWords)
+        val phrases = phraseDao.getAllPhrasesOnce()
+        val exportPhrases = phrases.map { phrase ->
+            ExportPhrase(
+                phrase = phrase.phrase,
+                meaning = phrase.meaning,
+                tags = phrase.tags,
+                personalNotes = phrase.personalNotes
+            )
+        }
+        return ExportData(words = exportWords, phrases = exportPhrases)
     }
 
     suspend fun importWords(
@@ -131,7 +159,6 @@ class WordRepository(
                             audioUrl = exportWord.audioUrl,
                             tags = exportWord.tags,
                             synonyms = exportWord.synonyms,
-                            phraseCollocations = exportWord.phraseCollocations,
                             personalNotes = exportWord.personalNotes
                         )
                         wordDao.updateWord(newWord)
@@ -171,7 +198,6 @@ class WordRepository(
                         val newWord = existingWord.copy(
                             tags = updatedTags,
                             synonyms = if (exportWord.synonyms.isNotEmpty()) exportWord.synonyms else existingWord.synonyms,
-                            phraseCollocations = if (exportWord.phraseCollocations.isNotEmpty()) exportWord.phraseCollocations else existingWord.phraseCollocations,
                             personalNotes = if (exportWord.personalNotes.isNotEmpty()) exportWord.personalNotes else existingWord.personalNotes
                         )
                         wordDao.updateWord(newWord)
@@ -188,7 +214,6 @@ class WordRepository(
                     audioUrl = exportWord.audioUrl,
                     tags = exportWord.tags,
                     synonyms = exportWord.synonyms,
-                    phraseCollocations = exportWord.phraseCollocations,
                     personalNotes = exportWord.personalNotes
                 )
                 val wordId = wordDao.insertWord(newWord)
@@ -204,6 +229,74 @@ class WordRepository(
 
         return ImportResult(
             totalCount = exportWords.size,
+            successCount = successCount,
+            skipCount = skipCount,
+            replacedCount = replacedCount,
+            mergedCount = mergedCount,
+            duplicateWords = duplicateWords
+        )
+    }
+
+    suspend fun importPhrases(
+        exportPhrases: List<ExportPhrase>,
+        duplicateStrategy: DuplicateStrategy
+    ): ImportResult {
+        var successCount = 0
+        var skipCount = 0
+        var replacedCount = 0
+        var mergedCount = 0
+        val duplicateWords = mutableListOf<String>()
+
+        for (exportPhrase in exportPhrases) {
+            val existingPhrase = phraseDao.getPhraseByPhrase(exportPhrase.phrase)
+
+            if (existingPhrase != null) {
+                duplicateWords.add(exportPhrase.phrase)
+                when (duplicateStrategy) {
+                    DuplicateStrategy.SKIP -> {
+                        skipCount++
+                    }
+                    DuplicateStrategy.REPLACE -> {
+                        val newPhrase = existingPhrase.copy(
+                            meaning = exportPhrase.meaning,
+                            tags = exportPhrase.tags,
+                            personalNotes = exportPhrase.personalNotes
+                        )
+                        phraseDao.updatePhrase(newPhrase)
+                        replacedCount++
+                    }
+                    DuplicateStrategy.MERGE -> {
+                        val updatedTags = if (exportPhrase.tags.isNotEmpty()) {
+                            val existingTags = existingPhrase.tags.split(",").map { it.trim() }.filter { it.isNotEmpty() }.toMutableSet()
+                            exportPhrase.tags.split(",").map { it.trim() }.filter { it.isNotEmpty() }.forEach { existingTags.add(it) }
+                            existingTags.joinToString(",")
+                        } else {
+                            existingPhrase.tags
+                        }
+
+                        val newPhrase = existingPhrase.copy(
+                            meaning = if (exportPhrase.meaning.isNotEmpty()) exportPhrase.meaning else existingPhrase.meaning,
+                            tags = updatedTags,
+                            personalNotes = if (exportPhrase.personalNotes.isNotEmpty()) exportPhrase.personalNotes else existingPhrase.personalNotes
+                        )
+                        phraseDao.updatePhrase(newPhrase)
+                        mergedCount++
+                    }
+                }
+            } else {
+                val newPhrase = Phrase(
+                    phrase = exportPhrase.phrase,
+                    meaning = exportPhrase.meaning,
+                    tags = exportPhrase.tags,
+                    personalNotes = exportPhrase.personalNotes
+                )
+                phraseDao.insertPhrase(newPhrase)
+                successCount++
+            }
+        }
+
+        return ImportResult(
+            totalCount = exportPhrases.size,
             successCount = successCount,
             skipCount = skipCount,
             replacedCount = replacedCount,

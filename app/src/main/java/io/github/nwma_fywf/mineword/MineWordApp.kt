@@ -25,8 +25,12 @@ import io.github.nwma_fywf.mineword.ui.navigation.NavGraph
 import io.github.nwma_fywf.mineword.ui.navigation.Screen
 import io.github.nwma_fywf.mineword.ui.screen.addword.AddWordScreen
 import io.github.nwma_fywf.mineword.ui.screen.addword.AddWordViewModel
+import io.github.nwma_fywf.mineword.ui.screen.addphrase.AddPhraseScreen
+import io.github.nwma_fywf.mineword.ui.screen.addphrase.AddPhraseViewModel
 import io.github.nwma_fywf.mineword.ui.screen.editword.EditWordScreen
 import io.github.nwma_fywf.mineword.ui.screen.editword.EditWordViewModel
+import io.github.nwma_fywf.mineword.ui.screen.editphrase.EditPhraseScreen
+import io.github.nwma_fywf.mineword.ui.screen.editphrase.EditPhraseViewModel
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizScreen
 import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailScreen
 import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailViewModel
@@ -35,6 +39,9 @@ import io.github.nwma_fywf.mineword.ui.screen.settings.SettingsScreen
 import io.github.nwma_fywf.mineword.ui.screen.settings.SettingsViewModel
 import io.github.nwma_fywf.mineword.ui.screen.wordlist.WordListScreen
 import io.github.nwma_fywf.mineword.ui.screen.wordlist.WordListViewModel
+import io.github.nwma_fywf.mineword.ui.screen.phraselist.PhraseListViewModel
+import io.github.nwma_fywf.mineword.ui.screen.phrasedetail.PhraseDetailScreen
+import io.github.nwma_fywf.mineword.ui.screen.phrasedetail.PhraseDetailViewModel
 import io.github.nwma_fywf.mineword.ui.theme.MineWordTheme
 
 @Composable
@@ -62,7 +69,7 @@ fun MineWordApp() {
         val currentDestination = navBackStackEntry?.destination
 
         val bottomNavItems = listOf(
-            Triple(Screen.WordList, "单词列表", Icons.AutoMirrored.Outlined.List),
+            Triple(Screen.WordList, "词汇", Icons.AutoMirrored.Outlined.List),
             Triple(Screen.Quiz, "测验", Icons.Filled.Star),
             Triple(Screen.Settings, "设置", Icons.Outlined.Settings),
         )
@@ -98,13 +105,25 @@ fun MineWordApp() {
                             (navController.context.applicationContext as MineWordApplication).repository
                         )
                     )
+                    val phraseListViewModel: PhraseListViewModel = viewModel(
+                        factory = PhraseListViewModel.provideFactory(
+                            (navController.context.applicationContext as MineWordApplication).repository
+                        )
+                    )
                     WordListScreen(
                         viewModel = viewModel,
+                        phraseListViewModel = phraseListViewModel,
                         onNavigateToAddWord = {
                             navController.navigate(Screen.AddWord.route)
                         },
                         onNavigateToWordDetail = { wordId ->
                             navController.navigate(Screen.WordDetail.createRoute(wordId))
+                        },
+                        onNavigateToAddPhrase = {
+                            navController.navigate(Screen.AddPhrase.route)
+                        },
+                        onNavigateToPhraseDetail = { phraseId ->
+                            navController.navigate(Screen.PhraseDetail.createRoute(phraseId))
                         },
                     )
                 },
@@ -143,6 +162,44 @@ fun MineWordApp() {
                     EditWordScreen(
                         viewModel = viewModel,
                         wordId = wordId,
+                        onNavigateBack = { navController.popBackStack() },
+                    )
+                },
+                addPhraseScreen = {
+                    val viewModel: AddPhraseViewModel = viewModel(
+                        factory = AddPhraseViewModel.provideFactory(
+                            (navController.context.applicationContext as MineWordApplication).repository
+                        )
+                    )
+                    AddPhraseScreen(
+                        viewModel = viewModel,
+                        onNavigateBack = { navController.popBackStack() },
+                    )
+                },
+                phraseDetailScreen = { phraseId ->
+                    val viewModel: PhraseDetailViewModel = viewModel(
+                        factory = PhraseDetailViewModel.provideFactory(
+                            (navController.context.applicationContext as MineWordApplication).repository
+                        )
+                    )
+                    PhraseDetailScreen(
+                        viewModel = viewModel,
+                        phraseId = phraseId,
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToEdit = { id ->
+                            navController.navigate(Screen.EditPhrase.createRoute(id))
+                        },
+                    )
+                },
+                editPhraseScreen = { phraseId ->
+                    val viewModel: EditPhraseViewModel = viewModel(
+                        factory = EditPhraseViewModel.provideFactory(
+                            (navController.context.applicationContext as MineWordApplication).repository
+                        )
+                    )
+                    EditPhraseScreen(
+                        viewModel = viewModel,
+                        phraseId = phraseId,
                         onNavigateBack = { navController.popBackStack() },
                     )
                 },

@@ -1,11 +1,9 @@
-package io.github.nwma_fywf.mineword.ui.screen.addword
+package io.github.nwma_fywf.mineword.ui.screen.addphrase
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import io.github.nwma_fywf.mineword.data.local.ExampleSentence
-import io.github.nwma_fywf.mineword.data.local.Meaning
-import io.github.nwma_fywf.mineword.data.local.Word
+import io.github.nwma_fywf.mineword.data.local.Phrase
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -14,9 +12,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
+class AddPhraseViewModel(private val repository: WordRepository) : ViewModel() {
 
-    val existingTags: StateFlow<List<String>> = repository.getAllTagsRaw()
+    val existingTags: StateFlow<List<String>> = repository.getAllPhraseTagsRaw()
         .map { rawList ->
             rawList
                 .flatMap { it.split(",") }
@@ -27,36 +25,26 @@ class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    suspend fun checkDuplicate(word: String): Boolean {
-        return repository.getWordByWord(word) != null
+    suspend fun checkDuplicate(phrase: String): Boolean {
+        return repository.getPhraseByPhrase(phrase) != null
     }
 
-    fun insertWord(
-        word: String,
-        phoneticUK: String? = null,
-        phoneticUS: String? = null,
-        meanings: List<Meaning>,
-        exampleSentences: List<ExampleSentence> = emptyList(),
+    fun insertPhrase(
+        phrase: String,
+        meaning: String = "",
         tags: String = "",
-        synonyms: String = "",
         personalNotes: String = "",
         onComplete: () -> Unit
     ) {
         viewModelScope.launch {
-            val id = repository.insertWord(
-                Word(
-                    word = word,
-                    phoneticUK = phoneticUK,
-                    phoneticUS = phoneticUS,
+            repository.insertPhrase(
+                Phrase(
+                    phrase = phrase,
+                    meaning = meaning,
                     tags = tags,
-                    synonyms = synonyms,
-                    personalNotes = personalNotes,
+                    personalNotes = personalNotes
                 )
             )
-            repository.saveMeanings(id, meanings)
-            if (exampleSentences.isNotEmpty()) {
-                repository.saveExampleSentences(id, exampleSentences)
-            }
             onComplete()
         }
     }
@@ -66,7 +54,7 @@ class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
             return object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return AddWordViewModel(repository) as T
+                    return AddPhraseViewModel(repository) as T
                 }
             }
         }
