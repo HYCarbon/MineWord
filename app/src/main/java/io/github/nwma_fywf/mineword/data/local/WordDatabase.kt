@@ -6,12 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 
-@Database(entities = [Word::class, Meaning::class, ExampleSentence::class, Phrase::class], version = 6, exportSchema = false)
+@Database(entities = [Word::class, Meaning::class, ExampleSentence::class, Phrase::class, WrongAnswer::class], version = 7, exportSchema = false)
 abstract class WordDatabase : RoomDatabase() {
     abstract fun wordDao(): WordDao
     abstract fun meaningDao(): MeaningDao
     abstract fun exampleSentenceDao(): ExampleSentenceDao
     abstract fun phraseDao(): PhraseDao
+    abstract fun wrongAnswerDao(): WrongAnswerDao
 
     companion object {
         @Volatile
@@ -32,13 +33,20 @@ abstract class WordDatabase : RoomDatabase() {
             }
         }
 
+        private val MIGRATION_6_7 = object : Migration(6, 7) {
+            override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
+                db.execSQL("CREATE TABLE IF NOT EXISTS wrong_answers (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `wordId` INTEGER NOT NULL, `quizMode` TEXT NOT NULL, `userAnswer` TEXT NOT NULL, `correctAnswer` TEXT NOT NULL, `timestamp` INTEGER NOT NULL DEFAULT 0)")
+                db.execSQL("CREATE INDEX IF NOT EXISTS `index_wrong_answers_wordId` ON `wrong_answers` (`wordId`)")
+            }
+        }
+
         fun getDatabase(context: Context): WordDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     WordDatabase::class.java,
                     "mineword_database"
-                ).addMigrations(MIGRATION_4_5, MIGRATION_5_6).build()
+                ).addMigrations(MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7).build()
                 INSTANCE = instance
                 instance
             }

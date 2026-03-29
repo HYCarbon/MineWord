@@ -43,6 +43,8 @@ import io.github.nwma_fywf.mineword.ui.screen.wordlist.WordListViewModel
 import io.github.nwma_fywf.mineword.ui.screen.phraselist.PhraseListViewModel
 import io.github.nwma_fywf.mineword.ui.screen.phrasedetail.PhraseDetailScreen
 import io.github.nwma_fywf.mineword.ui.screen.phrasedetail.PhraseDetailViewModel
+import io.github.nwma_fywf.mineword.ui.screen.wronganswer.WrongAnswerScreen
+import io.github.nwma_fywf.mineword.ui.screen.wronganswer.WrongAnswerViewModel
 import io.github.nwma_fywf.mineword.ui.theme.MineWordTheme
 
 @Composable
@@ -208,6 +210,9 @@ fun MineWordApp() {
                     QuizHomeScreen(
                         onSelectMode = { mode ->
                             navController.navigate(Screen.QuizPlay.createRoute(mode.name))
+                        },
+                        onNavigateToWrongAnswer = {
+                            navController.navigate(Screen.WrongAnswer.route)
                         }
                     )
                 },
@@ -224,6 +229,17 @@ fun MineWordApp() {
                     }
                     viewModel.setModeAndStart(mode)
                     QuizScreen(
+                        viewModel = viewModel,
+                        onNavigateBack = { navController.popBackStack() }
+                    )
+                },
+                wrongAnswerScreen = {
+                    val viewModel: WrongAnswerViewModel = viewModel(
+                        factory = WrongAnswerViewModel.provideFactory(
+                            (navController.context.applicationContext as MineWordApplication).repository
+                        )
+                    )
+                    WrongAnswerScreen(
                         viewModel = viewModel,
                         onNavigateBack = { navController.popBackStack() }
                     )

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
+import io.github.nwma_fywf.mineword.data.local.WrongAnswer
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -202,6 +203,12 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         if (isCorrect) {
             selectRandomWord()
         } else {
+            val correctAnswer = when (_quizMode.value) {
+                QuizMode.EN_TO_CN -> existingMeanings.firstOrNull()?.definition ?: ""
+                QuizMode.CN_TO_EN -> word.word
+                else -> ""
+            }
+            recordWrongAnswer(word.id, userInput, correctAnswer)
             when (_quizMode.value) {
                 QuizMode.EN_TO_CN -> {
                     _quizState.value = QuizState.UserJudgment(
@@ -218,6 +225,18 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                 }
                 else -> {}
             }
+        }
+    }
+
+    private fun recordWrongAnswer(wordId: Long, userAnswer: String, correctAnswer: String) {
+        viewModelScope.launch {
+            val wrongAnswer = WrongAnswer(
+                wordId = wordId,
+                quizMode = _quizMode.value.name,
+                userAnswer = userAnswer,
+                correctAnswer = correctAnswer
+            )
+            repository.insertWrongAnswer(wrongAnswer)
         }
     }
 
@@ -261,6 +280,14 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
     fun selectChoiceOption(option: ChoiceOption) {
         val state = _quizState.value
         if (state is QuizViewModel.QuizState.WaitingChoice && state.isCorrectAnswered == null) {
+            if (!option.isCorrect) {
+                val correctAnswer = when (_quizMode.value) {
+                    QuizMode.CHOICE_EN_TO_CN -> _currentMeanings.value.firstOrNull()?.definition ?: ""
+                    QuizMode.CHOICE_CN_TO_EN -> _currentWord.value?.word ?: ""
+                    else -> ""
+                }
+                recordWrongAnswer(_currentWord.value?.id ?: 0, option.text, correctAnswer)
+            }
             _quizState.value = state.copy(isCorrectAnswered = option.isCorrect)
         }
     }

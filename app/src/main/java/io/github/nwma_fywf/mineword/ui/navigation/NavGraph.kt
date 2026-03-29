@@ -26,6 +26,7 @@ fun NavGraph(
     editPhraseScreen: @Composable (Long) -> Unit,
     quizModeScreen: @Composable () -> Unit,
     quizPlayScreen: @Composable (String) -> Unit,
+    wrongAnswerScreen: @Composable () -> Unit,
     settingsScreen: @Composable () -> Unit,
 ) {
     val animationDuration = 200
@@ -137,6 +138,9 @@ fun NavGraph(
         ) { backStackEntry ->
             val mode = backStackEntry.arguments?.getString("mode") ?: return@composable
             quizPlayScreen(mode)
+        }
+        composable(Screen.WrongAnswer.route) {
+            wrongAnswerScreen()
         }
         composable(Screen.Settings.route) {
             settingsScreen()

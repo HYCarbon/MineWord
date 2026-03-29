@@ -13,6 +13,8 @@ import io.github.nwma_fywf.mineword.data.local.Phrase
 import io.github.nwma_fywf.mineword.data.local.PhraseDao
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.data.local.WordDao
+import io.github.nwma_fywf.mineword.data.local.WrongAnswer
+import io.github.nwma_fywf.mineword.data.local.WrongAnswerDao
 import kotlinx.coroutines.flow.Flow
 
 data class ImportResult(
@@ -34,7 +36,8 @@ class WordRepository(
     private val wordDao: WordDao,
     private val meaningDao: MeaningDao,
     private val exampleSentenceDao: ExampleSentenceDao,
-    private val phraseDao: PhraseDao
+    private val phraseDao: PhraseDao,
+    private val wrongAnswerDao: WrongAnswerDao
 ) {
     fun getAllWords(): Flow<List<Word>> = wordDao.getAllWords()
 
@@ -304,4 +307,23 @@ class WordRepository(
             duplicateWords = duplicateWords
         )
     }
+
+    fun getAllWrongAnswers(): Flow<List<WrongAnswer>> = wrongAnswerDao.getAllWrongAnswers()
+
+    fun getWrongAnswersByWordId(wordId: Long): Flow<List<WrongAnswer>> =
+        wrongAnswerDao.getWrongAnswersByWordId(wordId)
+
+    suspend fun insertWrongAnswer(wrongAnswer: WrongAnswer): Long =
+        wrongAnswerDao.insertWrongAnswer(wrongAnswer)
+
+    suspend fun deleteWrongAnswerById(id: Long) =
+        wrongAnswerDao.deleteWrongAnswerById(id)
+
+    suspend fun deleteWrongAnswersByWordId(wordId: Long) =
+        wrongAnswerDao.deleteWrongAnswersByWordId(wordId)
+
+    suspend fun clearAllWrongAnswers() =
+        wrongAnswerDao.clearAllWrongAnswers()
+
+    fun getWrongAnswerCount(): Flow<Int> = wrongAnswerDao.getWrongAnswerCount()
 }
