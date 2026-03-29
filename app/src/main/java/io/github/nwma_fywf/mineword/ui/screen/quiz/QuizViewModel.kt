@@ -252,22 +252,10 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         selectRandomWord()
     }
 
-    fun switchQuizMode() {
-        _quizMode.value = when (_quizMode.value) {
-            QuizMode.EN_TO_CN -> QuizMode.CN_TO_EN
-            QuizMode.CN_TO_EN -> QuizMode.CHOICE_EN_TO_CN
-            QuizMode.CHOICE_EN_TO_CN -> QuizMode.CHOICE_CN_TO_EN
-            QuizMode.CHOICE_CN_TO_EN -> QuizMode.EN_TO_CN
-        }
+    fun setModeAndStart(mode: QuizMode) {
+        _quizMode.value = mode
         _userInput.value = ""
-        when (_quizMode.value) {
-            QuizMode.CHOICE_EN_TO_CN, QuizMode.CHOICE_CN_TO_EN -> {
-                selectRandomWord()
-            }
-            else -> {
-                _quizState.value = QuizState.WaitingInput
-            }
-        }
+        selectRandomWord()
     }
 
     fun selectChoiceOption(option: ChoiceOption) {

@@ -31,6 +31,7 @@ import io.github.nwma_fywf.mineword.ui.screen.editword.EditWordScreen
 import io.github.nwma_fywf.mineword.ui.screen.editword.EditWordViewModel
 import io.github.nwma_fywf.mineword.ui.screen.editphrase.EditPhraseScreen
 import io.github.nwma_fywf.mineword.ui.screen.editphrase.EditPhraseViewModel
+import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizHomeScreen
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizScreen
 import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailScreen
 import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailViewModel
@@ -70,7 +71,7 @@ fun MineWordApp() {
 
         val bottomNavItems = listOf(
             Triple(Screen.WordList, "词汇", Icons.AutoMirrored.Outlined.List),
-            Triple(Screen.Quiz, "测验", Icons.Filled.Star),
+            Triple(Screen.QuizMode, "测验", Icons.Filled.Star),
             Triple(Screen.Settings, "设置", Icons.Outlined.Settings),
         )
 
@@ -203,14 +204,28 @@ fun MineWordApp() {
                         onNavigateBack = { navController.popBackStack() },
                     )
                 },
-                quizScreen = {
+                quizModeScreen = {
+                    QuizHomeScreen(
+                        onSelectMode = { mode ->
+                            navController.navigate(Screen.QuizPlay.createRoute(mode.name))
+                        }
+                    )
+                },
+                quizPlayScreen = { modeString ->
                     val viewModel: QuizViewModel = viewModel(
                         factory = QuizViewModel.provideFactory(
                             (navController.context.applicationContext as MineWordApplication).repository
                         )
                     )
+                    val mode = try {
+                        QuizViewModel.QuizMode.valueOf(modeString)
+                    } catch (e: Exception) {
+                        QuizViewModel.QuizMode.EN_TO_CN
+                    }
+                    viewModel.setModeAndStart(mode)
                     QuizScreen(
                         viewModel = viewModel,
+                        onNavigateBack = { navController.popBackStack() }
                     )
                 },
                 settingsScreen = {

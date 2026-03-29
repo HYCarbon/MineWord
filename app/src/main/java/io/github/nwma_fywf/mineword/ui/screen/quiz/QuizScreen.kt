@@ -2,13 +2,11 @@ package io.github.nwma_fywf.mineword.ui.screen.quiz
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -17,6 +15,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -33,6 +35,7 @@ import io.github.nwma_fywf.mineword.data.local.Word
 @Composable
 fun QuizScreen(
     viewModel: QuizViewModel,
+    onNavigateBack: () -> Unit,
 ) {
     val currentWord by viewModel.currentWord.collectAsState()
     val currentMeanings by viewModel.currentMeanings.collectAsState()
@@ -43,19 +46,21 @@ fun QuizScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("测验") },
-                actions = {
-                    OutlinedButton(
-                        onClick = viewModel::switchQuizMode,
-                        modifier = Modifier.padding(end = 8.dp)
-                    ) {
-                        Text(
-                            when (quizMode) {
-                                QuizViewModel.QuizMode.EN_TO_CN -> "汉译英"
-                                QuizViewModel.QuizMode.CN_TO_EN -> "英译汉"
-                                QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> "选择中文"
-                                QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> "选择英文"
-                            }
+                title = {
+                    Text(
+                        when (quizMode) {
+                            QuizViewModel.QuizMode.EN_TO_CN -> "英译汉"
+                            QuizViewModel.QuizMode.CN_TO_EN -> "汉译英"
+                            QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> "选择中文"
+                            QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> "选择英文"
+                        }
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "返回"
                         )
                     }
                 }
@@ -268,11 +273,7 @@ private fun IncorrectContent(
         style = MaterialTheme.typography.bodyLarge,
     )
     Text(
-        text = when (mode) {
-            QuizViewModel.QuizMode.EN_TO_CN -> word.word
-            QuizViewModel.QuizMode.CN_TO_EN -> word.word
-            else -> word.word
-        },
+        text = word.word,
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.primary,
     )
@@ -305,7 +306,6 @@ private fun ChoiceQuizContent(
     Spacer(modifier = Modifier.height(32.dp))
 
     state.options.forEach { option ->
-        val isSelected = state.isCorrectAnswered != null
         val buttonColors = when {
             state.isCorrectAnswered == null -> ButtonDefaults.outlinedButtonColors()
             option.isCorrect -> ButtonDefaults.buttonColors(
