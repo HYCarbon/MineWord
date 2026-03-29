@@ -2,14 +2,17 @@ package io.github.nwma_fywf.mineword.ui.screen.quiz
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -50,6 +53,8 @@ fun QuizScreen(
                             when (quizMode) {
                                 QuizViewModel.QuizMode.EN_TO_CN -> "汉译英"
                                 QuizViewModel.QuizMode.CN_TO_EN -> "英译汉"
+                                QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> "选择中文"
+                                QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> "选择英文"
                             }
                         )
                     }
@@ -94,6 +99,15 @@ fun QuizScreen(
                         existingMeanings = state.existingMeanings,
                         onCorrect = viewModel::userJudgmentCorrect,
                         onIncorrect = viewModel::userJudgmentIncorrect,
+                    )
+                }
+                is QuizViewModel.QuizState.WaitingChoice -> {
+                    ChoiceQuizContent(
+                        state = state,
+                        mode = quizMode,
+                        meanings = currentMeanings,
+                        onSelectOption = viewModel::selectChoiceOption,
+                        onNext = viewModel::nextChoiceWord,
                     )
                 }
                 is QuizViewModel.QuizState.Incorrect -> {
@@ -144,6 +158,13 @@ private fun WordQuizContent(
                 )
             }
         }
+        else -> {
+            Text(
+                text = "选择题模式",
+                style = MaterialTheme.typography.headlineLarge,
+                textAlign = TextAlign.Center,
+            )
+        }
     }
     Spacer(modifier = Modifier.height(32.dp))
     OutlinedTextField(
@@ -154,6 +175,7 @@ private fun WordQuizContent(
                 when (mode) {
                     QuizViewModel.QuizMode.EN_TO_CN -> "输入词义"
                     QuizViewModel.QuizMode.CN_TO_EN -> "输入单词"
+                    else -> "输入答案"
                 }
             )
         },
@@ -249,6 +271,7 @@ private fun IncorrectContent(
         text = when (mode) {
             QuizViewModel.QuizMode.EN_TO_CN -> word.word
             QuizViewModel.QuizMode.CN_TO_EN -> word.word
+            else -> word.word
         },
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.primary,
@@ -259,5 +282,70 @@ private fun IncorrectContent(
         modifier = Modifier.fillMaxWidth(),
     ) {
         Text("下一个单词")
+    }
+}
+
+@Composable
+private fun ChoiceQuizContent(
+    state: QuizViewModel.QuizState.WaitingChoice,
+    mode: QuizViewModel.QuizMode,
+    meanings: List<io.github.nwma_fywf.mineword.data.local.Meaning>,
+    onSelectOption: (QuizViewModel.ChoiceOption) -> Unit,
+    onNext: () -> Unit,
+) {
+    Text(
+        text = when (mode) {
+            QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> state.word.word
+            QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> meanings.firstOrNull()?.definition ?: ""
+            else -> ""
+        },
+        style = MaterialTheme.typography.headlineLarge,
+        textAlign = TextAlign.Center,
+    )
+    Spacer(modifier = Modifier.height(32.dp))
+
+    state.options.forEach { option ->
+        val isSelected = state.isCorrectAnswered != null
+        val buttonColors = when {
+            state.isCorrectAnswered == null -> ButtonDefaults.outlinedButtonColors()
+            option.isCorrect -> ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            )
+            else -> ButtonDefaults.outlinedButtonColors(
+                containerColor = MaterialTheme.colorScheme.errorContainer,
+                contentColor = MaterialTheme.colorScheme.onErrorContainer
+            )
+        }
+
+        OutlinedButton(
+            onClick = { onSelectOption(option) },
+            enabled = state.isCorrectAnswered == null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 4.dp),
+            colors = buttonColors,
+        ) {
+            Text(
+                text = option.text,
+                style = MaterialTheme.typography.bodyLarge,
+            )
+        }
+    }
+
+    if (state.isCorrectAnswered != null) {
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = if (state.isCorrectAnswered) "回答正确！" else "回答错误！",
+            style = MaterialTheme.typography.titleMedium,
+            color = if (state.isCorrectAnswered) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
+        )
+        Spacer(modifier = Modifier.height(24.dp))
+        Button(
+            onClick = onNext,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text("下一个单词")
+        }
     }
 }

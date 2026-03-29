@@ -14,8 +14,16 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
 
     enum class QuizMode {
         EN_TO_CN,
-        CN_TO_EN
+        CN_TO_EN,
+        CHOICE_EN_TO_CN,
+        CHOICE_CN_TO_EN
     }
+
+    data class ChoiceOption(
+        val id: Int,
+        val text: String,
+        val isCorrect: Boolean
+    )
 
     private val _quizMode = MutableStateFlow(QuizMode.EN_TO_CN)
     val quizMode: StateFlow<QuizMode> = _quizMode
@@ -32,6 +40,9 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
     private val _userInput = MutableStateFlow("")
     val userInput: StateFlow<String> = _userInput
 
+    private val _allMeaningsMap = MutableStateFlow<Map<Long, List<Meaning>>>(emptyMap())
+    private val allMeaningsMap: Map<Long, List<Meaning>> get() = _allMeaningsMap.value
+
     private val _quizState = MutableStateFlow<QuizState>(QuizState.Idle)
     val quizState: StateFlow<QuizState> = _quizState
 
@@ -46,12 +57,26 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         ) : QuizState()
         data object Correct : QuizState()
         data class Incorrect(val correctMeanings: List<Meaning>, val userInput: String) : QuizState()
+        data class WaitingChoice(
+            val word: Word,
+            val options: List<ChoiceOption>,
+            val isCorrectAnswered: Boolean? = null
+        ) : QuizState()
     }
 
     init {
         viewModelScope.launch {
             repository.getAllWords().collect { words ->
                 _allWords.value = words
+                val meaningsMap = mutableMapOf<Long, List<Meaning>>()
+                words.forEach { word ->
+                    viewModelScope.launch {
+                        repository.getMeaningsByWordId(word.id).collect { meanings ->
+                            meaningsMap[word.id] = meanings
+                            _allMeaningsMap.value = meaningsMap.toMap()
+                        }
+                    }
+                }
                 if (words.isNotEmpty() && _currentWord.value == null) {
                     selectRandomWord()
                 }
@@ -69,14 +94,89 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         val randomWord = words.random()
         _currentWord.value = randomWord
         _userInput.value = ""
-        _quizState.value = QuizState.WaitingInput
         loadMeanings(randomWord.id)
+
+        when (_quizMode.value) {
+            QuizMode.CHOICE_EN_TO_CN, QuizMode.CHOICE_CN_TO_EN -> {
+            }
+            else -> {
+                _quizState.value = QuizState.WaitingInput
+            }
+        }
+    }
+
+    fun onMeaningsLoaded(meanings: List<Meaning>) {
+        _currentMeanings.value = meanings
+        if (_quizMode.value == QuizMode.CHOICE_EN_TO_CN || _quizMode.value == QuizMode.CHOICE_CN_TO_EN) {
+            generateChoiceOptions()
+        }
+    }
+
+    private fun generateChoiceOptions() {
+        val word = _currentWord.value ?: return
+        val allWords = _allWords.value
+        if (allWords.size < 4) {
+            _quizState.value = QuizState.WaitingInput
+            return
+        }
+
+        val correctMeaning = _currentMeanings.value.firstOrNull()?.definition
+
+        val options = mutableListOf<ChoiceOption>()
+        val usedTexts = mutableSetOf<String>()
+
+        when (_quizMode.value) {
+            QuizMode.CHOICE_EN_TO_CN -> {
+                if (correctMeaning == null) {
+                    _quizState.value = QuizState.WaitingInput
+                    return
+                }
+                options.add(ChoiceOption(id = 0, text = correctMeaning, isCorrect = true))
+                usedTexts.add(correctMeaning)
+
+                val otherMeanings = allWords
+                    .filter { it.id != word.id }
+                    .mapNotNull { w ->
+                        _allMeaningsMap.value[w.id]
+                    }
+                    .flatten()
+                    .map { it: Meaning -> it.definition }
+                    .filter { it !in usedTexts }
+                    .distinct()
+                    .shuffled()
+                    .take(3)
+
+                otherMeanings.forEachIndexed { index, meaning ->
+                    options.add(ChoiceOption(id = index + 1, text = meaning, isCorrect = false))
+                    usedTexts.add(meaning)
+                }
+            }
+            QuizMode.CHOICE_CN_TO_EN -> {
+                options.add(ChoiceOption(id = 0, text = word.word, isCorrect = true))
+                usedTexts.add(word.word)
+
+                val otherWords = allWords
+                    .filter { it.id != word.id }
+                    .map { it.word }
+                    .filter { it !in usedTexts }
+                    .shuffled()
+                    .take(3)
+
+                otherWords.forEachIndexed { index, w ->
+                    options.add(ChoiceOption(id = index + 1, text = w, isCorrect = false))
+                    usedTexts.add(w)
+                }
+            }
+            else -> return
+        }
+
+        _quizState.value = QuizState.WaitingChoice(word = word, options = options.shuffled())
     }
 
     private fun loadMeanings(wordId: Long) {
         viewModelScope.launch {
             repository.getMeaningsByWordId(wordId).collect { meanings ->
-                _currentMeanings.value = meanings
+                onMeaningsLoaded(meanings)
             }
         }
     }
@@ -96,6 +196,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                 meaning.definition.equals(userInput, ignoreCase = true)
             }
             QuizMode.CN_TO_EN -> word.word.equals(userInput, ignoreCase = true)
+            else -> false
         }
 
         if (isCorrect) {
@@ -115,6 +216,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                         userInput = userInput
                     )
                 }
+                else -> {}
             }
         }
     }
@@ -153,10 +255,30 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
     fun switchQuizMode() {
         _quizMode.value = when (_quizMode.value) {
             QuizMode.EN_TO_CN -> QuizMode.CN_TO_EN
-            QuizMode.CN_TO_EN -> QuizMode.EN_TO_CN
+            QuizMode.CN_TO_EN -> QuizMode.CHOICE_EN_TO_CN
+            QuizMode.CHOICE_EN_TO_CN -> QuizMode.CHOICE_CN_TO_EN
+            QuizMode.CHOICE_CN_TO_EN -> QuizMode.EN_TO_CN
         }
         _userInput.value = ""
-        _quizState.value = QuizState.WaitingInput
+        when (_quizMode.value) {
+            QuizMode.CHOICE_EN_TO_CN, QuizMode.CHOICE_CN_TO_EN -> {
+                selectRandomWord()
+            }
+            else -> {
+                _quizState.value = QuizState.WaitingInput
+            }
+        }
+    }
+
+    fun selectChoiceOption(option: ChoiceOption) {
+        val state = _quizState.value
+        if (state is QuizViewModel.QuizState.WaitingChoice && state.isCorrectAnswered == null) {
+            _quizState.value = state.copy(isCorrectAnswered = option.isCorrect)
+        }
+    }
+
+    fun nextChoiceWord() {
+        selectRandomWord()
     }
 
     companion object {
