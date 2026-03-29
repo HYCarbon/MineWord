@@ -104,19 +104,7 @@ fun WordListScreen(
         (wordItems + phraseItems).sortedByDescending { it.createdAt }
     }
 
-    val filteredItems = remember(allItems, searchQuery) {
-        if (searchQuery.isBlank()) {
-            allItems
-        } else {
-            allItems.filter { item ->
-                when (item) {
-                    is VocabularyItem.WordItem -> item.word.word.contains(searchQuery, ignoreCase = true)
-                    is VocabularyItem.PhraseItem -> item.phrase.phrase.contains(searchQuery, ignoreCase = true) ||
-                            item.phrase.meaning.contains(searchQuery, ignoreCase = true)
-                }
-            }
-        }
-    }
+    val filteredItems = allItems
 
     Scaffold(
         topBar = {
@@ -161,13 +149,19 @@ fun WordListScreen(
             item {
                 OutlinedTextField(
                     value = searchQuery,
-                    onValueChange = { viewModel.onSearchQueryChanged(it) },
+                    onValueChange = {
+                        viewModel.onSearchQueryChanged(it)
+                        phraseListViewModel.onSearchQueryChanged(it)
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = { Text("搜索单词或词组...") },
                     leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "搜索") },
                     trailingIcon = {
                         if (searchQuery.isNotEmpty()) {
-                            IconButton(onClick = { viewModel.clearSearch() }) {
+                            IconButton(onClick = {
+                                viewModel.clearSearch()
+                                phraseListViewModel.clearSearch()
+                            }) {
                                 Icon(Icons.Filled.Close, contentDescription = "清除搜索")
                             }
                         }
