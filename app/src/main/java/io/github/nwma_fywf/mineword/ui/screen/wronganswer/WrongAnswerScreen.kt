@@ -176,10 +176,39 @@ private fun WrongAnswerCard(
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = "测验模式: ${wrongAnswer.quizMode}",
+                text = "测验模式: ${formatQuizMode(wrongAnswer.quizMode)}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            val timeText = try {
+                val timestamp = wrongAnswer.timestamp
+                if (timestamp > 0) {
+                    val date = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm", java.util.Locale.getDefault())
+                    date.format(java.util.Date(timestamp))
+                } else ""
+            } catch (e: Exception) { "" }
+
+            if (timeText.isNotEmpty()) {
+                Text(
+                    text = "错误时间: $timeText",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
+    }
+}
+
+private fun formatQuizMode(mode: String): String {
+    return when (mode) {
+        "EN_TO_CN" -> "英译汉"
+        "CN_TO_EN" -> "汉译英"
+        "CHOICE_EN_TO_CN" -> "选择中文"
+        "CHOICE_CN_TO_EN" -> "选择英文"
+        "REVIEW" -> "复习"
+        else -> mode
     }
 }
