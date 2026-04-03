@@ -69,13 +69,11 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
             val mode: QuizMode,
             val message: String
         ) : QuizState()
-        data object ExactMatch : QuizState()
         data class UserJudgment(
             val word: Word,
             val userInput: String,
             val existingMeanings: List<Meaning>
         ) : QuizState()
-        data object Correct : QuizState()
         data class Incorrect(val correctMeanings: List<Meaning>, val userInput: String) : QuizState()
         data class WaitingChoice(
             val word: Word,
@@ -319,7 +317,11 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
     fun setModeAndStart(mode: QuizMode) {
         _quizMode.value = mode
         _userInput.value = ""
-        selectRandomWord()
+        if (mode == QuizMode.REVIEW) {
+            loadReviewWords()
+        } else {
+            selectRandomWord()
+        }
     }
 
     fun selectChoiceOption(option: ChoiceOption) {

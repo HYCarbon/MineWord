@@ -117,8 +117,6 @@ fun QuizScreen(
                         color = MaterialTheme.colorScheme.error,
                     )
                 }
-                is QuizViewModel.QuizState.ExactMatch -> {}
-                is QuizViewModel.QuizState.Correct -> {}
                 is QuizViewModel.QuizState.UserJudgment -> {
                     UserJudgmentContent(
                         word = state.word,
