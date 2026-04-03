@@ -96,6 +96,22 @@ fun QuizScreen(
                         )
                     }
                 }
+                is QuizViewModel.QuizState.WaitingInputDegraded -> {
+                    WordQuizContent(
+                        word = state.word,
+                        meanings = currentMeanings,
+                        mode = state.mode,
+                        userInput = userInput,
+                        onUserInputChanged = viewModel::onUserInputChanged,
+                        onSubmit = viewModel::submitAnswer,
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = state.message,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                }
                 is QuizViewModel.QuizState.ExactMatch -> {}
                 is QuizViewModel.QuizState.Correct -> {}
                 is QuizViewModel.QuizState.UserJudgment -> {

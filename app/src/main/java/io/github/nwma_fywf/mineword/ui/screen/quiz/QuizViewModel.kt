@@ -55,6 +55,11 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
     sealed class QuizState {
         data object Idle : QuizState()
         data object WaitingInput : QuizState()
+        data class WaitingInputDegraded(
+            val word: Word,
+            val mode: QuizMode,
+            val message: String
+        ) : QuizState()
         data object ExactMatch : QuizState()
         data class UserJudgment(
             val word: Word,
@@ -124,7 +129,11 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         val word = _currentWord.value ?: return
         val allWords = _allWords.value
         if (allWords.size < 4) {
-            _quizState.value = QuizState.WaitingInput
+            _quizState.value = QuizState.WaitingInputDegraded(
+                word = word,
+                mode = _quizMode.value,
+                message = "单词不足4个，无法进入选择题模式"
+            )
             return
         }
 
@@ -136,7 +145,11 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         when (_quizMode.value) {
             QuizMode.CHOICE_EN_TO_CN -> {
                 if (correctMeaning == null) {
-                    _quizState.value = QuizState.WaitingInput
+                    _quizState.value = QuizState.WaitingInputDegraded(
+                        word = word,
+                        mode = _quizMode.value,
+                        message = "该单词暂无释义"
+                    )
                     return
                 }
                 options.add(ChoiceOption(id = 0, text = correctMeaning, isCorrect = true))
