@@ -350,6 +350,20 @@ class WordRepository(
         wordDao.updateWord(updatedWord)
     }
 
+    suspend fun initReview(wordId: Long) {
+        val word = wordDao.getWordById(wordId) ?: return
+        if (word.learningStage == 0 && word.nextReviewTime == 0L) {
+            val now = System.currentTimeMillis()
+            val interval = REVIEW_INTERVALS[0]
+            val updatedWord = word.copy(
+                learningStage = 0,
+                lastReviewTime = now,
+                nextReviewTime = now + interval
+            )
+            wordDao.updateWord(updatedWord)
+        }
+    }
+
     suspend fun getWordsDueForReview(): List<Word> {
         return wordDao.getWordsDueForReview(System.currentTimeMillis())
     }

@@ -209,10 +209,12 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         }
 
         if (isCorrect) {
-            if (_quizMode.value == QuizMode.REVIEW) {
-                viewModelScope.launch {
-                    _currentWord.value?.let { word ->
+            viewModelScope.launch {
+                _currentWord.value?.let { word ->
+                    if (_quizMode.value == QuizMode.REVIEW) {
                         repository.recordReview(word.id, word.learningStage)
+                    } else if (word.learningStage == 0 && word.nextReviewTime == 0L) {
+                        repository.initReview(word.id)
                     }
                 }
             }
@@ -303,10 +305,12 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                 }
                 recordWrongAnswer(_currentWord.value?.id ?: 0, option.text, correctAnswer)
             } else {
-                if (_quizMode.value == QuizMode.REVIEW) {
-                    viewModelScope.launch {
-                        _currentWord.value?.let { word ->
+                viewModelScope.launch {
+                    _currentWord.value?.let { word ->
+                        if (_quizMode.value == QuizMode.REVIEW) {
                             repository.recordReview(word.id, word.learningStage)
+                        } else if (word.learningStage == 0 && word.nextReviewTime == 0L) {
+                            repository.initReview(word.id)
                         }
                     }
                 }
