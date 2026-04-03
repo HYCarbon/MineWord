@@ -53,6 +53,7 @@ fun QuizScreen(
                             QuizViewModel.QuizMode.CN_TO_EN -> "汉译英"
                             QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> "选择中文"
                             QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> "选择英文"
+                            QuizViewModel.QuizMode.REVIEW -> "复习"
                         }
                     )
                 },

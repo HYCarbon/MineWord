@@ -14,5 +14,8 @@ data class Word(
     val tags: String = "",
     val synonyms: String = "",
     val personalNotes: String = "",
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    val learningStage: Int = 0,
+    val lastReviewTime: Long = 0,
+    val nextReviewTime: Long = 0
 )

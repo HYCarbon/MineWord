@@ -15,6 +15,7 @@ import io.github.nwma_fywf.mineword.data.repository.WordRepository
 import io.github.nwma_fywf.mineword.data.local.ThemeMode
 import io.github.nwma_fywf.mineword.data.local.FontStyle
 import io.github.nwma_fywf.mineword.data.local.ThemePreferences
+import io.github.nwma_fywf.mineword.data.worker.ReviewScheduler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -96,6 +97,13 @@ class SettingsViewModel(
             initialValue = null
         )
 
+    val reviewReminderEnabled: StateFlow<Boolean> = themePreferences.reviewReminderEnabled
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = false
+        )
+
     private val _isExporting = MutableStateFlow(false)
     val isExporting: StateFlow<Boolean> = _isExporting.asStateFlow()
 
@@ -171,6 +179,17 @@ class SettingsViewModel(
         viewModelScope.launch {
             themePreferences.clearCustomThemeColor()
             themePreferences.setUseDynamicColor(true)
+        }
+    }
+
+    fun setReviewReminderEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            themePreferences.setReviewReminderEnabled(enabled)
+            if (enabled) {
+                ReviewScheduler.scheduleReviewReminder(context)
+            } else {
+                ReviewScheduler.cancelReviewReminder(context)
+            }
         }
     }
 

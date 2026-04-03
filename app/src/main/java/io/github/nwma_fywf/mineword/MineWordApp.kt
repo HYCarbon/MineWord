@@ -32,6 +32,7 @@ import io.github.nwma_fywf.mineword.ui.screen.editword.EditWordViewModel
 import io.github.nwma_fywf.mineword.ui.screen.editphrase.EditPhraseScreen
 import io.github.nwma_fywf.mineword.ui.screen.editphrase.EditPhraseViewModel
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizHomeScreen
+import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizHomeViewModel
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizScreen
 import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailScreen
 import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailViewModel
@@ -207,7 +208,13 @@ fun MineWordApp() {
                     )
                 },
                 quizModeScreen = {
+                    val viewModel: QuizHomeViewModel = viewModel(
+                        factory = QuizHomeViewModel.provideFactory(
+                            (navController.context.applicationContext as MineWordApplication).repository
+                        )
+                    )
                     QuizHomeScreen(
+                        viewModel = viewModel,
                         onSelectMode = { mode ->
                             navController.navigate(Screen.QuizPlay.createRoute(mode.name))
                         },
@@ -227,7 +234,11 @@ fun MineWordApp() {
                     } catch (e: Exception) {
                         QuizViewModel.QuizMode.EN_TO_CN
                     }
-                    viewModel.setModeAndStart(mode)
+                    if (mode == QuizViewModel.QuizMode.REVIEW) {
+                        viewModel.loadReviewWords()
+                    } else {
+                        viewModel.setModeAndStart(mode)
+                    }
                     QuizScreen(
                         viewModel = viewModel,
                         onNavigateBack = { navController.popBackStack() }

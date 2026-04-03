@@ -17,7 +17,8 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         EN_TO_CN,
         CN_TO_EN,
         CHOICE_EN_TO_CN,
-        CHOICE_CN_TO_EN
+        CHOICE_CN_TO_EN,
+        REVIEW
     }
 
     data class ChoiceOption(
@@ -31,6 +32,9 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
 
     private val _allWords = MutableStateFlow<List<Word>>(emptyList())
     val allWords: StateFlow<List<Word>> = _allWords
+
+    private val _reviewWords = MutableStateFlow<List<Word>>(emptyList())
+    private val reviewWords: List<Word> get() = _reviewWords.value
 
     private val _currentWord = MutableStateFlow<Word?>(null)
     val currentWord: StateFlow<Word?> = _currentWord
@@ -78,7 +82,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                         }
                     }
                 }
-                if (words.isNotEmpty() && _currentWord.value == null) {
+                if (words.isNotEmpty() && _currentWord.value == null && _quizMode.value != QuizMode.REVIEW) {
                     selectRandomWord()
                 }
             }
@@ -86,7 +90,11 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
     }
 
     fun selectRandomWord() {
-        val words = _allWords.value
+        val words = if (_quizMode.value == QuizMode.REVIEW) {
+            reviewWords
+        } else {
+            _allWords.value
+        }
         if (words.isEmpty()) {
             _currentWord.value = null
             _quizState.value = QuizState.Idle
@@ -201,6 +209,13 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         }
 
         if (isCorrect) {
+            if (_quizMode.value == QuizMode.REVIEW) {
+                viewModelScope.launch {
+                    _currentWord.value?.let { word ->
+                        repository.recordReview(word.id, word.learningStage)
+                    }
+                }
+            }
             selectRandomWord()
         } else {
             val correctAnswer = when (_quizMode.value) {
@@ -287,6 +302,14 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                     else -> ""
                 }
                 recordWrongAnswer(_currentWord.value?.id ?: 0, option.text, correctAnswer)
+            } else {
+                if (_quizMode.value == QuizMode.REVIEW) {
+                    viewModelScope.launch {
+                        _currentWord.value?.let { word ->
+                            repository.recordReview(word.id, word.learningStage)
+                        }
+                    }
+                }
             }
             _quizState.value = state.copy(isCorrectAnswered = option.isCorrect)
         }
@@ -295,6 +318,18 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
     fun nextChoiceWord() {
         selectRandomWord()
     }
+
+    fun loadReviewWords() {
+        viewModelScope.launch {
+            val dueWords = repository.getWordsDueForReview()
+            _reviewWords.value = dueWords
+            if (dueWords.isNotEmpty()) {
+                selectRandomWord()
+            }
+        }
+    }
+
+    fun getDueReviewCount(): kotlinx.coroutines.flow.Flow<Int> = repository.getDueReviewCountFlow()
 
     companion object {
         fun provideFactory(repository: WordRepository): ViewModelProvider.Factory {

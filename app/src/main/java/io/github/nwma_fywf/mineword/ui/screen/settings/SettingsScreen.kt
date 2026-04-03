@@ -76,6 +76,7 @@ fun SettingsScreen(
     val importDialogState by viewModel.importDialogState.collectAsState()
     val importResultDialogState by viewModel.importResultDialogState.collectAsState()
     val exportResult by viewModel.exportResult.collectAsState()
+    val reviewReminderEnabled by viewModel.reviewReminderEnabled.collectAsState()
     var showColorPickerDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
@@ -334,7 +335,7 @@ fun SettingsScreen(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant
             )
-        ) {
+            ) {
             Column(
                 modifier = Modifier.padding(8.dp)
             ) {
@@ -357,6 +358,44 @@ fun SettingsScreen(
                     onClick = {
                         importLauncher.launch(arrayOf("application/json"))
                     }
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = "学习设置",
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 12.dp, horizontal = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "复习提醒",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Text(
+                        text = "基于艾宾浩斯遗忘曲线定时提醒复习",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Switch(
+                    checked = reviewReminderEnabled,
+                    onCheckedChange = { viewModel.setReviewReminderEnabled(it) }
                 )
             }
         }

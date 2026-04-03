@@ -1,6 +1,7 @@
 package io.github.nwma_fywf.mineword.data.local
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -37,6 +38,7 @@ class ThemePreferences(private val context: Context) {
         private val CUSTOM_PRIMARY_KEY = intPreferencesKey("custom_primary")
         private val CUSTOM_SECONDARY_KEY = intPreferencesKey("custom_secondary")
         private val CUSTOM_TERTIARY_KEY = intPreferencesKey("custom_tertiary")
+        private val REVIEW_REMINDER_ENABLED_KEY = booleanPreferencesKey("review_reminder_enabled")
     }
 
     val themeMode: Flow<ThemeMode> = context.dataStore.data.map { preferences ->
@@ -149,5 +151,17 @@ class ThemePreferences(private val context: Context) {
             preferences.remove(CUSTOM_SECONDARY_KEY)
             preferences.remove(CUSTOM_TERTIARY_KEY)
         }
+    }
+
+    val reviewReminderEnabled: Flow<Boolean> = context.dataStore.data.map { preferences ->
+        preferences[REVIEW_REMINDER_ENABLED_KEY] ?: false
+    }
+
+    suspend fun setReviewReminderEnabled(enabled: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[REVIEW_REMINDER_ENABLED_KEY] = enabled
+        }
+        val prefs = context.getSharedPreferences("mineword_prefs", Context.MODE_PRIVATE)
+        prefs.edit().putBoolean("review_reminder_enabled", enabled).apply()
     }
 }

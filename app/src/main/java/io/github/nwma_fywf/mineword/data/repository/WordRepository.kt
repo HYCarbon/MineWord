@@ -326,4 +326,39 @@ class WordRepository(
         wrongAnswerDao.clearAllWrongAnswers()
 
     fun getWrongAnswerCount(): Flow<Int> = wrongAnswerDao.getWrongAnswerCount()
+
+    companion object {
+        private val REVIEW_INTERVALS = listOf(
+            1 * 24 * 60 * 60 * 1000L,
+            3 * 24 * 60 * 60 * 1000L,
+            7 * 24 * 60 * 60 * 1000L,
+            15 * 24 * 60 * 60 * 1000L,
+            30 * 24 * 60 * 60 * 1000L
+        )
+    }
+
+    suspend fun recordReview(wordId: Long, stage: Int) {
+        val word = wordDao.getWordById(wordId) ?: return
+        val nextStage = (stage + 1).coerceAtMost(REVIEW_INTERVALS.size - 1)
+        val interval = REVIEW_INTERVALS[nextStage]
+        val now = System.currentTimeMillis()
+        val updatedWord = word.copy(
+            learningStage = nextStage,
+            lastReviewTime = now,
+            nextReviewTime = now + interval
+        )
+        wordDao.updateWord(updatedWord)
+    }
+
+    suspend fun getWordsDueForReview(): List<Word> {
+        return wordDao.getWordsDueForReview(System.currentTimeMillis())
+    }
+
+    suspend fun getDueReviewCount(): Int {
+        return wordDao.getDueReviewCount(System.currentTimeMillis())
+    }
+
+    fun getDueReviewCountFlow(): kotlinx.coroutines.flow.Flow<Int> = kotlinx.coroutines.flow.flow {
+        emit(getDueReviewCount())
+    }
 }
