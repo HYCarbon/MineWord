@@ -112,7 +112,7 @@ fun QuizHomeScreen(
                             )
                         } else {
                             Text(
-                                text = "基于艾宾浩斯遗忘曲线",
+                                text = "点击开始复习",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
                             )
