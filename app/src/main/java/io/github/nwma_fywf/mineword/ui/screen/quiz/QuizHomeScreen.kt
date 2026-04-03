@@ -2,8 +2,6 @@ package io.github.nwma_fywf.mineword.ui.screen.quiz
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -61,7 +59,7 @@ class QuizHomeViewModel(private val repository: WordRepository) : ViewModel() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuizHomeScreen(
     onSelectMode: (QuizViewModel.QuizMode) -> Unit,
@@ -130,20 +128,30 @@ fun QuizHomeScreen(
             }
             Spacer(modifier = Modifier.height(16.dp))
 
-            FlowRow(
-                modifier = Modifier.weight(1f),
-                maxItemsInEachRow = 2,
-                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                QuizViewModel.QuizMode.entries
-                    .filter { it != QuizViewModel.QuizMode.REVIEW }
-                    .forEach { mode ->
-                        ModeCard(
-                            mode = mode,
-                            onClick = { onSelectMode(mode) }
-                        )
+                val modes = QuizViewModel.QuizMode.entries.filter { it != QuizViewModel.QuizMode.REVIEW }
+                modes.chunked(2).forEach { rowModes ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+                    ) {
+                        rowModes.forEach { mode ->
+                            ModeCard(
+                                mode = mode,
+                                onClick = { onSelectMode(mode) },
+                                modifier = Modifier.weight(1f)
+                            )
+                        }
+                        if (rowModes.size == 1) {
+                            Spacer(modifier = Modifier.weight(1f))
+                        }
                     }
+                }
             }
 
             Card(
@@ -184,11 +192,11 @@ fun QuizHomeScreen(
 private fun ModeCard(
     mode: QuizViewModel.QuizMode,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Card(
         onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth(0.45f)
+        modifier = modifier
             .height(120.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
