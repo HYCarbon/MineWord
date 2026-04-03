@@ -252,7 +252,10 @@ fun MineWordApp() {
                     )
                     WrongAnswerScreen(
                         viewModel = viewModel,
-                        onNavigateBack = { navController.popBackStack() }
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToWordDetail = { wordId ->
+                            navController.navigate(Screen.WordDetail.createRoute(wordId))
+                        }
                     )
                 },
                 settingsScreen = {

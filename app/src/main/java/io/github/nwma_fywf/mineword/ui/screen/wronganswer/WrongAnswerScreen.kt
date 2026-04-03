@@ -40,7 +40,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun WrongAnswerScreen(
     viewModel: WrongAnswerViewModel,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onNavigateToWordDetail: (Long) -> Unit,
 ) {
     val wrongAnswersWithWords by viewModel.wrongAnswersWithWords.collectAsState()
     var showClearDialog by remember { mutableStateOf(false) }
@@ -84,7 +85,8 @@ fun WrongAnswerScreen(
                 items(wrongAnswersWithWords, key = { it.wrongAnswer.id }) { item ->
                     WrongAnswerCard(
                         item = item,
-                        onDelete = { viewModel.deleteWrongAnswer(item.wrongAnswer.id) }
+                        onDelete = { viewModel.deleteWrongAnswer(item.wrongAnswer.id) },
+                        onClick = { item.word?.id?.let { onNavigateToWordDetail(it) } }
                     )
                 }
                 item { Spacer(modifier = Modifier.height(8.dp)) }
@@ -119,13 +121,15 @@ fun WrongAnswerScreen(
 @Composable
 private fun WrongAnswerCard(
     item: WrongAnswerWithWord,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    onClick: () -> Unit,
 ) {
     val wrongAnswer = item.wrongAnswer
     val word = item.word
 
     Card(
         modifier = Modifier.fillMaxWidth(),
+        onClick = onClick,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f)
         )
