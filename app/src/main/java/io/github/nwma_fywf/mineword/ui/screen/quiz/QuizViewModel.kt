@@ -9,6 +9,7 @@ import io.github.nwma_fywf.mineword.data.local.WrongAnswer
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class QuizViewModel(private val repository: WordRepository) : ViewModel() {
@@ -75,13 +76,11 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                 _allWords.value = words
                 val meaningsMap = mutableMapOf<Long, List<Meaning>>()
                 words.forEach { word ->
-                    viewModelScope.launch {
-                        repository.getMeaningsByWordId(word.id).collect { meanings ->
-                            meaningsMap[word.id] = meanings
-                            _allMeaningsMap.value = meaningsMap.toMap()
-                        }
+                    repository.getMeaningsByWordId(word.id).first().let { meanings ->
+                        meaningsMap[word.id] = meanings
                     }
                 }
+                _allMeaningsMap.value = meaningsMap
                 if (words.isNotEmpty() && _currentWord.value == null && _quizMode.value != QuizMode.REVIEW) {
                     selectRandomWord()
                 }
@@ -184,9 +183,8 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
 
     private fun loadMeanings(wordId: Long) {
         viewModelScope.launch {
-            repository.getMeaningsByWordId(wordId).collect { meanings ->
-                onMeaningsLoaded(meanings)
-            }
+            val meanings = repository.getMeaningsByWordId(wordId).first()
+            onMeaningsLoaded(meanings)
         }
     }
 
