@@ -52,6 +52,15 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
     private val _quizState = MutableStateFlow<QuizState>(QuizState.Idle)
     val quizState: StateFlow<QuizState> = _quizState
 
+    private val _correctCount = MutableStateFlow(0)
+    val correctCount: StateFlow<Int> = _correctCount
+
+    private val _wrongCount = MutableStateFlow(0)
+    val wrongCount: StateFlow<Int> = _wrongCount
+
+    private val _totalCount = MutableStateFlow(0)
+    val totalCount: StateFlow<Int> = _totalCount
+
     sealed class QuizState {
         data object Idle : QuizState()
         data object WaitingInput : QuizState()
@@ -72,6 +81,10 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
             val word: Word,
             val options: List<ChoiceOption>,
             val isCorrectAnswered: Boolean? = null
+        ) : QuizState()
+        data class Finished(
+            val correctCount: Int,
+            val wrongCount: Int
         ) : QuizState()
     }
 
@@ -220,6 +233,8 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         }
 
         if (isCorrect) {
+            _correctCount.value++
+            _totalCount.value++
             viewModelScope.launch {
                 _currentWord.value?.let { word ->
                     if (_quizMode.value == QuizMode.REVIEW) {
@@ -231,6 +246,8 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
             }
             selectRandomWord()
         } else {
+            _wrongCount.value++
+            _totalCount.value++
             val correctAnswer = when (_quizMode.value) {
                 QuizMode.EN_TO_CN -> existingMeanings.firstOrNull()?.definition ?: ""
                 QuizMode.CN_TO_EN -> word.word
@@ -309,6 +326,8 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         val state = _quizState.value
         if (state is QuizViewModel.QuizState.WaitingChoice && state.isCorrectAnswered == null) {
             if (!option.isCorrect) {
+                _wrongCount.value++
+                _totalCount.value++
                 val correctAnswer = when (_quizMode.value) {
                     QuizMode.CHOICE_EN_TO_CN -> _currentMeanings.value.firstOrNull()?.definition ?: ""
                     QuizMode.CHOICE_CN_TO_EN -> _currentWord.value?.word ?: ""
@@ -316,6 +335,8 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                 }
                 recordWrongAnswer(_currentWord.value?.id ?: 0, option.text, correctAnswer)
             } else {
+                _correctCount.value++
+                _totalCount.value++
                 viewModelScope.launch {
                     _currentWord.value?.let { word ->
                         if (_quizMode.value == QuizMode.REVIEW) {
@@ -342,6 +363,20 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                 selectRandomWord()
             }
         }
+    }
+
+    fun finishQuiz() {
+        _quizState.value = QuizState.Finished(
+            correctCount = _correctCount.value,
+            wrongCount = _wrongCount.value
+        )
+    }
+
+    fun resetQuiz() {
+        _correctCount.value = 0
+        _wrongCount.value = 0
+        _totalCount.value = 0
+        selectRandomWord()
     }
 
     fun getDueReviewCount(): kotlinx.coroutines.flow.Flow<Int> = repository.getDueReviewCountFlow()

@@ -42,6 +42,7 @@ fun QuizScreen(
     val userInput by viewModel.userInput.collectAsState()
     val quizState by viewModel.quizState.collectAsState()
     val quizMode by viewModel.quizMode.collectAsState()
+    val totalCount by viewModel.totalCount.collectAsState()
 
     Scaffold(
         topBar = {
@@ -91,8 +92,10 @@ fun QuizScreen(
                             meanings = currentMeanings,
                             mode = quizMode,
                             userInput = userInput,
+                            totalCount = totalCount,
                             onUserInputChanged = viewModel::onUserInputChanged,
                             onSubmit = viewModel::submitAnswer,
+                            onFinish = viewModel::finishQuiz,
                         )
                     }
                 }
@@ -102,8 +105,10 @@ fun QuizScreen(
                         meanings = currentMeanings,
                         mode = state.mode,
                         userInput = userInput,
+                        totalCount = totalCount,
                         onUserInputChanged = viewModel::onUserInputChanged,
                         onSubmit = viewModel::submitAnswer,
+                        onFinish = viewModel::finishQuiz,
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
@@ -128,8 +133,10 @@ fun QuizScreen(
                         state = state,
                         mode = quizMode,
                         meanings = currentMeanings,
+                        totalCount = totalCount,
                         onSelectOption = viewModel::selectChoiceOption,
                         onNext = viewModel::nextChoiceWord,
+                        onFinish = viewModel::finishQuiz,
                     )
                 }
                 is QuizViewModel.QuizState.Incorrect -> {
@@ -142,6 +149,14 @@ fun QuizScreen(
                         )
                     }
                 }
+                is QuizViewModel.QuizState.Finished -> {
+                    QuizFinishedContent(
+                        correctCount = state.correctCount,
+                        wrongCount = state.wrongCount,
+                        onRestart = viewModel::resetQuiz,
+                        onExit = onNavigateBack,
+                    )
+                }
             }
         }
     }
@@ -153,8 +168,10 @@ private fun WordQuizContent(
     meanings: List<io.github.nwma_fywf.mineword.data.local.Meaning>,
     mode: QuizViewModel.QuizMode,
     userInput: String,
+    totalCount: Int,
     onUserInputChanged: (String) -> Unit,
     onSubmit: () -> Unit,
+    onFinish: () -> Unit,
 ) {
     when (mode) {
         QuizViewModel.QuizMode.EN_TO_CN -> {
@@ -188,7 +205,13 @@ private fun WordQuizContent(
             )
         }
     }
-    Spacer(modifier = Modifier.height(32.dp))
+    Spacer(modifier = Modifier.height(8.dp))
+    Text(
+        text = "已答 $totalCount 题",
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+    Spacer(modifier = Modifier.height(24.dp))
     OutlinedTextField(
         value = userInput,
         onValueChange = onUserInputChanged,
@@ -213,6 +236,13 @@ private fun WordQuizContent(
         modifier = Modifier.fillMaxWidth(),
     ) {
         Text("提交")
+    }
+    Spacer(modifier = Modifier.height(8.dp))
+    OutlinedButton(
+        onClick = onFinish,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Text("完成测验")
     }
 }
 
@@ -308,8 +338,10 @@ private fun ChoiceQuizContent(
     state: QuizViewModel.QuizState.WaitingChoice,
     mode: QuizViewModel.QuizMode,
     meanings: List<io.github.nwma_fywf.mineword.data.local.Meaning>,
+    totalCount: Int,
     onSelectOption: (QuizViewModel.ChoiceOption) -> Unit,
     onNext: () -> Unit,
+    onFinish: () -> Unit,
 ) {
     Text(
         text = when (mode) {
@@ -320,7 +352,13 @@ private fun ChoiceQuizContent(
         style = MaterialTheme.typography.headlineLarge,
         textAlign = TextAlign.Center,
     )
-    Spacer(modifier = Modifier.height(32.dp))
+    Spacer(modifier = Modifier.height(8.dp))
+    Text(
+        text = "已答 $totalCount 题",
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+    Spacer(modifier = Modifier.height(24.dp))
 
     state.options.forEach { option ->
         val buttonColors = when {
@@ -350,6 +388,16 @@ private fun ChoiceQuizContent(
         }
     }
 
+    if (state.isCorrectAnswered == null) {
+        Spacer(modifier = Modifier.height(16.dp))
+        OutlinedButton(
+            onClick = onFinish,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text("完成测验")
+        }
+    }
+
     if (state.isCorrectAnswered != null) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
@@ -363,6 +411,55 @@ private fun ChoiceQuizContent(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text("下一个单词")
+        }
+    }
+}
+
+@Composable
+private fun QuizFinishedContent(
+    correctCount: Int,
+    wrongCount: Int,
+    onRestart: () -> Unit,
+    onExit: () -> Unit,
+) {
+    val total = correctCount + wrongCount
+    val percentage = if (total > 0) (correctCount * 100 / total) else 0
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Text(
+            text = "测验完成",
+            style = MaterialTheme.typography.headlineMedium,
+            textAlign = TextAlign.Center,
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+        Text(
+            text = "$correctCount / $total",
+            style = MaterialTheme.typography.displayLarge,
+            color = MaterialTheme.colorScheme.primary,
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "正确率 $percentage%",
+            style = MaterialTheme.typography.titleLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(modifier = Modifier.height(48.dp))
+        Button(
+            onClick = onRestart,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text("再来一组")
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        OutlinedButton(
+            onClick = onExit,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text("退出")
         }
     }
 }
