@@ -1,0 +1,1470 @@
+{
+  "version": 1,
+  "words": [
+    {
+      "word": "disaster",
+      "phoneticUK": "/dɪˈzɑ:stə(r)/",
+      "phoneticUS": "/dɪˈzæstər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "灾难；灾害",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The earthquake was a terrible disaster.",
+          "translation": "地震是一场可怕的灾难。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "tornado",
+      "phoneticUK": "/tɔ:ˈneɪdəʊ/",
+      "phoneticUS": "/tɔ:rˈneɪdoʊ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "龙卷风；旋风",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "A tornado hit the town yesterday.",
+          "translation": "昨天龙卷风袭击了小镇。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "drought",
+      "phoneticUK": "/draʊt/",
+      "phoneticUS": "/draʊt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "旱灾；久旱",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The drought caused many problems.",
+          "translation": "干旱造成了很多问题。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "landslide",
+      "phoneticUK": "/ˈlændslaɪd/",
+      "phoneticUS": "/ˈlændslaɪd/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "(山地或悬崖的)崩塌；滑坡",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The landslide blocked the road.",
+          "translation": "山体滑坡阻塞了道路。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "slide",
+      "phoneticUK": "/slaɪd/",
+      "phoneticUS": "/slaɪd/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "(使)滑行；滑动",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The children slid down the hill.",
+          "translation": "孩子们从山坡上滑下来。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "tsunami",
+      "phoneticUK": "/tsuˈnɑ:mi/",
+      "phoneticUS": "/tsuˈnɑ:mi/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "海啸",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The tsunami destroyed many houses.",
+          "translation": "海啸摧毁了许多房屋。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "flood",
+      "phoneticUK": "/flʌd/",
+      "phoneticUS": "/flʌd/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "洪水；大量",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "淹没；大量涌入",
+          "order": 1
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "使灌满水；淹没",
+          "order": 2
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The flood caused great damage.",
+          "translation": "洪水造成了巨大损失。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "magnitude",
+      "phoneticUK": "/ˈmæɡnɪtju:d/",
+      "phoneticUS": "/ˈmæɡnɪtu:d/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "(地)震级；重大",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The earthquake had a magnitude of 7.0.",
+          "translation": "地震震级为7.0级。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "rescue",
+      "phoneticUK": "/ˈreskju:/",
+      "phoneticUS": "/ˈreskju:/",
+      "meanings": [
+        {
+          "partOfSpeech": "n. & vt.",
+          "definition": "营救；救援",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "They rescued the trapped people.",
+          "translation": "他们营救了被困的人。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "damage",
+      "phoneticUK": "/ˈdæmɪdʒ/",
+      "phoneticUS": "/ˈdæmɪdʒ/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "损害；破坏",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "损坏；损失",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The storm damaged many houses.",
+          "translation": "风暴损坏了许多房屋。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "destroy",
+      "phoneticUK": "/dɪˈstrɔɪ/",
+      "phoneticUS": "/dɪˈstrɔɪ/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "摧毁；毁灭",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The fire destroyed the building.",
+          "translation": "大火烧毁了这栋楼。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "evacuate",
+      "phoneticUK": "/ɪˈvækjueɪt/",
+      "phoneticUS": "/ɪˈvækjueɪt/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "疏散；撤出",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We had to evacuate the building.",
+          "translation": "我们不得不疏散这栋楼。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "power",
+      "phoneticUK": "/ˈpaʊə(r)/",
+      "phoneticUS": "/ˈpaʊər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "电力供应；能量；力量；控制力",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The power went out during the storm.",
+          "translation": "风暴期间停电了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "tap",
+      "phoneticUK": "/tæp/",
+      "phoneticUS": "/tæp/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "轻叩；轻敲；轻拍",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He tapped on the window.",
+          "translation": "他轻敲窗户。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "helicopter",
+      "phoneticUK": "/ˈhelɪkɒptə(r)/",
+      "phoneticUS": "/ˈhelɪkɑ:ptər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "直升机",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The helicopter flew over the city.",
+          "translation": "直升机飞过城市上空。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "death",
+      "phoneticUK": "/deθ/",
+      "phoneticUS": "/deθ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "死；死亡",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "His death was a great loss.",
+          "translation": "他的死是巨大损失。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "affect",
+      "phoneticUK": "/əˈfekt/",
+      "phoneticUS": "/əˈfekt/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "影响；(疾病)侵袭；深深打动",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The weather affects our mood.",
+          "translation": "天气影响我们的心情。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "shelter",
+      "phoneticUK": "/ˈʃeltə(r)/",
+      "phoneticUS": "/ˈʃeltər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "避难处；居所；庇护",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "保护；掩蔽",
+          "order": 1
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "躲避(风雨或危险)",
+          "order": 2
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "They needed shelter from the rain.",
+          "translation": "他们需要避雨。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "pipe",
+      "phoneticUK": "/paɪp/",
+      "phoneticUS": "/paɪp/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "管子；管道",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The pipe is broken.",
+          "translation": "管道坏了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "whistle",
+      "phoneticUK": "/ˈwɪsl/",
+      "phoneticUS": "/ˈwɪsl/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi.",
+          "definition": "吹口哨；发出笛声",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "哨子(声)；呼啸声",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He whistled a song.",
+          "translation": "他用口哨吹了一首歌。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "crack",
+      "phoneticUK": "/kræk/",
+      "phoneticUS": "/kræk/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "裂纹；裂缝",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "(使)破裂",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "There is a crack in the cup.",
+          "translation": "杯子上有条裂缝。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "gas",
+      "phoneticUK": "/ɡæs/",
+      "phoneticUS": "/ɡæs/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "气体；燃气；汽油",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The gas is turned off.",
+          "translation": "煤气关掉了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "ruin",
+      "phoneticUK": "/ˈru:ɪn/",
+      "phoneticUS": "/ˈruːɪn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n. & vt.",
+          "definition": "破坏；毁坏",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The war ruined the city.",
+          "translation": "战争毁坏了这座城市。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "percent",
+      "phoneticUK": "/pəˈsent/",
+      "phoneticUS": "/pərˈsent/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "百分之……",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": " Fifty percent of the people agree.",
+          "translation": "百分之五十的人同意。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "brick",
+      "phoneticUK": "/brɪk/",
+      "phoneticUS": "/brɪk/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "砖；砖块",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The wall is made of bricks.",
+          "translation": "这堵墙是用砖砌成的。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "metal",
+      "phoneticUK": "/ˈmetl/",
+      "phoneticUS": "/ˈmetl/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "金属",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is made of metal.",
+          "translation": "这是金属制的。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "shock",
+      "phoneticUK": "/ʃɒk/",
+      "phoneticUS": "/ʃɑ:k/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "震惊；令人震惊的事；休克",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "(使)震惊",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The news was a great shock.",
+          "translation": "这个消息令人非常震惊。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "electricity",
+      "phoneticUK": "/ˌlekˈtrɪsəti/",
+      "phoneticUS": "/ˌlekˈtrɪsəti/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "电；电能",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need electricity to live.",
+          "translation": "我们的生活需要电。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "trap",
+      "phoneticUK": "/træp/",
+      "phoneticUS": "/træp/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "使落入险境；使陷入圈套",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "险境；陷阱",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The animals were trapped.",
+          "translation": "动物们被困住了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "bury",
+      "phoneticUK": "/ˈberi/",
+      "phoneticUS": "/ˈberi/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "埋葬；安葬",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "They buried the dead.",
+          "translation": "他们埋葬了死者。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "breathe",
+      "phoneticUK": "/bri:ð/",
+      "phoneticUS": "/bri:ð/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "呼吸",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We breathe air to live.",
+          "translation": "我们呼吸空气来生存。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "revive",
+      "phoneticUK": "/rɪˈvaɪv/",
+      "phoneticUS": "/rɪˈvaɪv/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt. & vi.",
+          "definition": "复活；(使)苏醒",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The doctor revived the patient.",
+          "translation": "医生使病人苏醒。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "revival",
+      "phoneticUK": "/rɪˈvaɪvl/",
+      "phoneticUS": "/rɪˈvaɪvl/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "振兴；复苏",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The economy needs revival.",
+          "translation": "经济需要复苏。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "effort",
+      "phoneticUK": "/ˈefət/",
+      "phoneticUS": "/ˈefərt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "努力；艰难的尝试；尽力",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "It took a lot of effort.",
+          "translation": "这花了很多努力。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "unify",
+      "phoneticUK": "/ˈju:nɪfaɪ/",
+      "phoneticUS": "/ˈju:nɪfaɪ/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "统一；(使)成一体",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to unify our efforts.",
+          "translation": "我们需要统一努力。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "wisdom",
+      "phoneticUK": "/ˈwɪzdəm/",
+      "phoneticUS": "/ˈwɪzdəm/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "智慧；才智",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She shows great wisdom.",
+          "translation": "她表现出极大的智慧。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "context",
+      "phoneticUK": "/ˈkɒntekst/",
+      "phoneticUS": "/ˈkɑ:ntekst/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "上下文；语境；背景",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Understand the context.",
+          "translation": "理解上下文。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "suffer",
+      "phoneticUK": "/ˈsʌfə(r)/",
+      "phoneticUS": "/ˈsʌfər/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "遭受；蒙受",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "(因疾病、痛苦、悲伤等)受苦",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "They suffered great losses.",
+          "translation": "他们遭受了巨大损失。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "volcano",
+      "phoneticUK": "/vɒlˈkeɪnəʊ/",
+      "phoneticUS": "/vɑ:lˈkeɪnoʊ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "火山",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The volcano erupted yesterday.",
+          "translation": "昨天火山爆发了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "erupt",
+      "phoneticUK": "/ɪˈrʌpt/",
+      "phoneticUS": "/ɪˈrʌpt/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "(火山)爆发；(岩浆、烟等)喷出",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The volcano erupted violently.",
+          "translation": "火山猛烈爆发。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "supply",
+      "phoneticUK": "/səˈplaɪ/",
+      "phoneticUS": "/səˈplaɪ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "供应(量)；补给；(pl.)补给品",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "供应；供给",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need food supplies.",
+          "translation": "我们需要食物补给。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "typhoon",
+      "phoneticUK": "/taɪˈfu:n/",
+      "phoneticUS": "/taɪˈfu:n/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "台风",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "A typhoon hit the coast.",
+          "translation": "台风袭击了海岸。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "hurricane",
+      "phoneticUK": "/ˈhʌrɪkən/",
+      "phoneticUS": "/ˈhɜ:rɪkeɪn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "(尤指西大西洋的)飓风",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The hurricane caused great damage.",
+          "translation": "飓风造成了巨大损失。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "survive",
+      "phoneticUK": "/səˈvaɪv/",
+      "phoneticUS": "/sərˈvaɪv/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi.",
+          "definition": "生存；存活",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "幸存；艰难度过",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Only a few people survived.",
+          "translation": "只有少数人幸存。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "emergency",
+      "phoneticUK": "/ɪˈmɜ:dʒənsi/",
+      "phoneticUS": "/ɪˈmɜ:rdʒənsi/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "突发事件；紧急情况",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is an emergency!",
+          "translation": "这是紧急情况！",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "calm",
+      "phoneticUK": "/kɑ:m/",
+      "phoneticUS": "/kɑ:m/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "镇静的；沉着的",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "使平静；使镇静",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Stay calm in an emergency.",
+          "translation": "紧急情况下保持镇静。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "aid",
+      "phoneticUK": "/eɪd/",
+      "phoneticUS": "/eɪd/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "援助；帮助；救援物资",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "帮助；援助",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "They needed first aid.",
+          "translation": "他们需要急救。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "kit",
+      "phoneticUK": "/kɪt/",
+      "phoneticUS": "/kɪt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "成套工具；成套设备",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need a repair kit.",
+          "translation": "我们需要一套修理工具。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "crash",
+      "phoneticUK": "/kræʃ/",
+      "phoneticUS": "/kræʃ/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt. & vi.",
+          "definition": "碰撞；撞击",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "撞车；碰撞",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The car crashed into the wall.",
+          "translation": "汽车撞到了墙上。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "sweep",
+      "phoneticUK": "/swi:p/",
+      "phoneticUS": "/swi:p/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt. & vi.",
+          "definition": "打扫；清扫",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please sweep the floor.",
+          "translation": "请扫地。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "wave",
+      "phoneticUK": "/weɪv/",
+      "phoneticUS": "/weɪv/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "海浪；波浪",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "挥手；招手",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The waves were very high.",
+          "translation": "波浪很高。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "strike",
+      "phoneticUK": "/straɪk/",
+      "phoneticUS": "/straɪk/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "侵袭；突击；击打",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "罢工；罢课；袭击",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The lightning struck the tree.",
+          "translation": "闪电击中了树。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "deliver",
+      "phoneticUK": "/dɪˈlɪvə(r)/",
+      "phoneticUS": "/dɪˈlɪvər/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt. & vi.",
+          "definition": "递送；传达",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The postman delivers letters.",
+          "translation": "邮递员递送信件。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "as if",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "似乎；好像；仿佛",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He looks as if he is tired.",
+          "translation": "他看起来好像累了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "in ruins",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "严重受损；破败不堪",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The city was in ruins after the war.",
+          "translation": "战后城市变成废墟。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "in shock",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "震惊；吃惊",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She was in shock.",
+          "translation": "她震惊了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "in the open air",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "露天；在户外",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We ate in the open air.",
+          "translation": "我们在户外吃饭。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "first aid kit",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "急救箱",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "There is a first aid kit in the room.",
+          "translation": "房间里有一个急救箱。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "on hand",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "现有(尤指帮助)",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We have help on hand.",
+          "translation": "我们手头有帮助。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "sweep away",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "消灭；彻底消除",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The wind swept away the leaves.",
+          "translation": "风把树叶吹走了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u4",
+      "synonyms": "",
+      "personalNotes": ""
+    }
+  ]
+}
