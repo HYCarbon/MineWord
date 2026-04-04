@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -11,24 +12,41 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.compose.animation.ExperimentalAnimationApi
+import io.github.nwma_fywf.mineword.data.local.ThemePreferences
+import io.github.nwma_fywf.mineword.data.repository.WordRepository
+import io.github.nwma_fywf.mineword.ui.screen.addphrase.AddPhraseScreen
+import io.github.nwma_fywf.mineword.ui.screen.addphrase.AddPhraseViewModel
+import io.github.nwma_fywf.mineword.ui.screen.addword.AddWordScreen
+import io.github.nwma_fywf.mineword.ui.screen.addword.AddWordViewModel
+import io.github.nwma_fywf.mineword.ui.screen.editphrase.EditPhraseScreen
+import io.github.nwma_fywf.mineword.ui.screen.editphrase.EditPhraseViewModel
+import io.github.nwma_fywf.mineword.ui.screen.editword.EditWordScreen
+import io.github.nwma_fywf.mineword.ui.screen.editword.EditWordViewModel
+import io.github.nwma_fywf.mineword.ui.screen.phrasedetail.PhraseDetailScreen
+import io.github.nwma_fywf.mineword.ui.screen.phrasedetail.PhraseDetailViewModel
+import io.github.nwma_fywf.mineword.ui.screen.phraselist.PhraseListViewModel
+import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizHomeScreen
+import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizHomeViewModel
+import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizScreen
+import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizViewModel
+import io.github.nwma_fywf.mineword.ui.screen.review.ReviewScreen
+import io.github.nwma_fywf.mineword.ui.screen.review.ReviewViewModel
+import io.github.nwma_fywf.mineword.ui.screen.settings.SettingsScreen
+import io.github.nwma_fywf.mineword.ui.screen.settings.SettingsViewModel
+import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailScreen
+import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailViewModel
+import io.github.nwma_fywf.mineword.ui.screen.wordlist.WordListScreen
+import io.github.nwma_fywf.mineword.ui.screen.wordlist.WordListViewModel
+import io.github.nwma_fywf.mineword.ui.screen.wronganswer.WrongAnswerScreen
+import io.github.nwma_fywf.mineword.ui.screen.wronganswer.WrongAnswerViewModel
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NavGraph(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    wordListScreen: @Composable () -> Unit,
-    addWordScreen: @Composable () -> Unit,
-    wordDetailScreen: @Composable (Long) -> Unit,
-    editWordScreen: @Composable (Long) -> Unit,
-    addPhraseScreen: @Composable () -> Unit,
-    phraseDetailScreen: @Composable (Long) -> Unit,
-    editPhraseScreen: @Composable (Long) -> Unit,
-    quizModeScreen: @Composable () -> Unit,
-    quizPlayScreen: @Composable (String) -> Unit,
-    reviewScreen: @Composable () -> Unit,
-    wrongAnswerScreen: @Composable () -> Unit,
-    settingsScreen: @Composable () -> Unit,
+    repository: WordRepository,
+    themePreferences: ThemePreferences
 ) {
     val animationDuration = 200
     val bottomNavRoutes = setOf(
@@ -64,6 +82,8 @@ fun NavGraph(
         }
     }
 
+    val context = navController.context
+
     NavHost(
         navController = navController,
         modifier = modifier,
@@ -96,60 +116,158 @@ fun NavGraph(
         },
     ) {
         composable(Screen.WordList.route) {
-            wordListScreen()
+            val wordListViewModel: WordListViewModel = viewModel(
+                factory = WordListViewModel.provideFactory(repository)
+            )
+            val phraseListViewModel: PhraseListViewModel = viewModel(
+                factory = PhraseListViewModel.provideFactory(repository)
+            )
+            WordListScreen(
+                viewModel = wordListViewModel,
+                phraseListViewModel = phraseListViewModel,
+                onNavigateToAddWord = { navController.navigate(Screen.AddWord.route) },
+                onNavigateToWordDetail = { wordId -> navController.navigate(Screen.WordDetail.createRoute(wordId)) },
+                onNavigateToAddPhrase = { navController.navigate(Screen.AddPhrase.route) },
+                onNavigateToPhraseDetail = { phraseId -> navController.navigate(Screen.PhraseDetail.createRoute(phraseId)) },
+            )
         }
         composable(Screen.AddWord.route) {
-            addWordScreen()
+            val viewModel: AddWordViewModel = viewModel(
+                factory = AddWordViewModel.provideFactory(repository)
+            )
+            AddWordScreen(
+                viewModel = viewModel,
+                onNavigateBack = { navController.popBackStack() },
+            )
         }
         composable(
             route = Screen.WordDetail.route,
             arguments = listOf(navArgument("wordId") { type = NavType.LongType })
         ) { backStackEntry ->
             val wordId = backStackEntry.arguments?.getLong("wordId") ?: return@composable
-            wordDetailScreen(wordId)
+            val viewModel: WordDetailViewModel = viewModel(
+                factory = WordDetailViewModel.provideFactory(repository)
+            )
+            WordDetailScreen(
+                viewModel = viewModel,
+                wordId = wordId,
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToEdit = { id -> navController.navigate(Screen.EditWord.createRoute(id)) },
+            )
         }
         composable(
             route = Screen.EditWord.route,
             arguments = listOf(navArgument("wordId") { type = NavType.LongType })
         ) { backStackEntry ->
             val wordId = backStackEntry.arguments?.getLong("wordId") ?: return@composable
-            editWordScreen(wordId)
+            val viewModel: EditWordViewModel = viewModel(
+                factory = EditWordViewModel.provideFactory(repository)
+            )
+            EditWordScreen(
+                viewModel = viewModel,
+                wordId = wordId,
+                onNavigateBack = { navController.popBackStack() },
+            )
         }
         composable(Screen.AddPhrase.route) {
-            addPhraseScreen()
+            val viewModel: AddPhraseViewModel = viewModel(
+                factory = AddPhraseViewModel.provideFactory(repository)
+            )
+            AddPhraseScreen(
+                viewModel = viewModel,
+                onNavigateBack = { navController.popBackStack() },
+            )
         }
         composable(
             route = Screen.PhraseDetail.route,
             arguments = listOf(navArgument("phraseId") { type = NavType.LongType })
         ) { backStackEntry ->
             val phraseId = backStackEntry.arguments?.getLong("phraseId") ?: return@composable
-            phraseDetailScreen(phraseId)
+            val viewModel: PhraseDetailViewModel = viewModel(
+                factory = PhraseDetailViewModel.provideFactory(repository)
+            )
+            PhraseDetailScreen(
+                viewModel = viewModel,
+                phraseId = phraseId,
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToEdit = { id -> navController.navigate(Screen.EditPhrase.createRoute(id)) },
+            )
         }
         composable(
             route = Screen.EditPhrase.route,
             arguments = listOf(navArgument("phraseId") { type = NavType.LongType })
         ) { backStackEntry ->
             val phraseId = backStackEntry.arguments?.getLong("phraseId") ?: return@composable
-            editPhraseScreen(phraseId)
+            val viewModel: EditPhraseViewModel = viewModel(
+                factory = EditPhraseViewModel.provideFactory(repository)
+            )
+            EditPhraseScreen(
+                viewModel = viewModel,
+                phraseId = phraseId,
+                onNavigateBack = { navController.popBackStack() },
+            )
         }
         composable(Screen.QuizMode.route) {
-            quizModeScreen()
+            val viewModel: QuizHomeViewModel = viewModel(
+                factory = QuizHomeViewModel.provideFactory(repository)
+            )
+            QuizHomeScreen(
+                viewModel = viewModel,
+                onSelectMode = { mode -> navController.navigate(Screen.QuizPlay.createRoute(mode.name)) },
+                onNavigateToWrongAnswer = { navController.navigate(Screen.WrongAnswer.route) }
+            )
         }
         composable(
             route = Screen.QuizPlay.route,
             arguments = listOf(navArgument("mode") { type = NavType.StringType })
         ) { backStackEntry ->
-            val mode = backStackEntry.arguments?.getString("mode") ?: return@composable
-            quizPlayScreen(mode)
+            val modeString = backStackEntry.arguments?.getString("mode") ?: return@composable
+            val viewModel: QuizViewModel = viewModel(
+                factory = QuizViewModel.provideFactory(repository)
+            )
+            val mode = try {
+                QuizViewModel.QuizMode.valueOf(modeString)
+            } catch (e: Exception) {
+                QuizViewModel.QuizMode.EN_TO_CN
+            }
+            if (mode == QuizViewModel.QuizMode.REVIEW) {
+                viewModel.loadReviewWords()
+            } else {
+                viewModel.setModeAndStart(mode)
+            }
+            QuizScreen(
+                viewModel = viewModel,
+                onNavigateBack = { navController.popBackStack() }
+            )
         }
         composable(Screen.Review.route) {
-            reviewScreen()
+            val viewModel: ReviewViewModel = viewModel(
+                factory = ReviewViewModel.provideFactory(repository)
+            )
+            ReviewScreen(
+                viewModel = viewModel,
+                onStartReview = { mode -> navController.navigate(Screen.QuizPlay.createRoute(mode.name)) }
+            )
         }
         composable(Screen.WrongAnswer.route) {
-            wrongAnswerScreen()
+            val viewModel: WrongAnswerViewModel = viewModel(
+                factory = WrongAnswerViewModel.provideFactory(repository)
+            )
+            WrongAnswerScreen(
+                viewModel = viewModel,
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToWordDetail = { wordId -> navController.navigate(Screen.WordDetail.createRoute(wordId)) }
+            )
         }
         composable(Screen.Settings.route) {
-            settingsScreen()
+            val settingsVm: SettingsViewModel = viewModel(
+                factory = SettingsViewModel.provideFactory(
+                    themePreferences,
+                    repository,
+                    context
+                )
+            )
+            SettingsScreen(viewModel = settingsVm)
         }
     }
 }

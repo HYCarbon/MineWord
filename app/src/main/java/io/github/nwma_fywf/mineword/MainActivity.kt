@@ -11,9 +11,14 @@ import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import io.github.nwma_fywf.mineword.data.local.FontStyle
+import io.github.nwma_fywf.mineword.data.local.ThemeMode
 import io.github.nwma_fywf.mineword.data.worker.ReviewScheduler
+import io.github.nwma_fywf.mineword.ui.screen.MineWordApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +28,28 @@ class MainActivity : ComponentActivity() {
         requestNotificationPermission()
         requestExactAlarmPermission()
         
+        val application = applicationContext as MineWordApplication
+        
         setContent {
-            MineWordApp()
+            val themeMode by application.themePreferences.themeMode.collectAsState(initial = ThemeMode.SYSTEM)
+            val useDynamicColor by application.themePreferences.useDynamicColor.collectAsState(initial = true)
+            val fontStyle by application.themePreferences.fontStyle.collectAsState(initial = FontStyle.DEFAULT)
+            val customFontPath by application.themePreferences.customFontPath.collectAsState(initial = null)
+            val customPrimaryColor by application.themePreferences.customPrimaryColor.collectAsState(initial = null)
+            val customSecondaryColor by application.themePreferences.customSecondaryColor.collectAsState(initial = null)
+            val customTertiaryColor by application.themePreferences.customTertiaryColor.collectAsState(initial = null)
+            
+            MineWordApp(
+                application = application,
+                repository = application.repository,
+                themeMode = themeMode,
+                useDynamicColor = useDynamicColor,
+                fontStyle = fontStyle,
+                customFontPath = customFontPath,
+                customPrimaryColor = customPrimaryColor,
+                customSecondaryColor = customSecondaryColor,
+                customTertiaryColor = customTertiaryColor
+            )
         }
     }
 
