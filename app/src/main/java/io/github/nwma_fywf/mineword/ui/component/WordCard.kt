@@ -124,6 +124,7 @@ fun WordCard(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun MeaningsContent(meanings: List<Meaning>) {
     if (meanings.isEmpty()) {
@@ -137,6 +138,28 @@ private fun MeaningsContent(meanings: List<Meaning>) {
 
     val grouped = MeaningParser.groupByPos(meanings)
     val showGroupHeaders = grouped.keys.any { it != null }
+
+    val allPos = grouped.keys.filterNotNull().distinct()
+
+    if (allPos.isNotEmpty()) {
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            allPos.forEach { pos ->
+                SuggestionChip(
+                    onClick = {},
+                    label = {
+                        Text(
+                            text = pos,
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    },
+                )
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+    }
 
     if (!showGroupHeaders && meanings.size == 1) {
         Text(
