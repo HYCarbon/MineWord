@@ -1,0 +1,1312 @@
+{
+  "version": 1,
+  "words": [
+    {
+      "word": "exchange",
+      "phoneticUK": "/ɪksˈtʃeɪndʒ/",
+      "phoneticUS": "/ɪksˈtʃeɪndʒ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "交换；交流",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "交换；交流；交易；兑换",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We often exchange views on our studies.",
+          "translation": "我们经常交流学习观点。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "lecture",
+      "phoneticUK": "/ˈlektʃə(r)/",
+      "phoneticUS": "/ˈlektʃər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "讲座；讲课；教训",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "(开)讲座；讲课",
+          "order": 1
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "训斥",
+          "order": 2
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The professor gave a lecture on American literature.",
+          "translation": "教授作了一场关于美国文学的讲座。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "registration",
+      "phoneticUK": "/ˌredʒɪˈstreɪʃn/",
+      "phoneticUS": "/ˌredʒɪˈstreɪʃn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "登记；注册；挂号",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Students need to complete registration before classes start.",
+          "translation": "学生们需要在开学前完成注册。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "register",
+      "phoneticUK": "/ˈredʒɪstə(r)/",
+      "phoneticUS": "/ˈredʒɪstər/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt. & vi.",
+          "definition": "登记；注册",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please register your name at the front desk.",
+          "translation": "请在前台登记您的姓名。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "sex",
+      "phoneticUK": "/seks/",
+      "phoneticUS": "/seks/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "性别",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please indicate your sex on the form.",
+          "translation": "请在表格上注明您的性别。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "female",
+      "phoneticUK": "/ˈfi:meɪl/",
+      "phoneticUS": "/ˈfi:meɪl/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "女(性)的；雌的",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "雌性动(植)物；女子",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The school has more female students than male students.",
+          "translation": "这所学校女生比男生多。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "male",
+      "phoneticUK": "/meɪl/",
+      "phoneticUS": "/meɪl/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "男(性)的；雄的",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "雄性动(植)物；男子",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is the male lead in the movie.",
+          "translation": "他是这部电影男主角。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "nationality",
+      "phoneticUK": "/ˌnæʃəˈnæləti/",
+      "phoneticUS": "/ˌnæʃəˈnæləti/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "国籍；民族",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "What is your nationality?",
+          "translation": "你的国籍是什么？",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "nation",
+      "phoneticUK": "/ˈneɪʃn/",
+      "phoneticUS": "/ˈneɪʃn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "国家；民族；国民",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "China is a nation with a long history.",
+          "translation": "中国是一个历史悠久的国家。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "designer",
+      "phoneticUK": "/dɪˈzaɪnə(r)/",
+      "phoneticUS": "/dɪˈzaɪnər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "设计者",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She wants to become a fashion designer.",
+          "translation": "她想成为一名时装设计师。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "design",
+      "phoneticUK": "/dɪˈzaɪn/",
+      "phoneticUS": "/dɪˈzaɪn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "设计；设计方案",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "设计；筹划",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Who designed this building?",
+          "translation": "谁设计的这栋楼？",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "campus",
+      "phoneticUK": "/ˈkæmpəs/",
+      "phoneticUS": "/ˈkæmpəs/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "校园；校区",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The new library is on campus.",
+          "translation": "新图书馆在校园里。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "formal",
+      "phoneticUK": "/ˈfɔ:ml/",
+      "phoneticUS": "/ˈfɔ:rml/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "正式的；正规的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to wear formal clothes to the meeting.",
+          "translation": "我们需要穿正装去参加会议。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "anxious",
+      "phoneticUK": "/ˈæŋkʃəs/",
+      "phoneticUS": "/ˈæŋkʃəs/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "焦虑的；不安的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She felt anxious about her exam results.",
+          "translation": "她对考试成绩感到焦虑。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "annoyed",
+      "phoneticUK": "/əˈnɔɪd/",
+      "phoneticUS": "/əˈnɔɪd/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "恼怒的；生气的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He looked annoyed when I interrupted him.",
+          "translation": "当我打断他时，他看起来很恼怒。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "annoy",
+      "phoneticUK": "/əˈnɔɪ/",
+      "phoneticUS": "/əˈnɔɪ/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "使恼怒；打扰",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please don't annoy your brother.",
+          "translation": "请不要惹恼你的弟弟。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "frightened",
+      "phoneticUK": "/ˈfraɪtnd/",
+      "phoneticUS": "/ˈfraɪtnd/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "惊吓的；害怕的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The frightened child ran to his mother.",
+          "translation": "受惊的孩子跑到他妈妈那里。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "p.m.",
+      "phoneticUK": "/ˌpi:ˈem/",
+      "phoneticUS": "/ˌpi:ˈem/",
+      "meanings": [
+        {
+          "partOfSpeech": "abbr.",
+          "definition": "(源自拉丁语)下午；午后",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The meeting starts at 3:00 p.m.",
+          "translation": "会议下午3点开始。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "a.m.",
+      "phoneticUK": "/ˌeɪ:ˈem/",
+      "phoneticUS": "/ˌeɪ:ˈem/",
+      "meanings": [
+        {
+          "partOfSpeech": "abbr.",
+          "definition": "(源自拉丁语)上午；午前；午夜至正午",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The train departs at 8:00 a.m.",
+          "translation": "火车上午8点出发。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "senior",
+      "phoneticUK": "/ˈsi:niə(r)/",
+      "phoneticUS": "/ˈsi:niər/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "级别(或地位)高的",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "较年长的人",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is a senior manager in the company.",
+          "translation": "他是公司的高级经理。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "outgoing",
+      "phoneticUK": "/ˈaʊtgəʊɪŋ/",
+      "phoneticUS": "/ˈaʊtɡoʊɪŋ/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "爱交际的；外向的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She has an outgoing personality.",
+          "translation": "她性格外向。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "impression",
+      "phoneticUK": "/ɪmˈpreʃn/",
+      "phoneticUS": "/ɪmˈpreʃn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "印象；感想",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The first impression is very important.",
+          "translation": "第一印象很重要。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "impress",
+      "phoneticUK": "/ɪmˈpres/",
+      "phoneticUS": "/ɪmˈpres/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "使钦佩；给…留下深刻的好印象",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "留下印象；引人注目",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The teacher impressed us with her knowledge.",
+          "translation": "老师的知识给我们留下了深刻印象。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "guy",
+      "phoneticUK": "/ɡaɪ/",
+      "phoneticUS": "/ɡaɪ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "小伙子；男人；家伙",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is a nice guy.",
+          "translation": "他是个不错的小伙。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "concentrate",
+      "phoneticUK": "/ˈkɒnsntreɪt/",
+      "phoneticUS": "/ˈkɑ:nsntreɪt/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "集中(注意力)；聚精会神",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please concentrate on your homework.",
+          "translation": "请集中精力做作业。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "experiment",
+      "phoneticUK": "/ɪkˈsperɪmənt/",
+      "phoneticUS": "/ɪkˈsperɪmənt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "实验；试验",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We did an experiment in the science class.",
+          "translation": "我们在科学课上做了一个实验。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "awkward",
+      "phoneticUK": "/ˈɔ:kwəd/",
+      "phoneticUS": "/ˈɔ:kwərd/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "令人尴尬的；难对付的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "There was an awkward silence in the room.",
+          "translation": "房间里是一片尴尬的沉默。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "junior",
+      "phoneticUK": "/ˈdʒu:niə(r)/",
+      "phoneticUS": "/ˈdʒu:niər/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "地位(或职位、级别)低下的",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "职位较低者；(体育运动中)青少年",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is a junior employee in the company.",
+          "translation": "他是公司里的低级员工。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "explore",
+      "phoneticUK": "/ɪkˈsplɔ:(r)/",
+      "phoneticUS": "/ɪkˈsplɔ:r/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt. & vi.",
+          "definition": "探索；勘探",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We want to explore this new city.",
+          "translation": "我们想探索这座新城市。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "confident",
+      "phoneticUK": "/ˈkɒnfɪdənt/",
+      "phoneticUS": "/ˈkɑnfɪdənt/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "自信的；有把握的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She feels confident about passing the exam.",
+          "translation": "她对通过考试很有信心。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "confidence",
+      "phoneticUK": "/ˈkɒnfɪdəns/",
+      "phoneticUS": "/ˈkɑnfɪdəns/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "信心；信任",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She has confidence in herself.",
+          "translation": "她对自己有信心。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "forward",
+      "phoneticUK": "/ˈfɔ:wəd/",
+      "phoneticUS": "/ˈfɔ:rwərd/",
+      "meanings": [
+        {
+          "partOfSpeech": "adv.",
+          "definition": "(also forwards)向前；前进",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "adj.",
+          "definition": "向前的；前进的",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please move forward to the next topic.",
+          "translation": "请进入下一个话题。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "flash",
+      "phoneticUK": "/flæʃ/",
+      "phoneticUS": "/flæʃ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "光；信号",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "闪耀；闪光；发出信号",
+          "order": 1
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "使闪耀；发出(信号)",
+          "order": 2
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "A flash of lightning lit up the sky.",
+          "translation": "一道闪电照亮了天空。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "organise",
+      "phoneticUK": "/ˈɔ:ɡənaɪz/",
+      "phoneticUS": "/ˈɔ:rɡənaɪz/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "组织；筹备；安排；组建",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "组建；成立",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to organise a party for her birthday.",
+          "translation": "我们需要为她的生日组织一个聚会。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "organisation",
+      "phoneticUK": "/ˌɔ:ɡənaɪˈzeɪʃn/",
+      "phoneticUS": "/ˌɔ:rɡənəˈzeɪʃn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "组织；团体；机构",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She works for a charity organisation.",
+          "translation": "她在一家慈善组织工作。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "goal",
+      "phoneticUK": "/ɡəʊl/",
+      "phoneticUS": "/ɡoʊl/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "目标；球门；射门",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "My goal is to become a doctor.",
+          "translation": "我的目标是成为一名医生。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "strategy",
+      "phoneticUK": "/ˈstrætədʒi/",
+      "phoneticUS": "/ˈstrætədʒi/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "策略；策划",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need a better strategy to win the game.",
+          "translation": "我们需要一个更好的策略来赢得比赛。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "partner",
+      "phoneticUK": "/ˈpɑ:tnə(r)/",
+      "phoneticUS": "/ˈpɑ:rtnər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "同伴；配偶；合伙人",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She is my partner in the dance competition.",
+          "translation": "她是我舞蹈比赛的搭档。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "improve",
+      "phoneticUK": "/ɪmˈpru:v/",
+      "phoneticUS": "/ɪmˈpru:v/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "改进；改善",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "You need to improve your English.",
+          "translation": "你需要提高你的英语水平。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "curious",
+      "phoneticUK": "/ˈkjʊəriəs/",
+      "phoneticUS": "/ˈkjʊriəs/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "好奇的；求知欲强的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Children are always curious about the world.",
+          "translation": "孩子们总是对世界充满好奇。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "company",
+      "phoneticUK": "/ˈkʌmpəni/",
+      "phoneticUS": "/ˈkʌmpəni/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "公司；商行；陪伴",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She works for a foreign company.",
+          "translation": "她在一家外企工作。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "personality",
+      "phoneticUK": "/ˌpɜ:səˈnæləti/",
+      "phoneticUS": "/ˌpɜ:rsəˈnæləti/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "性格；个性",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He has a very friendly personality.",
+          "translation": "他性格非常友好。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "style",
+      "phoneticUK": "/staɪl/",
+      "phoneticUS": "/staɪl/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "方式；作风",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I like her teaching style.",
+          "translation": "我喜欢她的教学风格。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "revise",
+      "phoneticUK": "/rɪˈvaɪz/",
+      "phoneticUS": "/rɪˈvaɪz/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt. & vi.",
+          "definition": "修改；修订；复习",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I need to revise my essay before submitting it.",
+          "translation": "提交前我需要修改我的文章。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "make an impression",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "留下好印象",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She wants to make a good impression on her new classmates.",
+          "translation": "她想给新同学留下好印象。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "what if",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "要是……会怎么样呢？",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "What if we go to the beach tomorrow?",
+          "translation": "如果明天我们去海滩会怎么样？",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "concentrate on",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "集中精力于",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "You should concentrate on your studies.",
+          "translation": "你应该专注于学习。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "leave ... alone",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "不打扰；不惊动",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Leave him alone, he is busy.",
+          "translation": "别打扰他，他很忙。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "senior high school",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "(美国)高中",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She will attend senior high school next year.",
+          "translation": "她明年上高中。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "at last",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "终于；最终",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "At last, the bus arrived.",
+          "translation": "公共汽车终于来了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "junior high school",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "(美国)初级中学",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He studied in junior high school three years ago.",
+          "translation": "他三年前在初级中学学习。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "look forward to",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "盼望；期待",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I look forward to hearing from you.",
+          "translation": "我期待收到你的来信。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "take notes",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "记笔记",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please take notes during the lecture.",
+          "translation": "请在讲座期间记笔记。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "flash card",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "教学卡片；识字卡",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We use flash cards to learn new words.",
+          "translation": "我们用闪卡来学习新单词。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_wu",
+      "synonyms": "",
+      "personalNotes": ""
+    }
+  ]
+}
