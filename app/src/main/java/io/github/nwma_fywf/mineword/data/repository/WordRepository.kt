@@ -57,6 +57,8 @@ class WordRepository(
 
     suspend fun getAllWordsList(): List<Word> = wordDao.getAllWordsOnce()
 
+    suspend fun getWordCount(): Int = wordDao.getWordCount()
+
     fun getMeaningsByWordId(wordId: Long): Flow<List<Meaning>> =
         meaningDao.getMeaningsByWordId(wordId)
 
@@ -83,6 +85,8 @@ class WordRepository(
     fun getAllPhrases(): Flow<List<Phrase>> = phraseDao.getAllPhrases()
 
     suspend fun getAllPhrasesList(): List<Phrase> = phraseDao.getAllPhrasesOnce()
+
+    suspend fun getPhraseCount(): Int = phraseDao.getPhraseCount()
 
     suspend fun getPhraseById(id: Long): Phrase? = phraseDao.getPhraseById(id)
 

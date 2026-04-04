@@ -48,6 +48,11 @@ data class ClearDataDialogState(
     val phraseCount: Int = 0
 )
 
+data class DataStats(
+    val wordCount: Int = 0,
+    val phraseCount: Int = 0
+)
+
 class SettingsViewModel(
     private val themePreferences: ThemePreferences,
     private val repository: WordRepository,
@@ -127,6 +132,22 @@ class SettingsViewModel(
 
     private val _clearDataDialogState = MutableStateFlow(ClearDataDialogState())
     val clearDataDialogState: StateFlow<ClearDataDialogState> = _clearDataDialogState.asStateFlow()
+
+    private val _dataStats = MutableStateFlow(DataStats())
+    val dataStats: StateFlow<DataStats> = _dataStats.asStateFlow()
+
+    init {
+        loadDataStats()
+    }
+
+    private fun loadDataStats() {
+        viewModelScope.launch {
+            _dataStats.value = DataStats(
+                wordCount = repository.getWordCount(),
+                phraseCount = repository.getPhraseCount()
+            )
+        }
+    }
 
     fun setThemeMode(mode: ThemeMode) {
         viewModelScope.launch {

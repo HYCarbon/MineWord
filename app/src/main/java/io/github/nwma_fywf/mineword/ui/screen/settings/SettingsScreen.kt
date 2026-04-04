@@ -72,6 +72,7 @@ fun SettingsScreen(
     val exportResult by viewModel.exportResult.collectAsState()
     val reviewReminderEnabled by viewModel.reviewReminderEnabled.collectAsState()
     val clearDataDialogState by viewModel.clearDataDialogState.collectAsState()
+    val dataStats by viewModel.dataStats.collectAsState()
     var showColorPickerDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
@@ -127,6 +128,13 @@ fun SettingsScreen(
             onFontStyleChange = viewModel::setFontStyle,
             onSelectFontFile = { fontFileLauncher.launch(arrayOf("font/ttf", "font/otf", "application/x-font-ttf", "application/x-font-otf")) },
             onClearFont = viewModel::clearCustomFont
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        DataStatsSection(
+            wordCount = dataStats.wordCount,
+            phraseCount = dataStats.phraseCount
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -358,6 +366,52 @@ private fun FontSettingsSection(
             subtitle = "选择 .ttf 或 .otf 字体文件",
             onClick = onSelectFontFile
         )
+    }
+}
+
+@Composable
+private fun DataStatsSection(
+    wordCount: Int,
+    phraseCount: Int
+) {
+    Text(
+        text = "词汇统计",
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(bottom = 16.dp)
+    )
+
+    SettingsClickableCard {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = wordCount.toString(),
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = "单词",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = phraseCount.toString(),
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = "词组",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
     }
 }
 
