@@ -26,12 +26,14 @@ fun NavGraph(
     editPhraseScreen: @Composable (Long) -> Unit,
     quizModeScreen: @Composable () -> Unit,
     quizPlayScreen: @Composable (String) -> Unit,
+    reviewScreen: @Composable () -> Unit,
     wrongAnswerScreen: @Composable () -> Unit,
     settingsScreen: @Composable () -> Unit,
 ) {
     val animationDuration = 200
     val bottomNavRoutes = setOf(
         Screen.WordList.route,
+        Screen.Review.route,
         Screen.QuizMode.route,
         Screen.Settings.route
     )
@@ -43,6 +45,7 @@ fun NavGraph(
         return if (initialRoute in bottomNavRoutes && targetRoute in bottomNavRoutes) {
             val bottomNavOrder = listOf(
                 Screen.WordList.route,
+                Screen.Review.route,
                 Screen.QuizMode.route,
                 Screen.Settings.route
             )
@@ -138,6 +141,9 @@ fun NavGraph(
         ) { backStackEntry ->
             val mode = backStackEntry.arguments?.getString("mode") ?: return@composable
             quizPlayScreen(mode)
+        }
+        composable(Screen.Review.route) {
+            reviewScreen()
         }
         composable(Screen.WrongAnswer.route) {
             wrongAnswerScreen()

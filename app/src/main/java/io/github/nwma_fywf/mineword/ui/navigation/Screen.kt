@@ -20,6 +20,7 @@ sealed class Screen(val route: String) {
     data object QuizPlay : Screen("quiz_play/{mode}") {
         fun createRoute(mode: String) = "quiz_play/$mode"
     }
+    data object Review : Screen("review")
     data object WrongAnswer : Screen("wrong_answer")
     data object Settings : Screen("settings")
 }

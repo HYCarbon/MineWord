@@ -318,6 +318,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         _quizMode.value = mode
         _userInput.value = ""
         if (mode == QuizMode.REVIEW) {
+            _quizState.value = QuizState.Idle
             loadReviewWords()
         } else {
             selectRandomWord()

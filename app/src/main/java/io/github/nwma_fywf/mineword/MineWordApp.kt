@@ -3,6 +3,7 @@ package io.github.nwma_fywf.mineword
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.List
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
@@ -34,6 +35,8 @@ import io.github.nwma_fywf.mineword.ui.screen.editphrase.EditPhraseViewModel
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizHomeScreen
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizHomeViewModel
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizScreen
+import io.github.nwma_fywf.mineword.ui.screen.review.ReviewScreen
+import io.github.nwma_fywf.mineword.ui.screen.review.ReviewViewModel
 import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailScreen
 import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailViewModel
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizViewModel
@@ -74,6 +77,7 @@ fun MineWordApp() {
 
         val bottomNavItems = listOf(
             Triple(Screen.WordList, "词汇", Icons.AutoMirrored.Outlined.List),
+            Triple(Screen.Review, "复习", Icons.Filled.Refresh),
             Triple(Screen.QuizMode, "测验", Icons.Filled.Star),
             Triple(Screen.Settings, "设置", Icons.Outlined.Settings),
         )
@@ -242,6 +246,19 @@ fun MineWordApp() {
                     QuizScreen(
                         viewModel = viewModel,
                         onNavigateBack = { navController.popBackStack() }
+                    )
+                },
+                reviewScreen = {
+                    val viewModel: ReviewViewModel = viewModel(
+                        factory = ReviewViewModel.provideFactory(
+                            (navController.context.applicationContext as MineWordApplication).repository
+                        )
+                    )
+                    ReviewScreen(
+                        viewModel = viewModel,
+                        onStartReview = { mode ->
+                            navController.navigate(Screen.QuizPlay.createRoute(mode.name))
+                        }
                     )
                 },
                 wrongAnswerScreen = {

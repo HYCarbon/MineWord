@@ -66,9 +66,6 @@ fun QuizHomeScreen(
     onNavigateToWrongAnswer: () -> Unit,
     viewModel: QuizHomeViewModel? = null,
 ) {
-    val defaultCount = remember { mutableStateOf(0) }
-    val dueReviewCount = viewModel?.dueReviewCount?.collectAsState(initial = 0)?.value ?: defaultCount.value
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -80,79 +77,29 @@ fun QuizHomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(16.dp)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Card(
-                onClick = { onSelectMode(QuizViewModel.QuizMode.REVIEW) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
-            ) {
+            val modes = QuizViewModel.QuizMode.entries.filter { it != QuizViewModel.QuizMode.REVIEW }
+            modes.chunked(2).forEach { rowModes ->
                 Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
                 ) {
-                    Column {
-                        Text(
-                            text = "复习模式",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                    rowModes.forEach { mode ->
+                        ModeCard(
+                            mode = mode,
+                            onClick = { onSelectMode(mode) },
+                            modifier = Modifier.weight(1f)
                         )
-                        if (dueReviewCount > 0) {
-                            Text(
-                                text = "$dueReviewCount 个单词待复习",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-                            )
-                        } else {
-                            Text(
-                                text = "点击开始复习",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-                            )
-                        }
                     }
-                    Icon(
-                        imageVector = Icons.Filled.Refresh,
-                        contentDescription = null,
-                        modifier = Modifier.size(40.dp),
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
+                    if (rowModes.size == 1) {
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
 
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                val modes = QuizViewModel.QuizMode.entries.filter { it != QuizViewModel.QuizMode.REVIEW }
-                modes.chunked(2).forEach { rowModes ->
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
-                    ) {
-                        rowModes.forEach { mode ->
-                            ModeCard(
-                                mode = mode,
-                                onClick = { onSelectMode(mode) },
-                                modifier = Modifier.weight(1f)
-                            )
-                        }
-                        if (rowModes.size == 1) {
-                            Spacer(modifier = Modifier.weight(1f))
-                        }
-                    }
-                }
-            }
+            Spacer(modifier = Modifier.weight(1f))
 
             Card(
                 onClick = onNavigateToWrongAnswer,
