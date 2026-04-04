@@ -25,11 +25,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TimePicker
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -71,9 +74,12 @@ fun SettingsScreen(
     val importResultDialogState by viewModel.importResultDialogState.collectAsState()
     val exportResult by viewModel.exportResult.collectAsState()
     val reviewReminderEnabled by viewModel.reviewReminderEnabled.collectAsState()
+    val reviewReminderHour by viewModel.reviewReminderHour.collectAsState()
+    val reviewReminderMinute by viewModel.reviewReminderMinute.collectAsState()
     val clearDataDialogState by viewModel.clearDataDialogState.collectAsState()
     val dataStats by viewModel.dataStats.collectAsState()
     var showColorPickerDialog by remember { mutableStateOf(false) }
+    var showTimePickerDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     val exportLauncher = rememberLauncherForActivityResult(
@@ -154,7 +160,10 @@ fun SettingsScreen(
 
         LearningSettingsSection(
             reviewReminderEnabled = reviewReminderEnabled,
-            onReviewReminderChange = viewModel::setReviewReminderEnabled
+            reviewReminderHour = reviewReminderHour,
+            reviewReminderMinute = reviewReminderMinute,
+            onReviewReminderChange = viewModel::setReviewReminderEnabled,
+            onTimeClick = { showTimePickerDialog = true }
         )
     }
 
@@ -190,6 +199,18 @@ fun SettingsScreen(
             phraseCount = clearDataDialogState.phraseCount,
             onConfirm = viewModel::confirmClearData,
             onDismiss = viewModel::dismissClearDataDialog
+        )
+    }
+
+    if (showTimePickerDialog) {
+        TimePickerDialog(
+            initialHour = reviewReminderHour,
+            initialMinute = reviewReminderMinute,
+            onTimeSelected = { hour, minute ->
+                viewModel.setReviewReminderTime(hour, minute)
+                showTimePickerDialog = false
+            },
+            onDismiss = { showTimePickerDialog = false }
         )
     }
 }
@@ -459,7 +480,10 @@ private fun DataManagementSection(
 @Composable
 private fun LearningSettingsSection(
     reviewReminderEnabled: Boolean,
-    onReviewReminderChange: (Boolean) -> Unit
+    reviewReminderHour: Int,
+    reviewReminderMinute: Int,
+    onReviewReminderChange: (Boolean) -> Unit,
+    onTimeClick: () -> Unit
 ) {
     Text(
         text = "学习设置",
@@ -474,7 +498,73 @@ private fun LearningSettingsSection(
             checked = reviewReminderEnabled,
             onCheckedChange = onReviewReminderChange
         )
+
+        if (reviewReminderEnabled) {
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onTimeClick() }
+                    .padding(vertical = 12.dp, horizontal = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "提醒时间",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    Text(
+                        text = String.format("%02d:%02d", reviewReminderHour, reviewReminderMinute),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Text(
+                    text = "修改",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TimePickerDialog(
+    initialHour: Int,
+    initialMinute: Int,
+    onTimeSelected: (Int, Int) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val timePickerState = rememberTimePickerState(
+        initialHour = initialHour,
+        initialMinute = initialMinute
+    )
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("设置提醒时间") },
+        text = {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                TimePicker(state = timePickerState)
+            }
+        },
+        confirmButton = {
+            Button(onClick = { onTimeSelected(timePickerState.hour, timePickerState.minute) }) {
+                Text("确定")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("取消")
+            }
+        }
+    )
 }
 
 @Composable

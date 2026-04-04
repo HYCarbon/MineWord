@@ -6,11 +6,11 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import io.github.nwma_fywf.mineword.MainActivity
-import io.github.nwma_fywf.mineword.MineWordApplication
 import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.WordDatabase
 
@@ -20,18 +20,27 @@ class ReviewReminderWorker(
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
+        val tag = "ReviewReminderWorker"
+        Log.d(tag, "Worker triggered")
+
         return try {
             val database = WordDatabase.getDatabase(context)
             val wordDao = database.wordDao()
             val currentTime = System.currentTimeMillis()
             val dueCount = wordDao.getDueReviewCount(currentTime)
 
+            Log.d(tag, "Due review count: $dueCount")
+
             if (dueCount > 0) {
                 showNotification(dueCount)
+                Log.d(tag, "Notification shown for $dueCount words")
+            } else {
+                Log.d(tag, "No words due for review")
             }
 
             Result.success()
         } catch (e: Exception) {
+            Log.e(tag, "Error in worker: ${e.message}", e)
             Result.retry()
         }
     }
@@ -40,14 +49,18 @@ class ReviewReminderWorker(
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                "复习提醒",
-                NotificationManager.IMPORTANCE_DEFAULT
-            ).apply {
-                description = "基于艾宾浩斯遗忘曲线的单词复习提醒"
+            val existingChannel = notificationManager.getNotificationChannel(CHANNEL_ID)
+            if (existingChannel == null) {
+                val channel = NotificationChannel(
+                    CHANNEL_ID,
+                    "复习提醒",
+                    NotificationManager.IMPORTANCE_HIGH
+                ).apply {
+                    description = "基于艾宾浩斯遗忘曲线的单词复习提醒"
+                    enableVibration(true)
+                }
+                notificationManager.createNotificationChannel(channel)
             }
-            notificationManager.createNotificationChannel(channel)
         }
 
         val intent = Intent(context, MainActivity::class.java).apply {
@@ -62,7 +75,8 @@ class ReviewReminderWorker(
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle("复习提醒")
             .setContentText("您有 $count 个单词需要复习")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()

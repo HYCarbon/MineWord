@@ -1,7 +1,6 @@
 package io.github.nwma_fywf.mineword.data.local
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -39,6 +38,8 @@ class ThemePreferences(private val context: Context) {
         private val CUSTOM_SECONDARY_KEY = intPreferencesKey("custom_secondary")
         private val CUSTOM_TERTIARY_KEY = intPreferencesKey("custom_tertiary")
         private val REVIEW_REMINDER_ENABLED_KEY = booleanPreferencesKey("review_reminder_enabled")
+        private val REVIEW_REMINDER_HOUR_KEY = intPreferencesKey("review_reminder_hour")
+        private val REVIEW_REMINDER_MINUTE_KEY = intPreferencesKey("review_reminder_minute")
     }
 
     val themeMode: Flow<ThemeMode> = context.dataStore.data.map { preferences ->
@@ -107,36 +108,6 @@ class ThemePreferences(private val context: Context) {
         preferences[CUSTOM_TERTIARY_KEY]
     }
 
-    suspend fun setCustomPrimaryColor(color: Int?) {
-        context.dataStore.edit { preferences ->
-            if (color != null) {
-                preferences[CUSTOM_PRIMARY_KEY] = color
-            } else {
-                preferences.remove(CUSTOM_PRIMARY_KEY)
-            }
-        }
-    }
-
-    suspend fun setCustomSecondaryColor(color: Int?) {
-        context.dataStore.edit { preferences ->
-            if (color != null) {
-                preferences[CUSTOM_SECONDARY_KEY] = color
-            } else {
-                preferences.remove(CUSTOM_SECONDARY_KEY)
-            }
-        }
-    }
-
-    suspend fun setCustomTertiaryColor(color: Int?) {
-        context.dataStore.edit { preferences ->
-            if (color != null) {
-                preferences[CUSTOM_TERTIARY_KEY] = color
-            } else {
-                preferences.remove(CUSTOM_TERTIARY_KEY)
-            }
-        }
-    }
-
     suspend fun setCustomThemeColor(primary: Int, secondary: Int, tertiary: Int) {
         context.dataStore.edit { preferences ->
             preferences[CUSTOM_PRIMARY_KEY] = primary
@@ -157,11 +128,31 @@ class ThemePreferences(private val context: Context) {
         preferences[REVIEW_REMINDER_ENABLED_KEY] ?: false
     }
 
+    val reviewReminderHour: Flow<Int> = context.dataStore.data.map { preferences ->
+        preferences[REVIEW_REMINDER_HOUR_KEY] ?: 20
+    }
+
+    val reviewReminderMinute: Flow<Int> = context.dataStore.data.map { preferences ->
+        preferences[REVIEW_REMINDER_MINUTE_KEY] ?: 0
+    }
+
     suspend fun setReviewReminderEnabled(enabled: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[REVIEW_REMINDER_ENABLED_KEY] = enabled
         }
-        val prefs = context.getSharedPreferences("mineword_prefs", Context.MODE_PRIVATE)
-        prefs.edit().putBoolean("review_reminder_enabled", enabled).apply()
+        context.getSharedPreferences("mineword_prefs", Context.MODE_PRIVATE)
+            .edit().putBoolean("review_reminder_enabled", enabled).apply()
+    }
+
+    suspend fun setReviewReminderTime(hour: Int, minute: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[REVIEW_REMINDER_HOUR_KEY] = hour
+            preferences[REVIEW_REMINDER_MINUTE_KEY] = minute
+        }
+        context.getSharedPreferences("mineword_prefs", Context.MODE_PRIVATE)
+            .edit()
+            .putInt("review_reminder_hour", hour)
+            .putInt("review_reminder_minute", minute)
+            .apply()
     }
 }

@@ -115,6 +115,20 @@ class SettingsViewModel(
             initialValue = false
         )
 
+    val reviewReminderHour: StateFlow<Int> = themePreferences.reviewReminderHour
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = 20
+        )
+
+    val reviewReminderMinute: StateFlow<Int> = themePreferences.reviewReminderMinute
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = 0
+        )
+
     private val _isExporting = MutableStateFlow(false)
     val isExporting: StateFlow<Boolean> = _isExporting.asStateFlow()
 
@@ -216,9 +230,18 @@ class SettingsViewModel(
         viewModelScope.launch {
             themePreferences.setReviewReminderEnabled(enabled)
             if (enabled) {
-                ReviewScheduler.scheduleReviewReminder(context)
+                ReviewScheduler.scheduleReviewReminder(context, reviewReminderHour.value, reviewReminderMinute.value)
             } else {
                 ReviewScheduler.cancelReviewReminder(context)
+            }
+        }
+    }
+
+    fun setReviewReminderTime(hour: Int, minute: Int) {
+        viewModelScope.launch {
+            themePreferences.setReviewReminderTime(hour, minute)
+            if (reviewReminderEnabled.value) {
+                ReviewScheduler.scheduleReviewReminder(context, hour, minute)
             }
         }
     }
