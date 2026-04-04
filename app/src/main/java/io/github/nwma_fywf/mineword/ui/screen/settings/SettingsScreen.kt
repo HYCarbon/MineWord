@@ -20,23 +20,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -52,12 +42,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import io.github.nwma_fywf.mineword.data.local.FontStyle
 import io.github.nwma_fywf.mineword.data.local.ThemeMode
-import io.github.nwma_fywf.mineword.ui.theme.StandardThemeColors
 import io.github.nwma_fywf.mineword.data.repository.DuplicateStrategy
+import io.github.nwma_fywf.mineword.ui.component.ClickableOption
+import io.github.nwma_fywf.mineword.ui.component.RadioOption
+import io.github.nwma_fywf.mineword.ui.component.SettingsClickableCard
+import io.github.nwma_fywf.mineword.ui.component.SettingsSectionCard
+import io.github.nwma_fywf.mineword.ui.component.SwitchOption
+import io.github.nwma_fywf.mineword.ui.theme.StandardThemeColors
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -84,9 +78,7 @@ fun SettingsScreen(
     val exportLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("application/json")
     ) { uri ->
-        uri?.let {
-            viewModel.exportData(it)
-        }
+        uri?.let { viewModel.exportData(it) }
     }
 
     val importLauncher = rememberLauncherForActivityResult(
@@ -100,9 +92,7 @@ fun SettingsScreen(
     val fontFileLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
     ) { uri ->
-        uri?.let {
-            viewModel.setCustomFontFromUri(it)
-        }
+        uri?.let { viewModel.setCustomFontFromUri(it) }
     }
 
     LaunchedEffect(exportResult) {
@@ -118,313 +108,61 @@ fun SettingsScreen(
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        Text(
-            text = "主题设置",
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(bottom = 16.dp)
+        ThemeSettingsSection(
+            themeMode = themeMode,
+            useDynamicColor = useDynamicColor,
+            customPrimaryColor = customPrimaryColor,
+            onThemeModeChange = viewModel::setThemeMode,
+            onUseDynamicColorChange = viewModel::setUseDynamicColor,
+            onThemeColorSelected = viewModel::setCustomThemeColor,
+            onClearThemeColor = viewModel::clearCustomThemeColor,
+            onCustomColorClick = { showColorPickerDialog = true }
         )
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
-            )
-        ) {
-            Column(
-                modifier = Modifier
-                    .selectableGroup()
-                    .padding(8.dp)
-            ) {
-                ThemeOption(
-                    text = "跟随系统",
-                    selected = themeMode == ThemeMode.SYSTEM,
-                    onClick = { viewModel.setThemeMode(ThemeMode.SYSTEM) }
-                )
-                ThemeOption(
-                    text = "亮色模式",
-                    selected = themeMode == ThemeMode.LIGHT,
-                    onClick = { viewModel.setThemeMode(ThemeMode.LIGHT) }
-                )
-                ThemeOption(
-                    text = "暗色模式",
-                    selected = themeMode == ThemeMode.DARK,
-                    onClick = { viewModel.setThemeMode(ThemeMode.DARK) }
-                )
-
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 12.dp, horizontal = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = "莫奈取色",
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                        Text(
-                            text = "使用系统壁纸颜色（Android 12+）",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                    Switch(
-                        checked = useDynamicColor,
-                        onCheckedChange = { viewModel.setUseDynamicColor(it) }
-                    )
-                }
-
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-
-                Text(
-                    text = "主题颜色",
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp)
-                )
-
-                LazyRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    items(StandardThemeColors) { themeColor ->
-                        val isSelected = customPrimaryColor == themeColor.primary.toArgb()
-                        Box(
-                            modifier = Modifier
-                                .size(40.dp)
-                                .background(themeColor.primary, CircleShape)
-                                .border(
-                                    width = if (isSelected) 3.dp else 0.dp,
-                                    color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent,
-                                    shape = CircleShape
-                                )
-                                .clickable {
-                                    viewModel.setCustomThemeColor(
-                                        themeColor.primary.toArgb(),
-                                        themeColor.secondary.toArgb(),
-                                        themeColor.tertiary.toArgb()
-                                    )
-                                }
-                        )
-                    }
-                }
-
-                if (customPrimaryColor != null) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp, vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "已选择自定义颜色",
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.weight(1f)
-                        )
-                        TextButton(onClick = { viewModel.clearCustomThemeColor() }) {
-                            Text("清除")
-                        }
-                    }
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp, vertical = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    DataManagementOption(
-                        title = "自定义 RGB 颜色",
-                        subtitle = "输入 RGB 值自定义主题色",
-                        isLoading = false,
-                        onClick = { showColorPickerDialog = true }
-                    )
-                }
-            }
-        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text(
-            text = "字体设置",
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(bottom = 16.dp)
+        FontSettingsSection(
+            fontStyle = fontStyle,
+            customFontPath = customFontPath,
+            onFontStyleChange = viewModel::setFontStyle,
+            onSelectFontFile = { fontFileLauncher.launch(arrayOf("font/ttf", "font/otf", "application/x-font-ttf", "application/x-font-otf")) },
+            onClearFont = viewModel::clearCustomFont
         )
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
-            )
-        ) {
-            Column(
-                modifier = Modifier
-                    .selectableGroup()
-                    .padding(8.dp)
-            ) {
-                FontStyleOption(
-                    text = "默认",
-                    selected = fontStyle == FontStyle.DEFAULT,
-                    onClick = { viewModel.setFontStyle(FontStyle.DEFAULT) }
-                )
-                FontStyleOption(
-                    text = "衬线体 (Serif)",
-                    selected = fontStyle == FontStyle.SERIF,
-                    onClick = { viewModel.setFontStyle(FontStyle.SERIF) }
-                )
-                FontStyleOption(
-                    text = "无衬线体 (Sans Serif)",
-                    selected = fontStyle == FontStyle.SANS_SERIF,
-                    onClick = { viewModel.setFontStyle(FontStyle.SANS_SERIF) }
-                )
-                FontStyleOption(
-                    text = "等宽字体 (Monospace)",
-                    selected = fontStyle == FontStyle.MONOSPACE,
-                    onClick = { viewModel.setFontStyle(FontStyle.MONOSPACE) }
-                )
-
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-
-                Text(
-                    text = "自定义字体",
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp)
-                )
-
-                if (fontStyle == FontStyle.CUSTOM && customFontPath != null) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp, vertical = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "已选择自定义字体",
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.weight(1f)
-                        )
-                        TextButton(onClick = { viewModel.clearCustomFont() }) {
-                            Text("清除")
-                        }
-                    }
-                }
-
-                DataManagementOption(
-                    title = "从文件选择字体",
-                    subtitle = "选择 .ttf 或 .otf 字体文件",
-                    isLoading = false,
-                    onClick = {
-                        fontFileLauncher.launch(arrayOf("font/ttf", "font/otf", "application/x-font-ttf", "application/x-font-otf"))
-                    }
-                )
-            }
-        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text(
-            text = "数据管理",
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(bottom = 16.dp)
+        DataManagementSection(
+            isExporting = isExporting,
+            isImporting = isImporting,
+            onExport = {
+                val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+                exportLauncher.launch("mineword_backup_$timestamp.json")
+            },
+            onImport = { importLauncher.launch(arrayOf("application/json")) },
+            onClearData = viewModel::showClearDataDialog
         )
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
-            )
-            ) {
-            Column(
-                modifier = Modifier.padding(8.dp)
-            ) {
-                DataManagementOption(
-                    title = "导出数据",
-                    subtitle = "将所有单词导出为JSON文件",
-                    isLoading = isExporting,
-                    onClick = {
-                        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-                        exportLauncher.launch("mineword_backup_$timestamp.json")
-                    }
-                )
-
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-
-                DataManagementOption(
-                    title = "批量导入",
-                    subtitle = "选择多个JSON文件批量导入单词",
-                    isLoading = isImporting,
-                    onClick = {
-                        importLauncher.launch(arrayOf("application/json"))
-                    }
-                )
-
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-
-                DataManagementOption(
-                    title = "清除所有数据",
-                    subtitle = "删除所有单词、词组和学习记录",
-                    isLoading = false,
-                    onClick = { viewModel.showClearDataDialog() }
-                )
-            }
-        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text(
-            text = "学习设置",
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(bottom = 16.dp)
+        LearningSettingsSection(
+            reviewReminderEnabled = reviewReminderEnabled,
+            onReviewReminderChange = viewModel::setReviewReminderEnabled
         )
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant
-            )
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 12.dp, horizontal = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = "复习提醒",
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                    Text(
-                        text = "基于艾宾浩斯遗忘曲线定时提醒复习",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                Switch(
-                    checked = reviewReminderEnabled,
-                    onCheckedChange = { viewModel.setReviewReminderEnabled(it) }
-                )
-            }
-        }
     }
 
     if (importDialogState.isVisible) {
         DuplicateStrategyDialog(
             duplicateCount = importDialogState.duplicateWords.size,
             duplicateWords = importDialogState.duplicateWords,
-            onStrategySelected = { viewModel.onDuplicateStrategySelected(it) },
-            onDismiss = { viewModel.dismissImportDialog() }
+            onStrategySelected = viewModel::onDuplicateStrategySelected,
+            onDismiss = viewModel::dismissImportDialog
         )
     }
 
     if (importResultDialogState.isVisible) {
-        val result = importResultDialogState.result
         ImportResultDialog(
-            result = result,
-            onDismiss = { viewModel.dismissImportResultDialog() }
+            result = importResultDialogState.result,
+            onDismiss = viewModel::dismissImportResultDialog
         )
     }
 
@@ -442,100 +180,246 @@ fun SettingsScreen(
         ClearDataConfirmDialog(
             wordCount = clearDataDialogState.wordCount,
             phraseCount = clearDataDialogState.phraseCount,
-            onConfirm = { viewModel.confirmClearData() },
-            onDismiss = { viewModel.dismissClearDataDialog() }
+            onConfirm = viewModel::confirmClearData,
+            onDismiss = viewModel::dismissClearDataDialog
         )
     }
 }
 
 @Composable
-private fun FontStyleOption(
-    text: String,
-    selected: Boolean,
-    onClick: () -> Unit
+private fun ThemeSettingsSection(
+    themeMode: ThemeMode,
+    useDynamicColor: Boolean,
+    customPrimaryColor: Int?,
+    onThemeModeChange: (ThemeMode) -> Unit,
+    onUseDynamicColorChange: (Boolean) -> Unit,
+    onThemeColorSelected: (Int, Int, Int) -> Unit,
+    onClearThemeColor: () -> Unit,
+    onCustomColorClick: () -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .selectable(
-                selected = selected,
-                onClick = onClick,
-                role = Role.RadioButton
-            )
-            .padding(vertical = 12.dp, horizontal = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        RadioButton(
-            selected = selected,
-            onClick = null
+    Text(
+        text = "主题设置",
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(bottom = 16.dp)
+    )
+
+    SettingsSectionCard {
+        RadioOption(
+            text = "跟随系统",
+            selected = themeMode == ThemeMode.SYSTEM,
+            onClick = { onThemeModeChange(ThemeMode.SYSTEM) }
         )
+        RadioOption(
+            text = "亮色模式",
+            selected = themeMode == ThemeMode.LIGHT,
+            onClick = { onThemeModeChange(ThemeMode.LIGHT) }
+        )
+        RadioOption(
+            text = "暗色模式",
+            selected = themeMode == ThemeMode.DARK,
+            onClick = { onThemeModeChange(ThemeMode.DARK) }
+        )
+
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+        SwitchOption(
+            title = "莫奈取色",
+            subtitle = "使用系统壁纸颜色（Android 12+）",
+            checked = useDynamicColor,
+            onCheckedChange = onUseDynamicColorChange
+        )
+
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
         Text(
-            text = text,
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(start = 16.dp)
+            text = "主题颜色",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp)
+        )
+
+        LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            items(StandardThemeColors) { themeColor ->
+                val isSelected = customPrimaryColor == themeColor.primary.toArgb()
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .background(themeColor.primary, CircleShape)
+                        .border(
+                            width = if (isSelected) 3.dp else 0.dp,
+                            color = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent,
+                            shape = CircleShape
+                        )
+                        .clickable {
+                            onThemeColorSelected(
+                                themeColor.primary.toArgb(),
+                                themeColor.secondary.toArgb(),
+                                themeColor.tertiary.toArgb()
+                            )
+                        }
+                )
+            }
+        }
+
+        if (customPrimaryColor != null) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "已选择自定义颜色",
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.weight(1f)
+                )
+                TextButton(onClick = onClearThemeColor) {
+                    Text("清除")
+                }
+            }
+        }
+
+        ClickableOption(
+            title = "自定义 RGB 颜色",
+            subtitle = "输入 RGB 值自定义主题色",
+            onClick = onCustomColorClick
         )
     }
 }
 
 @Composable
-private fun ThemeOption(
-    text: String,
-    selected: Boolean,
-    onClick: () -> Unit
+private fun FontSettingsSection(
+    fontStyle: FontStyle,
+    customFontPath: String?,
+    onFontStyleChange: (FontStyle) -> Unit,
+    onSelectFontFile: () -> Unit,
+    onClearFont: () -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .selectable(
-                selected = selected,
-                onClick = onClick,
-                role = Role.RadioButton
-            )
-            .padding(vertical = 12.dp, horizontal = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        RadioButton(
-            selected = selected,
-            onClick = null
+    Text(
+        text = "字体设置",
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(bottom = 16.dp)
+    )
+
+    SettingsSectionCard {
+        RadioOption(
+            text = "默认",
+            selected = fontStyle == FontStyle.DEFAULT,
+            onClick = { onFontStyleChange(FontStyle.DEFAULT) }
         )
+        RadioOption(
+            text = "衬线体 (Serif)",
+            selected = fontStyle == FontStyle.SERIF,
+            onClick = { onFontStyleChange(FontStyle.SERIF) }
+        )
+        RadioOption(
+            text = "无衬线体 (Sans Serif)",
+            selected = fontStyle == FontStyle.SANS_SERIF,
+            onClick = { onFontStyleChange(FontStyle.SANS_SERIF) }
+        )
+        RadioOption(
+            text = "等宽字体 (Monospace)",
+            selected = fontStyle == FontStyle.MONOSPACE,
+            onClick = { onFontStyleChange(FontStyle.MONOSPACE) }
+        )
+
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
         Text(
-            text = text,
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.padding(start = 16.dp)
+            text = "自定义字体",
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp)
+        )
+
+        if (fontStyle == FontStyle.CUSTOM && customFontPath != null) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "已选择自定义字体",
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.weight(1f)
+                )
+                TextButton(onClick = onClearFont) {
+                    Text("清除")
+                }
+            }
+        }
+
+        ClickableOption(
+            title = "从文件选择字体",
+            subtitle = "选择 .ttf 或 .otf 字体文件",
+            onClick = onSelectFontFile
         )
     }
 }
 
 @Composable
-private fun DataManagementOption(
-    title: String,
-    subtitle: String,
-    isLoading: Boolean,
-    onClick: () -> Unit
+private fun DataManagementSection(
+    isExporting: Boolean,
+    isImporting: Boolean,
+    onExport: () -> Unit,
+    onImport: () -> Unit,
+    onClearData: () -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(enabled = !isLoading, onClick = onClick)
-            .padding(vertical = 12.dp, horizontal = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        if (isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier.padding(end = 16.dp)
-            )
-        }
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Text(
-                text = subtitle,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
+    Text(
+        text = "数据管理",
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(bottom = 16.dp)
+    )
+
+    SettingsClickableCard {
+        ClickableOption(
+            title = "导出数据",
+            subtitle = "将所有单词导出为JSON文件",
+            isLoading = isExporting,
+            onClick = onExport
+        )
+
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+        ClickableOption(
+            title = "批量导入",
+            subtitle = "选择多个JSON文件批量导入单词",
+            isLoading = isImporting,
+            onClick = onImport
+        )
+
+        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+        ClickableOption(
+            title = "清除所有数据",
+            subtitle = "删除所有单词、词组和学习记录",
+            onClick = onClearData
+        )
+    }
+}
+
+@Composable
+private fun LearningSettingsSection(
+    reviewReminderEnabled: Boolean,
+    onReviewReminderChange: (Boolean) -> Unit
+) {
+    Text(
+        text = "学习设置",
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.padding(bottom = 16.dp)
+    )
+
+    SettingsClickableCard {
+        SwitchOption(
+            title = "复习提醒",
+            subtitle = "基于艾宾浩斯遗忘曲线定时提醒复习",
+            checked = reviewReminderEnabled,
+            onCheckedChange = onReviewReminderChange
+        )
     }
 }
 
@@ -579,24 +463,57 @@ private fun DuplicateStrategyDialog(
                 Text("请选择处理方式：")
                 Spacer(modifier = Modifier.height(8.dp))
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    StrategyOption(
-                        text = "替换现有数据",
-                        description = "用导入的数据覆盖重复的单词",
-                        selected = selectedStrategy == DuplicateStrategy.REPLACE,
-                        onClick = { selectedStrategy = DuplicateStrategy.REPLACE }
-                    )
-                    StrategyOption(
-                        text = "跳过重复项",
-                        description = "保留原数据，忽略重复项",
-                        selected = selectedStrategy == DuplicateStrategy.SKIP,
-                        onClick = { selectedStrategy = DuplicateStrategy.SKIP }
-                    )
-                    StrategyOption(
-                        text = "合并",
-                        description = "合并释义和例句，去重",
-                        selected = selectedStrategy == DuplicateStrategy.MERGE,
-                        onClick = { selectedStrategy = DuplicateStrategy.MERGE }
-                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { selectedStrategy = DuplicateStrategy.REPLACE }
+                            .padding(vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        androidx.compose.material3.RadioButton(
+                            selected = selectedStrategy == DuplicateStrategy.REPLACE,
+                            onClick = null
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column {
+                            Text("替换现有数据", style = MaterialTheme.typography.bodyMedium)
+                            Text("用导入的数据覆盖重复的单词", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { selectedStrategy = DuplicateStrategy.SKIP }
+                            .padding(vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        androidx.compose.material3.RadioButton(
+                            selected = selectedStrategy == DuplicateStrategy.SKIP,
+                            onClick = null
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column {
+                            Text("跳过重复项", style = MaterialTheme.typography.bodyMedium)
+                            Text("保留原数据，忽略重复项", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { selectedStrategy = DuplicateStrategy.MERGE }
+                            .padding(vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        androidx.compose.material3.RadioButton(
+                            selected = selectedStrategy == DuplicateStrategy.MERGE,
+                            onClick = null
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column {
+                            Text("合并", style = MaterialTheme.typography.bodyMedium)
+                            Text("合并释义和例句，去重", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
                 }
             }
         },
@@ -614,42 +531,6 @@ private fun DuplicateStrategyDialog(
 }
 
 @Composable
-private fun StrategyOption(
-    text: String,
-    description: String,
-    selected: Boolean,
-    onClick: () -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .selectable(
-                selected = selected,
-                onClick = onClick,
-                role = Role.RadioButton
-            ),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        RadioButton(
-            selected = selected,
-            onClick = null
-        )
-        Spacer(modifier = Modifier.width(8.dp))
-        Column {
-            Text(
-                text = text,
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-    }
-}
-
-@Composable
 private fun ImportResultDialog(
     result: io.github.nwma_fywf.mineword.data.repository.ImportResult?,
     onDismiss: () -> Unit
@@ -663,18 +544,10 @@ private fun ImportResultDialog(
             } else {
                 Column {
                     Text("共 ${result.totalCount} 个单词")
-                    if (result.successCount > 0) {
-                        Text("新增: ${result.successCount}")
-                    }
-                    if (result.replacedCount > 0) {
-                        Text("替换: ${result.replacedCount}")
-                    }
-                    if (result.mergedCount > 0) {
-                        Text("合并: ${result.mergedCount}")
-                    }
-                    if (result.skipCount > 0) {
-                        Text("跳过: ${result.skipCount}")
-                    }
+                    if (result.successCount > 0) Text("新增: ${result.successCount}")
+                    if (result.replacedCount > 0) Text("替换: ${result.replacedCount}")
+                    if (result.mergedCount > 0) Text("合并: ${result.mergedCount}")
+                    if (result.skipCount > 0) Text("跳过: ${result.skipCount}")
                     if (result.duplicateWords.isNotEmpty()) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
@@ -730,59 +603,23 @@ private fun CustomColorPickerDialog(
                             (blue.toIntOrNull() ?: 0) > 127) Color.Black else Color.White
                     )
                 }
-
                 Spacer(modifier = Modifier.height(16.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Text("R:", modifier = Modifier.width(24.dp))
-                    TextField(
-                        value = red,
-                        onValueChange = { if (it.length <= 3) red = it.filter { c -> c.isDigit() } },
-                        modifier = Modifier.weight(1f),
-                        singleLine = true
-                    )
+                    TextField(value = red, onValueChange = { if (it.length <= 3) red = it.filter { c -> c.isDigit() } }, modifier = Modifier.weight(1f), singleLine = true)
                 }
-
                 Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Text("G:", modifier = Modifier.width(24.dp))
-                    TextField(
-                        value = green,
-                        onValueChange = { if (it.length <= 3) green = it.filter { c -> c.isDigit() } },
-                        modifier = Modifier.weight(1f),
-                        singleLine = true
-                    )
+                    TextField(value = green, onValueChange = { if (it.length <= 3) green = it.filter { c -> c.isDigit() } }, modifier = Modifier.weight(1f), singleLine = true)
                 }
-
                 Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     Text("B:", modifier = Modifier.width(24.dp))
-                    TextField(
-                        value = blue,
-                        onValueChange = { if (it.length <= 3) blue = it.filter { c -> c.isDigit() } },
-                        modifier = Modifier.weight(1f),
-                        singleLine = true
-                    )
+                    TextField(value = blue, onValueChange = { if (it.length <= 3) blue = it.filter { c -> c.isDigit() } }, modifier = Modifier.weight(1f), singleLine = true)
                 }
-
                 Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = "范围: 0-255",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                Text("范围: 0-255", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         },
         confirmButton = {
@@ -834,9 +671,7 @@ private fun ClearDataConfirmDialog(
         confirmButton = {
             Button(
                 onClick = onConfirm,
-                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error
-                )
+                colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
             ) {
                 Text("确认删除")
             }
