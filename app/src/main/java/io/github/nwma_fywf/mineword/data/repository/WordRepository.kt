@@ -55,6 +55,8 @@ class WordRepository(
 
     suspend fun getWordByWord(word: String): Word? = wordDao.getWordByWord(word)
 
+    suspend fun getAllWordsList(): List<Word> = wordDao.getAllWordsOnce()
+
     fun getMeaningsByWordId(wordId: Long): Flow<List<Meaning>> =
         meaningDao.getMeaningsByWordId(wordId)
 

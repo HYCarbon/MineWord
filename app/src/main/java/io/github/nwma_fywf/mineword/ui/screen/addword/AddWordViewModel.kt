@@ -27,6 +27,16 @@ class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    val existingWords: StateFlow<List<Word>>
+
+    init {
+        val flow = MutableStateFlow<List<Word>>(emptyList())
+        existingWords = flow
+        viewModelScope.launch {
+            flow.value = repository.getAllWordsList()
+        }
+    }
+
     suspend fun checkDuplicate(word: String): Boolean {
         return repository.getWordByWord(word) != null
     }

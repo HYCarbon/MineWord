@@ -66,6 +66,7 @@ fun EditWordScreen(
 ) {
     val wordData by viewModel.wordData.collectAsState()
     val existingTags by viewModel.existingTags.collectAsState()
+    val existingWords by viewModel.existingWords.collectAsState()
     val scope = rememberCoroutineScope()
 
     val wordFocusRequester = remember { FocusRequester() }
@@ -443,12 +444,45 @@ fun EditWordScreen(
                     .focusRequester(synonymsFocusRequester),
                 label = { Text("同义词") },
                 placeholder = { Text("如: happy, joyful, delighted") },
-                minLines = 2,
+                singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
                     onNext = { antonymsFocusRequester.requestFocus() }
                 ),
             )
+            val currentSynonyms = synonyms.split(",").map { it.trim() }.filter { it.isNotEmpty() }.toSet()
+            val availableWordsForSynonyms = existingWords.filter { w -> 
+                w.id != wordData?.word?.id && w.word !in currentSynonyms 
+            }.take(20)
+            if (availableWordsForSynonyms.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "从词库选择同义词",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    availableWordsForSynonyms.forEach { w ->
+                        FilterChip(
+                            selected = false,
+                            onClick = {
+                                val trimmed = synonyms.trimEnd()
+                                val newText = when {
+                                    trimmed.isEmpty() -> "${w.word}, "
+                                    trimmed.endsWith(",") -> "$trimmed ${w.word}, "
+                                    else -> "$trimmed, ${w.word}, "
+                                }
+                                synonyms = newText
+                            },
+                            label = { Text(w.word) },
+                        )
+                    }
+                }
+            }
 
             Spacer(modifier = Modifier.height(12.dp))
             OutlinedTextField(

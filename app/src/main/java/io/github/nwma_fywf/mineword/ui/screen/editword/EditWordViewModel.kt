@@ -37,6 +37,16 @@ class EditWordViewModel(private val repository: WordRepository) : ViewModel() {
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    val existingWords: StateFlow<List<Word>>
+
+    init {
+        val flow = MutableStateFlow<List<Word>>(emptyList())
+        existingWords = flow
+        viewModelScope.launch {
+            flow.value = repository.getAllWordsList()
+        }
+    }
+
     fun loadWord(wordId: Long) {
         viewModelScope.launch {
             val word = repository.getWordById(wordId)
