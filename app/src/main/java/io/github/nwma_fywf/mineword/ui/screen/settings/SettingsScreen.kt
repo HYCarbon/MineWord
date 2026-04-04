@@ -77,6 +77,7 @@ fun SettingsScreen(
     val importResultDialogState by viewModel.importResultDialogState.collectAsState()
     val exportResult by viewModel.exportResult.collectAsState()
     val reviewReminderEnabled by viewModel.reviewReminderEnabled.collectAsState()
+    val clearDataDialogState by viewModel.clearDataDialogState.collectAsState()
     var showColorPickerDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
@@ -359,6 +360,15 @@ fun SettingsScreen(
                         importLauncher.launch(arrayOf("application/json"))
                     }
                 )
+
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+                DataManagementOption(
+                    title = "清除所有数据",
+                    subtitle = "删除所有单词、词组和学习记录",
+                    isLoading = false,
+                    onClick = { viewModel.showClearDataDialog() }
+                )
             }
         }
 
@@ -425,6 +435,15 @@ fun SettingsScreen(
                 showColorPickerDialog = false
             },
             onDismiss = { showColorPickerDialog = false }
+        )
+    }
+
+    if (clearDataDialogState.isVisible) {
+        ClearDataConfirmDialog(
+            wordCount = clearDataDialogState.wordCount,
+            phraseCount = clearDataDialogState.phraseCount,
+            onConfirm = { viewModel.confirmClearData() },
+            onDismiss = { viewModel.dismissClearDataDialog() }
         )
     }
 }
@@ -777,6 +796,49 @@ private fun CustomColorPickerDialog(
                 }
             ) {
                 Text("应用")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("取消")
+            }
+        }
+    )
+}
+
+@Composable
+private fun ClearDataConfirmDialog(
+    wordCount: Int,
+    phraseCount: Int,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("确认清除所有数据？") },
+        text = {
+            Column {
+                Text("此操作将删除以下数据：")
+                Spacer(modifier = Modifier.height(8.dp))
+                Text("• $wordCount 个单词")
+                Text("• $phraseCount 个词组")
+                Text("• 所有学习记录和错题")
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "此操作不可撤销，请确保已备份重要数据。",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = onConfirm,
+                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.error
+                )
+            ) {
+                Text("确认删除")
             }
         },
         dismissButton = {

@@ -42,6 +42,12 @@ data class ExportResultState(
     val message: String = ""
 )
 
+data class ClearDataDialogState(
+    val isVisible: Boolean = false,
+    val wordCount: Int = 0,
+    val phraseCount: Int = 0
+)
+
 class SettingsViewModel(
     private val themePreferences: ThemePreferences,
     private val repository: WordRepository,
@@ -118,6 +124,9 @@ class SettingsViewModel(
 
     private val _exportResult = MutableStateFlow(ExportResultState())
     val exportResult: StateFlow<ExportResultState> = _exportResult.asStateFlow()
+
+    private val _clearDataDialogState = MutableStateFlow(ClearDataDialogState())
+    val clearDataDialogState: StateFlow<ClearDataDialogState> = _clearDataDialogState.asStateFlow()
 
     fun setThemeMode(mode: ThemeMode) {
         viewModelScope.launch {
@@ -362,6 +371,36 @@ class SettingsViewModel(
 
     fun dismissExportResult() {
         _exportResult.value = ExportResultState()
+    }
+
+    fun showClearDataDialog() {
+        viewModelScope.launch {
+            val words = repository.getAllWordsList()
+            val phrases = repository.getAllPhrasesList()
+            _clearDataDialogState.value = ClearDataDialogState(
+                isVisible = true,
+                wordCount = words.size,
+                phraseCount = phrases.size
+            )
+        }
+    }
+
+    fun confirmClearData() {
+        viewModelScope.launch {
+            try {
+                repository.deleteAllWords()
+                repository.deleteAllPhrases()
+                repository.clearAllWrongAnswers()
+                Toast.makeText(context, "数据已清除", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(context, "清除失败: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+            _clearDataDialogState.value = ClearDataDialogState()
+        }
+    }
+
+    fun dismissClearDataDialog() {
+        _clearDataDialogState.value = ClearDataDialogState()
     }
 
     companion object {

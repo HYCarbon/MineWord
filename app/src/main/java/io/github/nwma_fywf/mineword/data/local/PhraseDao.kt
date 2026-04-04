@@ -42,4 +42,7 @@ interface PhraseDao {
 
     @Query("SELECT * FROM phrases ORDER BY createdAt DESC")
     suspend fun getAllPhrasesOnce(): List<Phrase>
+
+    @Query("DELETE FROM phrases")
+    suspend fun deleteAllPhrases()
 }

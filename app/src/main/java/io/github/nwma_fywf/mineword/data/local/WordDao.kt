@@ -52,4 +52,7 @@ interface WordDao {
 
     @Query("SELECT COUNT(*) FROM words WHERE nextReviewTime <= :currentTime AND nextReviewTime > 0")
     suspend fun getDueReviewCount(currentTime: Long): Int
+
+    @Query("DELETE FROM words")
+    suspend fun deleteAllWords()
 }

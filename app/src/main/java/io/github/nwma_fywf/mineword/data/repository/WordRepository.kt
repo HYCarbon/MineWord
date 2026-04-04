@@ -82,6 +82,8 @@ class WordRepository(
 
     fun getAllPhrases(): Flow<List<Phrase>> = phraseDao.getAllPhrases()
 
+    suspend fun getAllPhrasesList(): List<Phrase> = phraseDao.getAllPhrasesOnce()
+
     suspend fun getPhraseById(id: Long): Phrase? = phraseDao.getPhraseById(id)
 
     fun searchPhrases(query: String): Flow<List<Phrase>> = phraseDao.searchPhrases(query)
@@ -91,6 +93,17 @@ class WordRepository(
     suspend fun updatePhrase(phrase: Phrase) = phraseDao.updatePhrase(phrase)
 
     suspend fun deletePhrase(phrase: Phrase) = phraseDao.deletePhrase(phrase)
+
+    suspend fun deleteAllWords() {
+        val words = wordDao.getAllWordsOnce()
+        words.forEach { word ->
+            meaningDao.deleteByWordId(word.id)
+            exampleSentenceDao.deleteByWordId(word.id)
+        }
+        wordDao.deleteAllWords()
+    }
+
+    suspend fun deleteAllPhrases() = phraseDao.deleteAllPhrases()
 
     fun getAllPhraseTagsRaw(): Flow<List<String>> = phraseDao.getAllTagsRaw()
 
