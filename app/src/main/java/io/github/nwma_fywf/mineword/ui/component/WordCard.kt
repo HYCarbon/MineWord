@@ -78,6 +78,28 @@ fun WordCard(
                     }
                 }
             }
+
+            val synonyms = word.synonyms.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+            val antonyms = word.antonyms.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+            if (synonyms.isNotEmpty() || antonyms.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    if (synonyms.isNotEmpty()) {
+                        Text(
+                            text = "同义: ${synonyms.joinToString(", ")}",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                    if (antonyms.isNotEmpty()) {
+                        Text(
+                            text = "反义: ${antonyms.joinToString(", ")}",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+            }
         }
     }
 }

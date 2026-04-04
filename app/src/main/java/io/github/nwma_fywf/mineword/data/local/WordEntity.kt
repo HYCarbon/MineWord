@@ -13,6 +13,7 @@ data class Word(
     val audioUrl: String? = null,
     val tags: String = "",
     val synonyms: String = "",
+    val antonyms: String = "",
     val personalNotes: String = "",
     val createdAt: Long = System.currentTimeMillis(),
     val learningStage: Int = 0,

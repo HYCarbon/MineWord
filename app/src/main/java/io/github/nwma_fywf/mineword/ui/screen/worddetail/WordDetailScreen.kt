@@ -186,6 +186,19 @@ fun WordDetailScreen(
                     )
                 }
 
+                if (!data.word.antonyms.isNullOrBlank()) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "反义词",
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = data.word.antonyms,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+
                 if (!data.word.personalNotes.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(

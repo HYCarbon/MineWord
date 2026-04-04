@@ -76,6 +76,7 @@ fun EditWordScreen(
     val exampleTranslationFocusRequester = remember { FocusRequester() }
     val tagsFocusRequester = remember { FocusRequester() }
     val synonymsFocusRequester = remember { FocusRequester() }
+    val antonymsFocusRequester = remember { FocusRequester() }
     val personalNotesFocusRequester = remember { FocusRequester() }
 
     val meaningFocusRequesters = remember { mutableStateListOf<FocusRequester>() }
@@ -103,6 +104,7 @@ fun EditWordScreen(
     }
     var tags by remember { mutableStateOf(TextFieldValue("")) }
     var synonyms by remember { mutableStateOf("") }
+    var antonyms by remember { mutableStateOf("") }
     var personalNotes by remember { mutableStateOf("") }
     var duplicateWarning by remember { mutableStateOf<String?>(null) }
     var dataLoaded by remember { mutableStateOf(false) }
@@ -119,6 +121,7 @@ fun EditWordScreen(
                 phoneticUS = data.word.phoneticUS ?: ""
                 tags = TextFieldValue(data.word.tags ?: "")
                 synonyms = data.word.synonyms ?: ""
+                antonyms = data.word.antonyms ?: ""
                 personalNotes = data.word.personalNotes ?: ""
                 meaningEntries.clear()
                 meaningEntries.addAll(data.meanings.map { MeaningEntry(it.partOfSpeech ?: "", it.definition) })
@@ -181,6 +184,7 @@ fun EditWordScreen(
                                             exampleSentences = examples,
                                             tags = tags.text.trim(),
                                             synonyms = synonyms.trim(),
+                                            antonyms = antonyms.trim(),
                                             personalNotes = personalNotes.trim(),
                                             onComplete = onNavigateBack
                                         )
@@ -427,6 +431,22 @@ fun EditWordScreen(
                     .focusRequester(synonymsFocusRequester),
                 label = { Text("同义词") },
                 placeholder = { Text("如: happy, joyful, delighted") },
+                minLines = 2,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = { antonymsFocusRequester.requestFocus() }
+                ),
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = antonyms,
+                onValueChange = { antonyms = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(antonymsFocusRequester),
+                label = { Text("反义词") },
+                placeholder = { Text("如: sad, unhappy, miserable") },
                 minLines = 2,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
