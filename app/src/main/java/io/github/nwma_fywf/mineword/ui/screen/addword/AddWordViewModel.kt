@@ -40,6 +40,7 @@ class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
         tags: String = "",
         synonyms: String = "",
         antonyms: String = "",
+        phrases: String = "",
         personalNotes: String = "",
         onComplete: () -> Unit
     ) {
@@ -52,6 +53,7 @@ class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
                     tags = tags,
                     synonyms = synonyms,
                     antonyms = antonyms,
+                    phrases = phrases,
                     personalNotes = personalNotes,
                 )
             )

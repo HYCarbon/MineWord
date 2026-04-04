@@ -14,6 +14,7 @@ data class Word(
     val tags: String = "",
     val synonyms: String = "",
     val antonyms: String = "",
+    val phrases: String = "",
     val personalNotes: String = "",
     val createdAt: Long = System.currentTimeMillis(),
     val learningStage: Int = 0,

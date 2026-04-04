@@ -199,6 +199,19 @@ fun WordDetailScreen(
                     )
                 }
 
+                if (!data.word.phrases.isNullOrBlank()) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "短语搭配",
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = data.word.phrases,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+
                 if (!data.word.personalNotes.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(

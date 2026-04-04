@@ -74,6 +74,7 @@ fun AddWordScreen(
     val tagsFocusRequester = remember { FocusRequester() }
     val synonymsFocusRequester = remember { FocusRequester() }
     val antonymsFocusRequester = remember { FocusRequester() }
+    val phrasesFocusRequester = remember { FocusRequester() }
     val personalNotesFocusRequester = remember { FocusRequester() }
 
     val meaningFocusRequesters = remember { mutableStateListOf<FocusRequester>() }
@@ -102,6 +103,7 @@ fun AddWordScreen(
     var tags by remember { mutableStateOf(TextFieldValue("")) }
     var synonyms by remember { mutableStateOf("") }
     var antonyms by remember { mutableStateOf("") }
+    var phrases by remember { mutableStateOf("") }
     var personalNotes by remember { mutableStateOf("") }
     var duplicateWarning by remember { mutableStateOf<String?>(null) }
 
@@ -150,6 +152,7 @@ fun AddWordScreen(
                                         tags = tags.text.trim(),
                                         synonyms = synonyms.trim(),
                                         antonyms = antonyms.trim(),
+                                        phrases = phrases.trim(),
                                         personalNotes = personalNotes.trim(),
                                         onComplete = onNavigateBack
                                     )
@@ -411,6 +414,22 @@ fun AddWordScreen(
                     .focusRequester(antonymsFocusRequester),
                 label = { Text("反义词") },
                 placeholder = { Text("如: sad, unhappy, miserable") },
+                minLines = 2,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = { phrasesFocusRequester.requestFocus() }
+                ),
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = phrases,
+                onValueChange = { phrases = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(phrasesFocusRequester),
+                label = { Text("短语搭配") },
+                placeholder = { Text("如: account for (解释); take part in (参加)") },
                 minLines = 2,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(

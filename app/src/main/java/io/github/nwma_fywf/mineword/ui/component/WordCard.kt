@@ -100,6 +100,16 @@ fun WordCard(
                     }
                 }
             }
+
+            val phrases = word.phrases.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+            if (phrases.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "短语: ${phrases.joinToString(", ")}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
         }
     }
 }
