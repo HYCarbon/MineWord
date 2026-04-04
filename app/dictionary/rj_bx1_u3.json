@@ -1,0 +1,1399 @@
+{
+  "version": 1,
+  "words": [
+    {
+      "word": "fitness",
+      "phoneticUK": "/ˈfɪtnəs/",
+      "phoneticUS": "/ˈfɪtnəs/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "健康；健壮；适合",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She goes to the gym to improve her fitness.",
+          "translation": "她去健身房锻炼身体。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "soccer",
+      "phoneticUK": "/ˈsɒkə(r)/",
+      "phoneticUS": "/ˈsɑ:kər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "足球；足球运动",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He plays soccer every weekend.",
+          "translation": "他每个周末踢足球。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "stadium",
+      "phoneticUK": "/ˈsteɪdiəm/",
+      "phoneticUS": "/ˈsteɪdiəm/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "体育场",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The game will be held at the new stadium.",
+          "translation": "比赛将在新体育场举行。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "boxing",
+      "phoneticUK": "/ˈbɒksɪŋ/",
+      "phoneticUS": "/ˈbɑ:ksɪŋ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "拳击(运动)",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is interested in boxing.",
+          "translation": "他对拳击感兴趣。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "badminton",
+      "phoneticUK": "/ˈbædmɪntən/",
+      "phoneticUS": "/ˈbædmɪntən/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "羽毛球运动",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We often play badminton after school.",
+          "translation": "我们放学后经常打羽毛球。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "marathon",
+      "phoneticUK": "/ˈmærəθən/",
+      "phoneticUS": "/ˈmærəθɑ:n/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "马拉松赛跑",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She ran a marathon last year.",
+          "translation": "她去年跑了一场马拉松。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "event",
+      "phoneticUK": "/ɪˈvent/",
+      "phoneticUS": "/ɪˈvent/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "比赛项目；大事；公开活动",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is a big event.",
+          "translation": "这是一个重大活动。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "ski",
+      "phoneticUK": "/ski:/",
+      "phoneticUS": "/ski:/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "滑雪的",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "滑雪",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I like to ski in winter.",
+          "translation": "我喜欢冬天滑雪。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "host",
+      "phoneticUK": "/həʊst/",
+      "phoneticUS": "/hoʊst/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "主办；主持",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "主人；东道主；节目主持人",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Our school will host the competition.",
+          "translation": "我们学校将主办这次比赛。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "track",
+      "phoneticUK": "/træk/",
+      "phoneticUS": "/træk/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "跑道；足迹；铁路轨道",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt. & vi.",
+          "definition": "追踪；跟踪",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We ran around the track.",
+          "translation": "我们在跑道上跑步。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "gym",
+      "phoneticUK": "/dʒɪm/",
+      "phoneticUS": "/dʒɪm/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "健身房；体育馆",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I go to the gym every day.",
+          "translation": "我每天去健身房。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "gymnastics",
+      "phoneticUK": "/dʒɪmˈnæstɪks/",
+      "phoneticUS": "/dʒɪmˈnæstɪks/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "体操(训练)",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She is good at gymnastics.",
+          "translation": "她擅长体操。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "sweat",
+      "phoneticUK": "/swet/",
+      "phoneticUS": "/swet/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "使出汗；出汗弄湿",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "出汗；流汗",
+          "order": 1
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "汗水；出汗",
+          "order": 2
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I sweat a lot when I exercise.",
+          "translation": "运动时我出很多汗。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "legend",
+      "phoneticUK": "/ˈledʒənd/",
+      "phoneticUS": "/ˈledʒənd/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "传奇故事(或人物)；传说",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is a legend in basketball.",
+          "translation": "他是篮球界的传奇人物。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "athlete",
+      "phoneticUK": "/ˈæθli:t/",
+      "phoneticUS": "/ˈæθli:t/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "运动员；运动健儿",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She is a professional athlete.",
+          "translation": "她是一名职业运动员。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "master",
+      "phoneticUK": "/ˈmɑ:stə(r)/",
+      "phoneticUS": "/ˈmæstər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "高手；主人",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "精通；掌握",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He has mastered three languages.",
+          "translation": "他掌握了三种语言。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "honour",
+      "phoneticUK": "/ˈɒnə(r)/",
+      "phoneticUS": "/ˈɑ:nər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "荣誉；尊敬；荣幸",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "It is a great honour to be here.",
+          "translation": "在这里是我的荣幸。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "glory",
+      "phoneticUK": "/ˈɡlɔ:ri/",
+      "phoneticUS": "/ˈɡlɔ:ri/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "荣誉；光荣；赞美",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "They fought for glory.",
+          "translation": "他们为荣誉而战。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "medal",
+      "phoneticUK": "/ˈmedl/",
+      "phoneticUS": "/ˈmedl/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "奖章；勋章",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She won a gold medal.",
+          "translation": "她获得了金牌。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "championship",
+      "phoneticUK": "/ˈtʃæmpiənʃɪp/",
+      "phoneticUS": "/ˈtʃæmpiənʃɪp/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "锦标赛；冠军赛；冠军称号",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "They won the championship.",
+          "translation": "他们赢得了冠军。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "champion",
+      "phoneticUK": "/ˈtʃæmpiən/",
+      "phoneticUS": "/ˈtʃæmpiən/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "冠军；优胜者",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is the world champion.",
+          "translation": "他是世界冠军。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "determination",
+      "phoneticUK": "/ˌdɪtɜ:mɪˈneɪʃn/",
+      "phoneticUS": "/ˌdɪtɜ:rmɪˈneɪʃn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "决心；决定",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She has great determination.",
+          "translation": "她有极大的决心。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "apart",
+      "phoneticUK": "/əˈpɑ:t/",
+      "phoneticUS": "/əˈpɑ:rt/",
+      "meanings": [
+        {
+          "partOfSpeech": "adv.",
+          "definition": "分离；分开；成碎片",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "They live apart.",
+          "translation": "他们分开住。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "injure",
+      "phoneticUK": "/ˈɪndʒə(r)/",
+      "phoneticUS": "/ˈɪndʒər/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "使受伤；损害",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He injured his leg.",
+          "translation": "他腿部受伤了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "injured",
+      "phoneticUK": "/ˈɪndʒəd/",
+      "phoneticUS": "/ˈɪndʒərd/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "受伤的；有伤的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The injured man was taken to hospital.",
+          "translation": "受伤的人被送往医院。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "injury",
+      "phoneticUK": "/ˈɪndʒəri/",
+      "phoneticUS": "/ˈɪndʒəri/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "伤害；损伤",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He suffered a serious injury.",
+          "translation": "他受了重伤。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "captain",
+      "phoneticUK": "/ˈkæptɪn/",
+      "phoneticUS": "/ˈkæptɪn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "(运动队)队长；船长；机长",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is the captain of the team.",
+          "translation": "他是球队的队长。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "graceful",
+      "phoneticUK": "/ˈɡreɪsfl/",
+      "phoneticUS": "/ˈɡreɪsfl/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "优美的；优雅的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She is very graceful.",
+          "translation": "她非常优雅。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "strength",
+      "phoneticUK": "/streŋθ/",
+      "phoneticUS": "/streŋθ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "力量；体力",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to build up our strength.",
+          "translation": "我们需要增强体力。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "failure",
+      "phoneticUK": "/ˈfeɪljə(r)/",
+      "phoneticUS": "/ˈfeɪljər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "失败；失败的人(或事物)",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Failure is the mother of success.",
+          "translation": "失败是成功之母。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "compete",
+      "phoneticUK": "/kəmˈpi:t/",
+      "phoneticUS": "/kəmˈpi:t/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi.",
+          "definition": "竞争；对抗",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We compete with other teams.",
+          "translation": "我们与其他队伍竞争。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "pretend",
+      "phoneticUK": "/prɪˈtend/",
+      "phoneticUS": "/prɪˈtend/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "假装；装扮",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He pretended to be asleep.",
+          "translation": "他假装睡着了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "million",
+      "phoneticUK": "/ˈmɪljən/",
+      "phoneticUS": "/ˈmɪljən/",
+      "meanings": [
+        {
+          "partOfSpeech": "num.",
+          "definition": "一百万",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "There are million people in the city.",
+          "translation": "城市里有一百万人。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "cheat",
+      "phoneticUK": "/tʃi:t/",
+      "phoneticUS": "/tʃi:t/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi.",
+          "definition": "作弊；舞弊",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "欺骗；蒙骗",
+          "order": 1
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "欺骗手段；骗子",
+          "order": 2
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Never cheat in exams.",
+          "translation": "考试不要作弊。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "audience",
+      "phoneticUK": "/ˈɔ:diəns/",
+      "phoneticUS": "/ˈɔ:diəns/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "观众；听众",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The audience applauded.",
+          "translation": "观众鼓掌。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "positive",
+      "phoneticUK": "/ˈpɒzɪtɪv/",
+      "phoneticUS": "/ˈpɑ:zɪtɪv/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "积极的；正面的；乐观的；肯定的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Keep a positive attitude.",
+          "translation": "保持积极的态度。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "slim",
+      "phoneticUK": "/slɪm/",
+      "phoneticUS": "/slɪm/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "苗条的；单薄的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She has a slim figure.",
+          "translation": "她身材苗条。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "diet",
+      "phoneticUK": "/ˈdaɪət/",
+      "phoneticUS": "/ˈdaɪət/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "规定饮食；日常饮食",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "节食",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She is on a diet.",
+          "translation": "她在节食。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "rather",
+      "phoneticUK": "/ˈrɑ:ðə(r)/",
+      "phoneticUS": "/ˈræðər/",
+      "meanings": [
+        {
+          "partOfSpeech": "adv.",
+          "definition": "相当；有点儿",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is rather good.",
+          "translation": "这还不错。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "push-up",
+      "phoneticUK": "/ˈpʊʃʌp/",
+      "phoneticUS": "/ˈpʊʃʌp/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "俯卧撑",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He does 20 push-ups every morning.",
+          "translation": "他每天早上做20个俯卧撑。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "jog",
+      "phoneticUK": "/dʒɒɡ/",
+      "phoneticUS": "/dʒɑ:ɡ/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi.",
+          "definition": "慢跑",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "慢跑",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I jog every morning.",
+          "translation": "我每天早上慢跑。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "stress",
+      "phoneticUK": "/stres/",
+      "phoneticUS": "/stres/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "压力；紧张；重音",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "强调；重读；使焦虑不安",
+          "order": 1
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "焦虑不安",
+          "order": 2
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I am under a lot of stress.",
+          "translation": "我压力很大。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "error",
+      "phoneticUK": "/ˈerə(r)/",
+      "phoneticUS": "/ˈerər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "错误；差错",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please correct the error.",
+          "translation": "请纠正这个错误。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "come along",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "跟随；到达；进步；赶快",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Come along, we are late!",
+          "translation": "快点，我们要迟到了！",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "track and field",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "田径",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She is good at track and field.",
+          "translation": "她擅长田径。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "work out",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "锻炼；计算出；解决",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I work out at the gym every day.",
+          "translation": "我每天在健身房锻炼。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "make it",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "获得成功；准时到达",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "You can make it if you try.",
+          "translation": "如果你努力，你一定能成功。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "set an example",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "树立榜样",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She sets a good example for others.",
+          "translation": "她为别人树立好榜样。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "fall apart",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "破裂；破碎；崩溃",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The plan fell apart.",
+          "translation": "计划泡汤了。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "lose heart",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "丧失信心；泄气",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Don't lose heart, try again.",
+          "translation": "别泄气，再试一次。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "give up",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "放弃；投降",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Never give up your dreams.",
+          "translation": "不要放弃你的梦想。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "make sense",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "有道理；合乎情理；表述清楚",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This sentence doesn't make sense.",
+          "translation": "这句话没有意义。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "even if/though",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "即使；虽然",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Even if it rains, I will go.",
+          "translation": "即使下雨，我也会去。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "make a difference",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "有作用或影响",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Your help made a big difference.",
+          "translation": "你的帮助起了很大作用。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "rather than",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "而不是",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I prefer tea rather than coffee.",
+          "translation": "我更喜欢茶而不是咖啡。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "cut ... out",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "停止做(或使用、食用)；剪下",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "You should cut out smoking.",
+          "translation": "你应该戒烟。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "now and then",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "有时；偶尔",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I visit my grandparents now and then.",
+          "translation": "我偶尔去看望祖父母。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "compare ... with/to ...",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "与……比较",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Compare your answer with mine.",
+          "translation": "把你的答案和我的比较一下。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u3",
+      "synonyms": "",
+      "personalNotes": ""
+    }
+  ]
+}
