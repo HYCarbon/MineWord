@@ -241,6 +241,19 @@ fun WordDetailScreen(
                     )
                 }
 
+                if (!data.word.confusion.isNullOrBlank()) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "易混词辨析",
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = data.word.confusion,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+
                 if (!data.word.personalNotes.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(

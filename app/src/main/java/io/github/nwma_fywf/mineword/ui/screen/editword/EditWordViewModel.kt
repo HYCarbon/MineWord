@@ -76,6 +76,7 @@ class EditWordViewModel(private val repository: WordRepository) : ViewModel() {
         phrases: String,
         derivatives: String,
         frequencyLevel: String,
+        confusion: String,
         personalNotes: String,
         onComplete: () -> Unit
     ) {
@@ -90,6 +91,7 @@ class EditWordViewModel(private val repository: WordRepository) : ViewModel() {
                 phrases = phrases,
                 derivatives = derivatives,
                 frequencyLevel = frequencyLevel,
+                confusion = confusion,
                 personalNotes = personalNotes
             )
             repository.updateWord(updatedWord)

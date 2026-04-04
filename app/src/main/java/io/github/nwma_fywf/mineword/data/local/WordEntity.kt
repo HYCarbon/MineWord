@@ -16,10 +16,11 @@ data class Word(
     val antonyms: String = "",
     val phrases: String = "",
     val derivatives: String = "",
+    val frequencyLevel: String = "",
+    val confusion: String = "",
     val personalNotes: String = "",
     val createdAt: Long = System.currentTimeMillis(),
     val learningStage: Int = 0,
-    val frequencyLevel: String = "",
     val lastReviewTime: Long = 0,
     val nextReviewTime: Long = 0
 )

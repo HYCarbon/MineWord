@@ -134,6 +134,15 @@ fun WordCard(
                     color = MaterialTheme.colorScheme.tertiary,
                 )
             }
+
+            if (!word.confusion.isNullOrBlank()) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "辨析: ${word.confusion}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error,
+                )
+            }
         }
     }
 }

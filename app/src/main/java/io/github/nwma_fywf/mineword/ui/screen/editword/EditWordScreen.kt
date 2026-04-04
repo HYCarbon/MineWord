@@ -81,6 +81,7 @@ fun EditWordScreen(
     val phrasesFocusRequester = remember { FocusRequester() }
     val derivativesFocusRequester = remember { FocusRequester() }
     val frequencyLevelFocusRequester = remember { FocusRequester() }
+    val confusionFocusRequester = remember { FocusRequester() }
     val personalNotesFocusRequester = remember { FocusRequester() }
 
     val meaningFocusRequesters = remember { mutableStateListOf<FocusRequester>() }
@@ -112,6 +113,7 @@ fun EditWordScreen(
     var phrases by remember { mutableStateOf("") }
     var derivatives by remember { mutableStateOf("") }
     var frequencyLevel by remember { mutableStateOf("") }
+    var confusion by remember { mutableStateOf("") }
     var personalNotes by remember { mutableStateOf("") }
     var duplicateWarning by remember { mutableStateOf<String?>(null) }
     var dataLoaded by remember { mutableStateOf(false) }
@@ -132,6 +134,7 @@ fun EditWordScreen(
                 phrases = data.word.phrases ?: ""
                 derivatives = data.word.derivatives ?: ""
                 frequencyLevel = data.word.frequencyLevel ?: ""
+                confusion = data.word.confusion ?: ""
                 personalNotes = data.word.personalNotes ?: ""
                 meaningEntries.clear()
                 meaningEntries.addAll(data.meanings.map { MeaningEntry(it.partOfSpeech ?: "", it.definition) })
@@ -198,6 +201,7 @@ fun EditWordScreen(
                                             phrases = phrases.trim(),
                                             derivatives = derivatives.trim(),
                                             frequencyLevel = frequencyLevel.trim(),
+                                            confusion = confusion.trim(),
                                             personalNotes = personalNotes.trim(),
                                             onComplete = onNavigateBack
                                         )
@@ -542,6 +546,22 @@ fun EditWordScreen(
                 label = { Text("考频/词频标记") },
                 placeholder = { Text("如: 高考, CET-4, 高频") },
                 singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = { confusionFocusRequester.requestFocus() }
+                ),
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = confusion,
+                onValueChange = { confusion = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(confusionFocusRequester),
+                label = { Text("易混词辨析") },
+                placeholder = { Text("如: compare with 指'与...比较'; compare to 指'把...比作'") },
+                minLines = 2,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
                     onNext = { personalNotesFocusRequester.requestFocus() }
