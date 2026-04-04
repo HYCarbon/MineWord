@@ -1,0 +1,1299 @@
+{
+  "version": 1,
+  "words": [
+    {
+      "word": "castle",
+      "phoneticUK": "/ˈkɑ:sl/",
+      "phoneticUS": "/ˈkæsl/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "城堡；堡垒",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The castle is very old.",
+          "translation": "这座城堡很古老。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "apply",
+      "phoneticUK": "/əˈplaɪ/",
+      "phoneticUS": "/əˈplaɪ/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "申请；请求",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "应用；涂(油漆、乳剂)",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I want to apply for this job.",
+          "translation": "我想申请这份工作。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "visa",
+      "phoneticUK": "/ˈvi:zə/",
+      "phoneticUS": "/ˈvi:zə/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "签证",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I need a visa to travel to France.",
+          "translation": "我去法国需要签证。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "rent",
+      "phoneticUK": "/rent/",
+      "phoneticUS": "/rent/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "租用；出租",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "租用；租金为",
+          "order": 1
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "租金",
+          "order": 2
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We rent an apartment in the city.",
+          "translation": "我们在城里租了一套公寓。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "pack",
+      "phoneticUK": "/pæk/",
+      "phoneticUS": "/pæk/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "收拾(行李)",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "包装",
+          "order": 1
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "(商品的)纸包；纸袋；大包",
+          "order": 2
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to pack our bags.",
+          "translation": "我们需要收拾行李。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "amazing",
+      "phoneticUK": "/əˈmeɪzɪŋ/",
+      "phoneticUS": "/əˈmeɪzɪŋ/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "令人惊奇的；令人惊喜的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is an amazing view.",
+          "translation": "这景色令人惊叹。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "amazed",
+      "phoneticUK": "/əˈmeɪzd/",
+      "phoneticUS": "/əˈmeɪzd/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "惊奇的；惊喜的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I was amazed by the result.",
+          "translation": "结果让我很惊喜。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "arrangement",
+      "phoneticUK": "/əˈreɪndʒmənt/",
+      "phoneticUS": "/əˈreɪndʒmənt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "安排；筹备",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We made arrangements for the trip.",
+          "translation": "我们为旅行做了安排。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "extremely",
+      "phoneticUK": "/ɪkˈstri:mli/",
+      "phoneticUS": "/ɪkˈstri:mli/",
+      "meanings": [
+        {
+          "partOfSpeech": "adv.",
+          "definition": "极其；非常",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is extremely important.",
+          "translation": "这极其重要。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "source",
+      "phoneticUK": "/sɔ:s/",
+      "phoneticUS": "/sɔ:rs/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "来源；出处",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is a reliable source.",
+          "translation": "这是一个可靠的来源。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "narrow",
+      "phoneticUK": "/ˈnærəʊ/",
+      "phoneticUS": "/ˈnæroʊ/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "狭窄的",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "(使)变窄",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The road is very narrow.",
+          "translation": "这条路很窄。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "flat",
+      "phoneticUK": "/flæt/",
+      "phoneticUS": "/flæt/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "平坦的；扁平的",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "公寓；单元房",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The ground is flat here.",
+          "translation": "这里地面平坦。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "powerful",
+      "phoneticUK": "/ˈpaʊəfl/",
+      "phoneticUS": "/ˈpaʊərfl/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "强有力的；有权势的；有影响力的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is a powerful leader.",
+          "translation": "他是一个强有力的领导者。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "empire",
+      "phoneticUK": "/ˈempaɪə(r)/",
+      "phoneticUS": "/ˈempaɪər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "帝国",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The Roman Empire was very powerful.",
+          "translation": "罗马帝国曾经很强大。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "emperor",
+      "phoneticUK": "/ˈempərə(r)/",
+      "phoneticUS": "/ˈempərər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "皇帝",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The emperor lived in the palace.",
+          "translation": "皇帝住在宫殿里。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "site",
+      "phoneticUK": "/saɪt/",
+      "phoneticUS": "/saɪt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "地点；位置；现场",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is the site of the old temple.",
+          "translation": "这是古庙的所在地。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "official",
+      "phoneticUK": "/əˈfɪʃl/",
+      "phoneticUS": "/əˈfɪʃl/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "官方的；正式的；公务的",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "官员；要员",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is an official document.",
+          "translation": "这是一份官方文件。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "recognise",
+      "phoneticUK": "/ˈrekəgnaɪz/",
+      "phoneticUS": "/ˈrekəgnaɪz/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "辨别出；承认；认可",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I recognise this song.",
+          "translation": "我能认出这首歌。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "type",
+      "phoneticUK": "/taɪp/",
+      "phoneticUS": "/taɪp/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "类型；种类",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "打字",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "What type of music do you like?",
+          "translation": "你喜欢什么类型的音乐？",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "soldier",
+      "phoneticUK": "/ˈsəʊldʒə(r)/",
+      "phoneticUS": "/ˈsoʊldʒər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "士兵；军人",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He was a soldier in the war.",
+          "translation": "他是一名战士。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "transport",
+      "phoneticUK": "/ˈtrænspɔ:t/",
+      "phoneticUS": "/ˈtrænspɔ:rt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "运输；交通工具",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need public transport.",
+          "translation": "我们需要公共交通。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "hike",
+      "phoneticUK": "/haɪk/",
+      "phoneticUS": "/haɪk/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi.",
+          "definition": "徒步旅行",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "去……远足",
+          "order": 1
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "远足；徒步旅行",
+          "order": 2
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Let's go hiking this weekend.",
+          "translation": "这周末我们去徒步旅行吧。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "economy",
+      "phoneticUK": "/ɪˈkɒnəmi/",
+      "phoneticUS": "/ɪˈkɑ:nəmi/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "经济；节约",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The economy is growing.",
+          "translation": "经济正在增长。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "economic",
+      "phoneticUK": "/ˌi:kəˈnɒmɪk/",
+      "phoneticUS": "/ˌi:kəˈnɑ:mɪk/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "经济的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to solve the economic problems.",
+          "translation": "我们需要解决经济问题。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "credit",
+      "phoneticUK": "/ˈkredɪt/",
+      "phoneticUS": "/ˈkredɪt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "借款；信用；称赞；学分",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "You can pay by credit card.",
+          "translation": "你可以用信用卡支付。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "detail",
+      "phoneticUK": "/ˈdi:teɪl/",
+      "phoneticUS": "/ˈdi:teɪl/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "细节；详情；细微之处",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please tell me more details.",
+          "translation": "请告诉我更多细节。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "request",
+      "phoneticUK": "/rɪˈkwest/",
+      "phoneticUS": "/rɪˈkwest/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "(正式或礼貌的)要求；请求",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "(正式或礼貌地)要求；请求",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I made a request for help.",
+          "translation": "我请求帮助。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "view",
+      "phoneticUK": "/vju:/",
+      "phoneticUS": "/vju:/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "视野；景色；看法",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The view from the mountain is beautiful.",
+          "translation": "从山上看景色很美。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "sight",
+      "phoneticUK": "/saɪt/",
+      "phoneticUS": "/saɪt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "景象；视野；视力",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The sunset is a beautiful sight.",
+          "translation": "日落是一道美丽的风景。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "statue",
+      "phoneticUK": "/ˈstætʃu:/",
+      "phoneticUS": "/ˈstætʃu:/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "雕塑；雕像",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "There is a statue in the square.",
+          "translation": "广场上有一座雕像。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "tomb",
+      "phoneticUK": "/tu:m/",
+      "phoneticUS": "/tu:m/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "坟墓",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The tomb is very old.",
+          "translation": "这座坟墓年代久远。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "unearth",
+      "phoneticUK": "/ʌnˈɜ:θ/",
+      "phoneticUS": "/ʌnˈɜ:rθ/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "挖掘；发掘",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "They unearthed a ancient treasure.",
+          "translation": "他们挖掘出一件古代珍宝。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "comment",
+      "phoneticUK": "/ˈkɒment/",
+      "phoneticUS": "/ˈkɑ:ment/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "议论；评论",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "发表意见；评论",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please make a comment on this.",
+          "translation": "请对此发表评论。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "flight",
+      "phoneticUK": "/flaɪt/",
+      "phoneticUS": "/flaɪt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "空中航行；航班；航程",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Our flight is at 3 pm.",
+          "translation": "我们的航班在下午3点。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "accommodation",
+      "phoneticUK": "/ˌkɒməˈdeɪʃn/",
+      "phoneticUS": "/ˌkɑ:məˈdeɪʃn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "住处；停留处；膳宿",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to find accommodation.",
+          "translation": "我们需要找住处。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "unique",
+      "phoneticUK": "/juˈni:k/",
+      "phoneticUS": "/juˈni:k/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "唯一的；独特的；特有的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is a unique experience.",
+          "translation": "这是一次独特的经历。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "path",
+      "phoneticUK": "/pɑ:θ/",
+      "phoneticUS": "/pæθ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "小路；路线；道路",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "There is a path through the forest.",
+          "translation": "森林里有一条小路。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "destination",
+      "phoneticUK": "/ˌdestɪˈneɪʃn/",
+      "phoneticUS": "/ˌdestɪˈneɪʃn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "目的地；终点",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "What is your destination?",
+          "translation": "你的目的地是哪里？",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "admire",
+      "phoneticUK": "/ədˈmaɪə(r)/",
+      "phoneticUS": "/ədˈmaɪər/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "钦佩；赞赏",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I admire your work.",
+          "translation": "我钦佩你的工作。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "architecture",
+      "phoneticUK": "/ˈɑ:kɪtektʃə(r)/",
+      "phoneticUS": "/ˈɑ:rkɪtektʃər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "建筑设计；建筑学",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She studies architecture.",
+          "translation": "她学习建筑学。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "architect",
+      "phoneticUK": "/ˈɑ:kɪtekt/",
+      "phoneticUS": "/ˈɑ:rkɪtekt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "建筑设计师",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is a famous architect.",
+          "translation": "他是一位著名的建筑师。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "brochure",
+      "phoneticUK": "/ˈbrəʊʃə(r)/",
+      "phoneticUS": "/broʊˈʃʊr/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "资料(或广告)手册",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please take this brochure.",
+          "translation": "请拿这本手册。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "package",
+      "phoneticUK": "/ˈpækɪdʒ/",
+      "phoneticUS": "/ˈpækɪdʒ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "包裹；包装盒",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "将……包装好",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I received a package yesterday.",
+          "translation": "我昨天收到了一个包裹。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "contact",
+      "phoneticUK": "/ˈkɒntækt/",
+      "phoneticUS": "/ˈkɑ:ntækt/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "联络；联系",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "联系；接触",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please contact me by phone.",
+          "translation": "请联系我。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "civilisation",
+      "phoneticUK": "/ˌsɪvəlaɪˈzeɪʃn/",
+      "phoneticUS": "/ˌsɪvələˈzeɪʃn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "文明；文明世界",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Chinese civilisation is very old.",
+          "translation": "中华文明非常古老。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "apply for",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "申请",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I want to apply for a visa.",
+          "translation": "我想申请签证。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "credit card",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "信用卡",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "You can pay by credit card.",
+          "translation": "你可以用信用卡支付。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "check in",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "(在旅馆、机场等)登记",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to check in at the hotel.",
+          "translation": "我们需要在酒店登记。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "check out",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "结账离开(旅馆等)",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please check out before 12 o'clock.",
+          "translation": "请在12点前退房。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "take control of",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "控制；接管",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to take control of the situation.",
+          "translation": "我们需要控制局势。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "other than",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "除……以外",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "No one other than me knows this.",
+          "translation": "除了我，没有人知道这件事。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "package tour",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "包价旅游",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We booked a package tour.",
+          "translation": "我们预订了包价旅游。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "make up",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "构成；形成",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Women make up 50% of the population.",
+          "translation": "女性占人口的50%。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u2",
+      "synonyms": "",
+      "personalNotes": ""
+    }
+  ]
+}
