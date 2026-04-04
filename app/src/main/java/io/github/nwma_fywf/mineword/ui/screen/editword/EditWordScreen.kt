@@ -79,6 +79,7 @@ fun EditWordScreen(
     val antonymsFocusRequester = remember { FocusRequester() }
     val phrasesFocusRequester = remember { FocusRequester() }
     val derivativesFocusRequester = remember { FocusRequester() }
+    val frequencyLevelFocusRequester = remember { FocusRequester() }
     val personalNotesFocusRequester = remember { FocusRequester() }
 
     val meaningFocusRequesters = remember { mutableStateListOf<FocusRequester>() }
@@ -109,6 +110,7 @@ fun EditWordScreen(
     var antonyms by remember { mutableStateOf("") }
     var phrases by remember { mutableStateOf("") }
     var derivatives by remember { mutableStateOf("") }
+    var frequencyLevel by remember { mutableStateOf("") }
     var personalNotes by remember { mutableStateOf("") }
     var duplicateWarning by remember { mutableStateOf<String?>(null) }
     var dataLoaded by remember { mutableStateOf(false) }
@@ -128,6 +130,7 @@ fun EditWordScreen(
                 antonyms = data.word.antonyms ?: ""
                 phrases = data.word.phrases ?: ""
                 derivatives = data.word.derivatives ?: ""
+                frequencyLevel = data.word.frequencyLevel ?: ""
                 personalNotes = data.word.personalNotes ?: ""
                 meaningEntries.clear()
                 meaningEntries.addAll(data.meanings.map { MeaningEntry(it.partOfSpeech ?: "", it.definition) })
@@ -193,6 +196,7 @@ fun EditWordScreen(
                                             antonyms = antonyms.trim(),
                                             phrases = phrases.trim(),
                                             derivatives = derivatives.trim(),
+                                            frequencyLevel = frequencyLevel.trim(),
                                             personalNotes = personalNotes.trim(),
                                             onComplete = onNavigateBack
                                         )
@@ -488,6 +492,22 @@ fun EditWordScreen(
                 label = { Text("派生词/词根词缀") },
                 placeholder = { Text("如: -tion (名词后缀); happy → happiness") },
                 minLines = 2,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = { frequencyLevelFocusRequester.requestFocus() }
+                ),
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = frequencyLevel,
+                onValueChange = { frequencyLevel = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(frequencyLevelFocusRequester),
+                label = { Text("考频/词频标记") },
+                placeholder = { Text("如: 高考, CET-4, 高频") },
+                singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
                     onNext = { personalNotesFocusRequester.requestFocus() }

@@ -42,6 +42,20 @@ fun WordCard(
                 text = word.word,
                 style = MaterialTheme.typography.titleMedium,
             )
+
+            val frequencyLevels = word.frequencyLevel.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+            if (frequencyLevels.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(2.dp))
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                    frequencyLevels.forEach { freq ->
+                        SuggestionChip(
+                            onClick = {},
+                            label = { Text(freq, style = MaterialTheme.typography.labelSmall) },
+                        )
+                    }
+                }
+            }
+
             if (!word.phoneticUK.isNullOrBlank() || !word.phoneticUS.isNullOrBlank()) {
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
