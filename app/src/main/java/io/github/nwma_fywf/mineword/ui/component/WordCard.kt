@@ -110,6 +110,16 @@ fun WordCard(
                     color = MaterialTheme.colorScheme.primary,
                 )
             }
+
+            val derivatives = word.derivatives.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+            if (derivatives.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "派生: ${derivatives.joinToString(", ")}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.tertiary,
+                )
+            }
         }
     }
 }

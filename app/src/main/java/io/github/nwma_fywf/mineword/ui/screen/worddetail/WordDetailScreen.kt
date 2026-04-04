@@ -212,6 +212,19 @@ fun WordDetailScreen(
                     )
                 }
 
+                if (!data.word.derivatives.isNullOrBlank()) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "派生词",
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = data.word.derivatives,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+
                 if (!data.word.personalNotes.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(

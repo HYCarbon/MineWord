@@ -41,6 +41,7 @@ class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
         synonyms: String = "",
         antonyms: String = "",
         phrases: String = "",
+        derivatives: String = "",
         personalNotes: String = "",
         onComplete: () -> Unit
     ) {
@@ -54,6 +55,7 @@ class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
                     synonyms = synonyms,
                     antonyms = antonyms,
                     phrases = phrases,
+                    derivatives = derivatives,
                     personalNotes = personalNotes,
                 )
             )

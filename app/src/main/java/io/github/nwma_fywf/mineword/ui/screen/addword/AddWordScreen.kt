@@ -75,6 +75,7 @@ fun AddWordScreen(
     val synonymsFocusRequester = remember { FocusRequester() }
     val antonymsFocusRequester = remember { FocusRequester() }
     val phrasesFocusRequester = remember { FocusRequester() }
+    val derivativesFocusRequester = remember { FocusRequester() }
     val personalNotesFocusRequester = remember { FocusRequester() }
 
     val meaningFocusRequesters = remember { mutableStateListOf<FocusRequester>() }
@@ -104,6 +105,7 @@ fun AddWordScreen(
     var synonyms by remember { mutableStateOf("") }
     var antonyms by remember { mutableStateOf("") }
     var phrases by remember { mutableStateOf("") }
+    var derivatives by remember { mutableStateOf("") }
     var personalNotes by remember { mutableStateOf("") }
     var duplicateWarning by remember { mutableStateOf<String?>(null) }
 
@@ -153,6 +155,7 @@ fun AddWordScreen(
                                         synonyms = synonyms.trim(),
                                         antonyms = antonyms.trim(),
                                         phrases = phrases.trim(),
+                                        derivatives = derivatives.trim(),
                                         personalNotes = personalNotes.trim(),
                                         onComplete = onNavigateBack
                                     )
@@ -430,6 +433,22 @@ fun AddWordScreen(
                     .focusRequester(phrasesFocusRequester),
                 label = { Text("短语搭配") },
                 placeholder = { Text("如: account for (解释); take part in (参加)") },
+                minLines = 2,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                keyboardActions = KeyboardActions(
+                    onNext = { derivativesFocusRequester.requestFocus() }
+                ),
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+            OutlinedTextField(
+                value = derivatives,
+                onValueChange = { derivatives = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .focusRequester(derivativesFocusRequester),
+                label = { Text("派生词/词根词缀") },
+                placeholder = { Text("如: -tion (名词后缀); happy → happiness") },
                 minLines = 2,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
