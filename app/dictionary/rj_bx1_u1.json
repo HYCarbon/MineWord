@@ -1,0 +1,1269 @@
+{
+  "version": 1,
+  "words": [
+    {
+      "word": "teenage",
+      "phoneticUK": "/ˈti:neɪdʒ/",
+      "phoneticUS": "/ˈti:neɪdʒ/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "十几岁的(指13至19岁)；青少年的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is a teenage student.",
+          "translation": "他是一名青少年学生。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "teenager",
+      "phoneticUK": "/ˈti:neɪdʒə(r)/",
+      "phoneticUS": "/ˈti:neɪdʒər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "(13至19岁之间的)青少年",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The programme is for teenagers.",
+          "translation": "这个节目是给青少年看的。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "extra-curricular",
+      "phoneticUK": "/ˌekstrəkəˈrɪkjələ/",
+      "phoneticUS": "/ˌekstrəkəˈrɪkjələr/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "课外的；课程以外的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She takes part in extra-curricular activities.",
+          "translation": "她参加课外活动。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "ballet",
+      "phoneticUK": "/ˈbæleɪ/",
+      "phoneticUS": "/bæˈleɪ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "芭蕾舞",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She started learning ballet at the age of five.",
+          "translation": "她五岁开始学芭蕾舞。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "volunteer",
+      "phoneticUK": "/ˌvɒlənˈtɪə(r)/",
+      "phoneticUS": "/ˌvɑ:lənˈtɪr/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "志愿者",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She is a volunteer at the hospital.",
+          "translation": "她是医院的志愿者。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "debate",
+      "phoneticUK": "/dɪˈbeɪt/",
+      "phoneticUS": "/dɪˈbeɪt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "辩论；争论",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt. & vi.",
+          "definition": "辩论；争论",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We had a debate about the environment.",
+          "translation": "我们进行了一场关于环境的辩论。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "prefer",
+      "phoneticUK": "/prɪˈfɜ:(r)/",
+      "phoneticUS": "/prɪˈfɜ:r/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "较喜欢",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I prefer tea to coffee.",
+          "translation": "我更喜欢茶而不是咖啡。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "content",
+      "phoneticUK": "/ˈkɒntent/",
+      "phoneticUS": "/ˈkɑ:ntent/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "内容；(pl.)目录",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Please check the contents of the book.",
+          "translation": "请查看这本书的目录。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "responsible",
+      "phoneticUK": "/rɪˈspɒnsəbl/",
+      "phoneticUS": "/rɪˈspɑ:nsəbl/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "负责的；有责任的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She is responsible for the project.",
+          "translation": "她负责这个项目。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "responsibility",
+      "phoneticUK": "/rɪˌspɒnsəˈbɪləti/",
+      "phoneticUS": "/rɪˌspɑ:nsəˈbɪləti/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "责任；义务",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "It is our responsibility to protect the environment.",
+          "translation": "保护环境是我们的责任。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "solution",
+      "phoneticUK": "/səˈlu:ʃn/",
+      "phoneticUS": "/səˈlu:ʃn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "解决办法；答案",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to find a solution to this problem.",
+          "translation": "我们需要找到这个问题的解决办法。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "schedule",
+      "phoneticUK": "/ˈʃedju:l/",
+      "phoneticUS": "/ˈskedʒu:l/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "工作计划；日程安排",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "安排；预定",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I have a busy schedule this week.",
+          "translation": "我这周日程很忙。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "editor",
+      "phoneticUK": "/ˈedɪtə(r)/",
+      "phoneticUS": "/ˈedɪtər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "主编；编辑；编者",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is the editor of the newspaper.",
+          "translation": "他是报纸的主编。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "plate",
+      "phoneticUK": "/pleɪt/",
+      "phoneticUS": "/pleɪt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "盘子；碟子",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She washed the plates after dinner.",
+          "translation": "晚饭后她洗了盘子。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "adventure",
+      "phoneticUK": "/ədˈventʃə(r)/",
+      "phoneticUS": "/ədˈventʃər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "冒险；奇遇",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Their journey was a great adventure.",
+          "translation": "他们的旅行是一次很棒的冒险。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "youth",
+      "phoneticUK": "/ju:θ/",
+      "phoneticUS": "/ju:θ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "青年时期；青春",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Youth is the time of life.",
+          "translation": "青春是人生的时光。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "survival",
+      "phoneticUK": "/səˈvaɪvl/",
+      "phoneticUS": "/sərˈvaɪvl/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "生存；幸存；幸存事物",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The survival of the fittest is a natural law.",
+          "translation": "适者生存是自然法则。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "expert",
+      "phoneticUK": "/ˈekspɜ:t/",
+      "phoneticUS": "/ˈekspɜ:rt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "专家；行家",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "adj.",
+          "definition": "熟练的；内行的；专家的",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is an expert in computer science.",
+          "translation": "他是计算机专家。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "movement",
+      "phoneticUK": "/ˈmu:vmənt/",
+      "phoneticUS": "/ˈmu:vmənt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "动作；运动；活动",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The movement towards peace is growing.",
+          "translation": "和平运动正在发展。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "greenhouse",
+      "phoneticUK": "/ˈgri:nhaʊs/",
+      "phoneticUS": "/ˈgri:nhaʊs/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "温室；暖房",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Plants grow in the greenhouse.",
+          "translation": "植物在温室里生长。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "suitable",
+      "phoneticUK": "/ˈsu:təbl/",
+      "phoneticUS": "/ˈsu:təbl/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "合适的；适用的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This book is suitable for beginners.",
+          "translation": "这本书适合初学者。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "actually",
+      "phoneticUK": "/ˈæktʃuəli/",
+      "phoneticUS": "/ˈæktʃuəli/",
+      "meanings": [
+        {
+          "partOfSpeech": "adv.",
+          "definition": "事实上；的确",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Actually, I don't agree with you.",
+          "translation": "事实上，我不同意你的看法。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "challenge",
+      "phoneticUK": "/ˈtʃælɪndʒ/",
+      "phoneticUS": "/ˈtʃælɪndʒ/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "挑战；艰巨任务",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "怀疑；向……挑战",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is a big challenge for us.",
+          "translation": "这对我们来说是一个巨大的挑战。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "title",
+      "phoneticUK": "/ˈtaɪtl/",
+      "phoneticUS": "/ˈtaɪtl/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "(书、诗歌等的)名称；标题；职称；头衔",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "What is the title of this book?",
+          "translation": "这本书的标题是什么？",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "topic",
+      "phoneticUK": "/ˈtɒpɪk/",
+      "phoneticUS": "/ˈtɑ:pɪk/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "话题；标题",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Let's discuss a new topic.",
+          "translation": "让我们讨论一个新话题。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "freshman",
+      "phoneticUK": "/ˈfreʃmən/",
+      "phoneticUS": "/ˈfreʃmən/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "(大学或高中)一年级新生",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is a freshman in college.",
+          "translation": "他是大学一年级新生。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "behaviour",
+      "phoneticUK": "/bɪˈheɪvjə(r)/",
+      "phoneticUS": "/bɪˈheɪvjər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "行为；举止",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "His behaviour surprised everyone.",
+          "translation": "他的行为让所有人感到惊讶。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "generation",
+      "phoneticUK": "/ˌdʒenəˈreɪʃn/",
+      "phoneticUS": "/ˌdʒenəˈreɪʃn/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "一代(人)",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This is a new generation of computers.",
+          "translation": "这是一代新型电脑。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "attract",
+      "phoneticUK": "/əˈtrækt/",
+      "phoneticUS": "/əˈtrækt/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "吸引；引起……的注意(或兴趣)",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The festival attracts thousands of tourists.",
+          "translation": "这个节日吸引成千上万的游客。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "focus",
+      "phoneticUK": "/ˈfəʊkəs/",
+      "phoneticUS": "/ˈfoʊkəs/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "集中(精力、注意力等)；(使)调节焦距",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "中心；重点；焦点",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to focus on our studies.",
+          "translation": "我们需要专注于学习。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "addicted",
+      "phoneticUK": "/əˈdɪktɪd/",
+      "phoneticUS": "/əˈdɪktɪd/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "有瘾的；上瘾的；入迷的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is addicted to video games.",
+          "translation": "他对电子游戏上瘾。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "addict",
+      "phoneticUK": "/ˈædɪkt/",
+      "phoneticUS": "/ˈædɪkt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "对……入迷的人；吸毒成瘾的人",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is a drug addict.",
+          "translation": "他是一个吸毒成瘾者。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "adult",
+      "phoneticUK": "/ˈædʌlt/",
+      "phoneticUS": "/əˈdʌlt/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "成年人",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "adj.",
+          "definition": "成年的；成熟的",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This movie is for adults only.",
+          "translation": "这部电影只适合成年人观看。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "confusing",
+      "phoneticUK": "/kənˈfju:zɪŋ/",
+      "phoneticUS": "/kənˈfju:zɪŋ/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "难以理解的；不清楚的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "The instructions are confusing.",
+          "translation": "说明书令人费解。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "confuse",
+      "phoneticUK": "/kənˈfju:z/",
+      "phoneticUS": "/kənˈfju:z/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "使糊涂；使迷惑",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Don't confuse me with the details.",
+          "translation": "别用细节来迷惑我。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "confused",
+      "phoneticUK": "/kənˈfju:zd/",
+      "phoneticUS": "/kənˈfju:zd/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "糊涂的；迷惑的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She looked confused.",
+          "translation": "她看起来很困惑。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "fluent",
+      "phoneticUK": "/ˈflu:ənt/",
+      "phoneticUS": "/ˈflu:ənt/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "(尤指外语)流利的；熟练的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She speaks fluent English.",
+          "translation": "她英语说得流利。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "graduate",
+      "phoneticUK": "/ˈɡrædʒueɪt/",
+      "phoneticUS": "/ˈɡrædʒueɪt/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "毕业；获得学位",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "n.",
+          "definition": "毕业生",
+          "order": 1
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She graduated from university last year.",
+          "translation": "她去年大学毕业。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "recommend",
+      "phoneticUK": "/ˌrekəˈmend/",
+      "phoneticUS": "/ˌrekəˈmend/",
+      "meanings": [
+        {
+          "partOfSpeech": "vt.",
+          "definition": "建议；推荐；介绍",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I recommend this book to you.",
+          "translation": "我把这本书推荐给你。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "advanced",
+      "phoneticUK": "/ədˈvɑ:nst/",
+      "phoneticUS": "/ədˈvænst/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "高级的；高等的；先进的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She is studying advanced mathematics.",
+          "translation": "她正在学习高等数学。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "advance",
+      "phoneticUK": "/ədˈvɑ:ns/",
+      "phoneticUS": "/ədˈvæns/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "前进；发展",
+          "order": 0
+        },
+        {
+          "partOfSpeech": "vi.",
+          "definition": "前进；发展",
+          "order": 1
+        },
+        {
+          "partOfSpeech": "vt.",
+          "definition": "发展；促进",
+          "order": 2
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Science has made great advances.",
+          "translation": "科学取得了重大进展。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "literature",
+      "phoneticUK": "/ˈlɪtrətʃə(r)/",
+      "phoneticUS": "/ˈlɪtrətʃər/",
+      "meanings": [
+        {
+          "partOfSpeech": "n.",
+          "definition": "文学；文学作品",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She studies literature at university.",
+          "translation": "她在大学学习文学。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "extra",
+      "phoneticUK": "/ˈekstrə/",
+      "phoneticUS": "/ˈekstrə/",
+      "meanings": [
+        {
+          "partOfSpeech": "adj.",
+          "definition": "额外的；附加的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need extra time to finish the work.",
+          "translation": "我们需要额外的时间来完成工作。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "obviously",
+      "phoneticUK": "/ˈɒbviəsli/",
+      "phoneticUS": "/ˈɑ:bviəsli/",
+      "meanings": [
+        {
+          "partOfSpeech": "adv.",
+          "definition": "显然；明显地",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "Obviously, she is not happy.",
+          "translation": "显然，她不开心。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "quit",
+      "phoneticUK": "/kwɪt/",
+      "phoneticUS": "/kwɪt/",
+      "meanings": [
+        {
+          "partOfSpeech": "vi. & vt.",
+          "definition": "停止(做某事)；戒掉",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He decided to quit smoking.",
+          "translation": "他决定戒烟。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "prefer ... to ...",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "喜欢……多于……",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I prefer tea to coffee.",
+          "translation": "我更喜欢茶而不是咖啡。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "be responsible for",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "对……负责",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "She is responsible for the project.",
+          "translation": "她负责这个项目。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "clean up",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "打扫(或清除)干净",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We need to clean up the room.",
+          "translation": "我们需要打扫房间。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "suitable for",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "对……适合的",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "This book is suitable for children.",
+          "translation": "这本书适合儿童。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "be attracted to",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "喜爱",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is attracted to music.",
+          "translation": "他喜爱音乐。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "focus on",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "集中；特别关注",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "We should focus on our goals.",
+          "translation": "我们应该专注于我们的目标。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "addicted to",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "对……很入迷",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "He is addicted to games.",
+          "translation": "他对游戏上瘾。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    },
+    {
+      "word": "sign up (for sth)",
+      "phoneticUK": "",
+      "phoneticUS": "",
+      "meanings": [
+        {
+          "partOfSpeech": "phrase",
+          "definition": "报名(参加课程)",
+          "order": 0
+        }
+      ],
+      "exampleSentences": [
+        {
+          "sentence": "I want to sign up for the course.",
+          "translation": "我想报名参加这个课程。",
+          "order": 0
+        }
+      ],
+      "audioUrl": null,
+      "tags": "rj_bx1_u1",
+      "synonyms": "",
+      "personalNotes": ""
+    }
+  ]
+}
