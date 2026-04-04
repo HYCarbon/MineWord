@@ -77,21 +77,6 @@ fun WordDetailScreen(
                     style = MaterialTheme.typography.headlineLarge,
                 )
 
-                if (data.word.frequencyLevel.isNotBlank()) {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
-                    ) {
-                        data.word.frequencyLevel.split(",").map { it.trim() }.filter { it.isNotEmpty() }.forEach { freq ->
-                            AssistChip(
-                                onClick = { },
-                                label = { Text(freq) },
-                            )
-                        }
-                    }
-                }
-
                 if (data.word.phoneticUK != null || data.word.phoneticUS != null) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Row(
@@ -228,28 +213,15 @@ fun WordDetailScreen(
                     )
                 }
 
-                if (!data.word.derivatives.isNullOrBlank()) {
+                if (!data.word.wordForms.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "派生词",
+                        text = "词形变化",
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = data.word.derivatives,
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
-
-                if (!data.word.confusion.isNullOrBlank()) {
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = "易混词辨析",
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = data.word.confusion,
+                        text = data.word.wordForms,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }
@@ -263,6 +235,19 @@ fun WordDetailScreen(
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = data.word.personalNotes,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                }
+
+                if (!data.word.source.isNullOrBlank()) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "来源",
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = data.word.source,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }

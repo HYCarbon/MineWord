@@ -43,19 +43,6 @@ fun WordCard(
                 style = MaterialTheme.typography.titleMedium,
             )
 
-            val frequencyLevels = word.frequencyLevel.split(",").map { it.trim() }.filter { it.isNotEmpty() }
-            if (frequencyLevels.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(2.dp))
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    frequencyLevels.forEach { freq ->
-                        SuggestionChip(
-                            onClick = {},
-                            label = { Text(freq, style = MaterialTheme.typography.labelSmall) },
-                        )
-                    }
-                }
-            }
-
             if (!word.phoneticUK.isNullOrBlank() || !word.phoneticUS.isNullOrBlank()) {
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
@@ -125,23 +112,29 @@ fun WordCard(
                 )
             }
 
-            val derivatives = word.derivatives.split(",").map { it.trim() }.filter { it.isNotEmpty() }
-            if (derivatives.isNotEmpty()) {
+            val wordForms = word.wordForms.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+            if (wordForms.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "派生: ${derivatives.joinToString(", ")}",
+                    text = "词形: ${wordForms.joinToString(", ")}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.tertiary,
                 )
             }
 
-            if (!word.confusion.isNullOrBlank()) {
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "辨析: ${word.confusion}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.error,
-                )
+            if (word.personalNotes.isNotBlank()) {
+                val lines = word.personalNotes.split("\n")
+                if (lines.any { it.contains("辨析") || it.startsWith("混") }) {
+                    val confusionNote = lines.find { it.contains("辨析") || it.startsWith("混") }
+                    if (confusionNote != null) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "辨析: $confusionNote",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    }
+                }
             }
         }
     }
@@ -160,31 +153,8 @@ private fun MeaningsContent(meanings: List<Meaning>) {
     }
 
     val grouped = MeaningParser.groupByPos(meanings)
-    val showGroupHeaders = grouped.keys.any { it != null }
 
-    val allPos = grouped.keys.filterNotNull().distinct()
-
-    if (allPos.isNotEmpty()) {
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
-            allPos.forEach { pos ->
-                SuggestionChip(
-                    onClick = {},
-                    label = {
-                        Text(
-                            text = pos,
-                            style = MaterialTheme.typography.labelSmall
-                        )
-                    },
-                )
-            }
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-    }
-
-    if (!showGroupHeaders && meanings.size == 1) {
+    if (meanings.size == 1 && meanings[0].partOfSpeech == null) {
         Text(
             text = meanings[0].definition,
             style = MaterialTheme.typography.bodyMedium,
@@ -194,25 +164,12 @@ private fun MeaningsContent(meanings: List<Meaning>) {
 
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         grouped.forEach { (pos, posMeanings) ->
-            if (pos != null) {
+            val prefix = if (pos != null) "[$pos] " else ""
+            posMeanings.forEach { meaning ->
                 Text(
-                    text = "[$pos]",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-            }
-            if (posMeanings.size == 1 && !showGroupHeaders) {
-                Text(
-                    text = posMeanings[0].definition,
+                    text = "$prefix${meaning.definition}",
                     style = MaterialTheme.typography.bodyMedium,
                 )
-            } else {
-                posMeanings.forEachIndexed { index, meaning ->
-                    Text(
-                        text = "${index + 1}. ${meaning.definition}",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
             }
         }
     }

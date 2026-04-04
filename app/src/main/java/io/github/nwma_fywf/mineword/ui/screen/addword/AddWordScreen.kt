@@ -76,9 +76,8 @@ fun AddWordScreen(
     val synonymsFocusRequester = remember { FocusRequester() }
     val antonymsFocusRequester = remember { FocusRequester() }
     val phrasesFocusRequester = remember { FocusRequester() }
-    val derivativesFocusRequester = remember { FocusRequester() }
-    val frequencyLevelFocusRequester = remember { FocusRequester() }
-    val confusionFocusRequester = remember { FocusRequester() }
+    val wordFormsFocusRequester = remember { FocusRequester() }
+    val sourceFocusRequester = remember { FocusRequester() }
     val personalNotesFocusRequester = remember { FocusRequester() }
 
     val meaningFocusRequesters = remember { mutableStateListOf<FocusRequester>() }
@@ -108,9 +107,8 @@ fun AddWordScreen(
     var synonyms by remember { mutableStateOf("") }
     var antonyms by remember { mutableStateOf("") }
     var phrases by remember { mutableStateOf("") }
-    var derivatives by remember { mutableStateOf("") }
-    var frequencyLevel by remember { mutableStateOf("") }
-    var confusion by remember { mutableStateOf("") }
+    var wordForms by remember { mutableStateOf("") }
+    var source by remember { mutableStateOf("manual") }
     var personalNotes by remember { mutableStateOf("") }
     var duplicateWarning by remember { mutableStateOf<String?>(null) }
 
@@ -160,9 +158,8 @@ fun AddWordScreen(
                                         synonyms = synonyms.trim(),
                                         antonyms = antonyms.trim(),
                                         phrases = phrases.trim(),
-                                        derivatives = derivatives.trim(),
-                                        frequencyLevel = frequencyLevel.trim(),
-                                        confusion = confusion.trim(),
+                                        wordForms = wordForms.trim(),
+                                        source = source,
                                         personalNotes = personalNotes.trim(),
                                         onComplete = onNavigateBack
                                     )
@@ -476,52 +473,36 @@ fun AddWordScreen(
                 minLines = 2,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
-                    onNext = { derivativesFocusRequester.requestFocus() }
+                    onNext = { wordFormsFocusRequester.requestFocus() }
                 ),
             )
 
             Spacer(modifier = Modifier.height(12.dp))
             OutlinedTextField(
-                value = derivatives,
-                onValueChange = { derivatives = it },
+                value = wordForms,
+                onValueChange = { wordForms = it },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .focusRequester(derivativesFocusRequester),
-                label = { Text("派生词/词根词缀") },
-                placeholder = { Text("如: -tion (名词后缀); happy → happiness") },
+                    .focusRequester(wordFormsFocusRequester),
+                label = { Text("词形变化") },
+                placeholder = { Text("如: happy → happiness, happily") },
                 minLines = 2,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
-                    onNext = { frequencyLevelFocusRequester.requestFocus() }
+                    onNext = { sourceFocusRequester.requestFocus() }
                 ),
             )
 
             Spacer(modifier = Modifier.height(12.dp))
             OutlinedTextField(
-                value = frequencyLevel,
-                onValueChange = { frequencyLevel = it },
+                value = source,
+                onValueChange = { source = it },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .focusRequester(frequencyLevelFocusRequester),
-                label = { Text("考频/词频标记") },
-                placeholder = { Text("如: 高考, CET-4, 高频") },
+                    .focusRequester(sourceFocusRequester),
+                label = { Text("来源") },
+                placeholder = { Text("manual") },
                 singleLine = true,
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                keyboardActions = KeyboardActions(
-                    onNext = { confusionFocusRequester.requestFocus() }
-                ),
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-            OutlinedTextField(
-                value = confusion,
-                onValueChange = { confusion = it },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .focusRequester(confusionFocusRequester),
-                label = { Text("易混词辨析") },
-                placeholder = { Text("如: compare with 指'与...比较'; compare to 指'把...比作'") },
-                minLines = 2,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
                     onNext = { personalNotesFocusRequester.requestFocus() }

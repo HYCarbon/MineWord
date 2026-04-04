@@ -14,17 +14,10 @@ import androidx.navigation.navArgument
 import androidx.compose.animation.ExperimentalAnimationApi
 import io.github.nwma_fywf.mineword.data.local.ThemePreferences
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
-import io.github.nwma_fywf.mineword.ui.screen.addphrase.AddPhraseScreen
-import io.github.nwma_fywf.mineword.ui.screen.addphrase.AddPhraseViewModel
 import io.github.nwma_fywf.mineword.ui.screen.addword.AddWordScreen
 import io.github.nwma_fywf.mineword.ui.screen.addword.AddWordViewModel
-import io.github.nwma_fywf.mineword.ui.screen.editphrase.EditPhraseScreen
-import io.github.nwma_fywf.mineword.ui.screen.editphrase.EditPhraseViewModel
 import io.github.nwma_fywf.mineword.ui.screen.editword.EditWordScreen
 import io.github.nwma_fywf.mineword.ui.screen.editword.EditWordViewModel
-import io.github.nwma_fywf.mineword.ui.screen.phrasedetail.PhraseDetailScreen
-import io.github.nwma_fywf.mineword.ui.screen.phrasedetail.PhraseDetailViewModel
-import io.github.nwma_fywf.mineword.ui.screen.phraselist.PhraseListViewModel
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizHomeScreen
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizHomeViewModel
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizScreen
@@ -119,16 +112,10 @@ fun NavGraph(
             val wordListViewModel: WordListViewModel = viewModel(
                 factory = WordListViewModel.provideFactory(repository)
             )
-            val phraseListViewModel: PhraseListViewModel = viewModel(
-                factory = PhraseListViewModel.provideFactory(repository)
-            )
             WordListScreen(
                 viewModel = wordListViewModel,
-                phraseListViewModel = phraseListViewModel,
                 onNavigateToAddWord = { navController.navigate(Screen.AddWord.route) },
                 onNavigateToWordDetail = { wordId -> navController.navigate(Screen.WordDetail.createRoute(wordId)) },
-                onNavigateToAddPhrase = { navController.navigate(Screen.AddPhrase.route) },
-                onNavigateToPhraseDetail = { phraseId -> navController.navigate(Screen.PhraseDetail.createRoute(phraseId)) },
             )
         }
         composable(Screen.AddWord.route) {
@@ -166,44 +153,6 @@ fun NavGraph(
             EditWordScreen(
                 viewModel = viewModel,
                 wordId = wordId,
-                onNavigateBack = { navController.popBackStack() },
-            )
-        }
-        composable(Screen.AddPhrase.route) {
-            val viewModel: AddPhraseViewModel = viewModel(
-                factory = AddPhraseViewModel.provideFactory(repository)
-            )
-            AddPhraseScreen(
-                viewModel = viewModel,
-                onNavigateBack = { navController.popBackStack() },
-            )
-        }
-        composable(
-            route = Screen.PhraseDetail.route,
-            arguments = listOf(navArgument("phraseId") { type = NavType.LongType })
-        ) { backStackEntry ->
-            val phraseId = backStackEntry.arguments?.getLong("phraseId") ?: return@composable
-            val viewModel: PhraseDetailViewModel = viewModel(
-                factory = PhraseDetailViewModel.provideFactory(repository)
-            )
-            PhraseDetailScreen(
-                viewModel = viewModel,
-                phraseId = phraseId,
-                onNavigateBack = { navController.popBackStack() },
-                onNavigateToEdit = { id -> navController.navigate(Screen.EditPhrase.createRoute(id)) },
-            )
-        }
-        composable(
-            route = Screen.EditPhrase.route,
-            arguments = listOf(navArgument("phraseId") { type = NavType.LongType })
-        ) { backStackEntry ->
-            val phraseId = backStackEntry.arguments?.getLong("phraseId") ?: return@composable
-            val viewModel: EditPhraseViewModel = viewModel(
-                factory = EditPhraseViewModel.provideFactory(repository)
-            )
-            EditPhraseScreen(
-                viewModel = viewModel,
-                phraseId = phraseId,
                 onNavigateBack = { navController.popBackStack() },
             )
         }

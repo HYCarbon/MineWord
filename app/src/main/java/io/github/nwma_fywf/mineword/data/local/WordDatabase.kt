@@ -6,12 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 
-@Database(entities = [Word::class, Meaning::class, ExampleSentence::class, Phrase::class, WrongAnswer::class], version = 8, exportSchema = false)
+@Database(entities = [Word::class, Meaning::class, ExampleSentence::class, WrongAnswer::class], version = 9, exportSchema = false)
 abstract class WordDatabase : RoomDatabase() {
     abstract fun wordDao(): WordDao
     abstract fun meaningDao(): MeaningDao
     abstract fun exampleSentenceDao(): ExampleSentenceDao
-    abstract fun phraseDao(): PhraseDao
     abstract fun wrongAnswerDao(): WrongAnswerDao
 
     companion object {
@@ -48,13 +47,19 @@ abstract class WordDatabase : RoomDatabase() {
             }
         }
 
+        private val MIGRATION_8_9 = object : Migration(8, 9) {
+            override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
+                db.execSQL("DROP TABLE IF EXISTS phrases")
+            }
+        }
+
         fun getDatabase(context: Context): WordDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     WordDatabase::class.java,
                     "mineword_database"
-                ).addMigrations(MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8).build()
+                ).addMigrations(MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9).build()
                 INSTANCE = instance
                 instance
             }

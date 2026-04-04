@@ -30,17 +30,8 @@ data class ExportWord(
 )
 
 @Serializable
-data class ExportPhrase(
-    val phrase: String,
-    val meaning: String = "",
-    val tags: String = "",
-    val personalNotes: String = ""
-)
-
-@Serializable
 data class ExportData(
-    val version: Int = 2,
+    val version: Int = 3,
     val exportedAt: Long = System.currentTimeMillis(),
-    val words: List<ExportWord> = emptyList(),
-    val phrases: List<ExportPhrase> = emptyList()
+    val words: List<ExportWord> = emptyList()
 )

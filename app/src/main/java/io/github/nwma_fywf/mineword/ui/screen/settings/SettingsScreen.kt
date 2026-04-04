@@ -139,8 +139,7 @@ fun SettingsScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         DataStatsSection(
-            wordCount = dataStats.wordCount,
-            phraseCount = dataStats.phraseCount
+            wordCount = dataStats.wordCount
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -196,7 +195,6 @@ fun SettingsScreen(
     if (clearDataDialogState.isVisible) {
         ClearDataConfirmDialog(
             wordCount = clearDataDialogState.wordCount,
-            phraseCount = clearDataDialogState.phraseCount,
             onConfirm = viewModel::confirmClearData,
             onDismiss = viewModel::dismissClearDataDialog
         )
@@ -392,8 +390,7 @@ private fun FontSettingsSection(
 
 @Composable
 private fun DataStatsSection(
-    wordCount: Int,
-    phraseCount: Int
+    wordCount: Int
 ) {
     Text(
         text = "词汇统计",
@@ -406,7 +403,7 @@ private fun DataStatsSection(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.Center
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
@@ -416,18 +413,6 @@ private fun DataStatsSection(
                 )
                 Text(
                     text = "单词",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = phraseCount.toString(),
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                Text(
-                    text = "词组",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -790,7 +775,6 @@ private fun CustomColorPickerDialog(
 @Composable
 private fun ClearDataConfirmDialog(
     wordCount: Int,
-    phraseCount: Int,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -802,7 +786,6 @@ private fun ClearDataConfirmDialog(
                 Text("此操作将删除以下数据：")
                 Spacer(modifier = Modifier.height(8.dp))
                 Text("• $wordCount 个单词")
-                Text("• $phraseCount 个词组")
                 Text("• 所有学习记录和错题")
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
