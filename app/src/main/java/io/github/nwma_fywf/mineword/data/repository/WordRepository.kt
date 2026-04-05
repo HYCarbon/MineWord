@@ -130,16 +130,15 @@ class WordRepository(
         val duplicateWords = mutableListOf<String>()
 
         for (exportWord in exportWords) {
-            val existingWords = wordDao.getWordsByWordLower(exportWord.word)
+            val existingWord = wordDao.getWordByWord(exportWord.word)
 
-            if (existingWords.isNotEmpty()) {
+            if (existingWord != null) {
                 duplicateWords.add(exportWord.word)
                 when (duplicateStrategy) {
                     DuplicateStrategy.SKIP -> {
                         skipCount++
                     }
                     DuplicateStrategy.REPLACE -> {
-                        val existingWord = existingWords.first()
                         val newWord = existingWord.copy(
                             phoneticUK = exportWord.phoneticUK,
                             phoneticUS = exportWord.phoneticUS,
@@ -158,7 +157,6 @@ class WordRepository(
                         replacedCount++
                     }
                     DuplicateStrategy.MERGE -> {
-                        val existingWord = existingWords.first()
                         val existingMeanings = meaningDao.getMeaningsByWordIdOnce(existingWord.id).toMutableList()
                         val existingSentences = exampleSentenceDao.getSentencesByWordIdOnce(existingWord.id).toMutableList()
 

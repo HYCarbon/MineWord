@@ -44,9 +44,6 @@ interface WordDao {
     @Query("SELECT * FROM words ORDER BY createdAt DESC")
     suspend fun getAllWordsOnce(): List<Word>
 
-    @Query("SELECT * FROM words WHERE LOWER(word) = LOWER(:word)")
-    suspend fun getWordsByWordLower(word: String): List<Word>
-
     @Query("SELECT * FROM words WHERE nextReviewTime <= :currentTime AND nextReviewTime > 0 ORDER BY nextReviewTime ASC")
     suspend fun getWordsDueForReview(currentTime: Long): List<Word>
 
