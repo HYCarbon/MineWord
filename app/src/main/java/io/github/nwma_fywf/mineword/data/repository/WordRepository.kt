@@ -4,6 +4,7 @@ import io.github.nwma_fywf.mineword.data.local.ExportData
 import io.github.nwma_fywf.mineword.data.local.ExportExampleSentence
 import io.github.nwma_fywf.mineword.data.local.ExportMeaning
 import io.github.nwma_fywf.mineword.data.local.ExportWord
+import io.github.nwma_fywf.mineword.data.local.ExportWrongAnswer
 import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.ExampleSentenceDao
 import io.github.nwma_fywf.mineword.data.local.Meaning
@@ -13,6 +14,7 @@ import io.github.nwma_fywf.mineword.data.local.WordDao
 import io.github.nwma_fywf.mineword.data.local.WrongAnswer
 import io.github.nwma_fywf.mineword.data.local.WrongAnswerDao
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 
 data class ImportResult(
     val totalCount: Int,
@@ -119,7 +121,17 @@ class WordRepository(
                 }
             )
         }
-        return ExportData(words = exportWords)
+        val wrongAnswers = wrongAnswerDao.getAllWrongAnswers().first().map { wa ->
+            val word = wordDao.getWordById(wa.wordId)
+            ExportWrongAnswer(
+                word = word?.word ?: "",
+                quizMode = wa.quizMode,
+                userAnswer = wa.userAnswer,
+                correctAnswer = wa.correctAnswer,
+                timestamp = wa.timestamp
+            )
+        }
+        return ExportData(words = exportWords, wrongAnswers = wrongAnswers)
     }
 
     suspend fun importWords(
@@ -304,5 +316,22 @@ class WordRepository(
 
     fun getDueReviewCountFlow(): kotlinx.coroutines.flow.Flow<Int> = kotlinx.coroutines.flow.flow {
         emit(getDueReviewCount())
+    }
+
+    suspend fun importWrongAnswers(exportWrongAnswers: List<ExportWrongAnswer>) {
+        for (exportWA in exportWrongAnswers) {
+            val word = wordDao.getWordByWord(exportWA.word)
+            if (word != null) {
+                wrongAnswerDao.insertWrongAnswer(
+                    WrongAnswer(
+                        wordId = word.id,
+                        quizMode = exportWA.quizMode,
+                        userAnswer = exportWA.userAnswer,
+                        correctAnswer = exportWA.correctAnswer,
+                        timestamp = exportWA.timestamp
+                    )
+                )
+            }
+        }
     }
 }

@@ -33,8 +33,18 @@ data class ExportWord(
 )
 
 @Serializable
+data class ExportWrongAnswer(
+    val word: String,
+    val quizMode: String,
+    val userAnswer: String,
+    val correctAnswer: String,
+    val timestamp: Long = 0
+)
+
+@Serializable
 data class ExportData(
-    val version: Int = 3,
+    val version: Int = 4,
     val exportedAt: Long = System.currentTimeMillis(),
-    val words: List<ExportWord> = emptyList()
+    val words: List<ExportWord> = emptyList(),
+    val wrongAnswers: List<ExportWrongAnswer> = emptyList()
 )

@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.ExportData
 import io.github.nwma_fywf.mineword.data.local.ExportWord
+import io.github.nwma_fywf.mineword.data.local.ExportWrongAnswer
 import io.github.nwma_fywf.mineword.data.repository.DuplicateStrategy
 import io.github.nwma_fywf.mineword.data.repository.ImportResult
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
@@ -28,6 +29,7 @@ import kotlinx.serialization.json.Json
 data class ImportDialogState(
     val isVisible: Boolean = false,
     val pendingWords: List<ExportWord> = emptyList(),
+    val pendingWrongAnswers: List<ExportWrongAnswer> = emptyList(),
     val duplicateWords: List<String> = emptyList()
 )
 
@@ -284,7 +286,7 @@ class SettingsViewModel(
             try {
                 val json = Json { ignoreUnknownKeys = true }
                 val allWords = mutableListOf<ExportWord>()
-                var fileCount = 0
+                val allWrongAnswers = mutableListOf<ExportWrongAnswer>()
 
                 for (uri in uris) {
                     val inputStream = context.contentResolver.openInputStream(uri)
@@ -293,13 +295,13 @@ class SettingsViewModel(
                         try {
                             val exportData = json.decodeFromString<ExportData>(jsonString)
                             allWords.addAll(exportData.words)
-                            fileCount++
+                            allWrongAnswers.addAll(exportData.wrongAnswers)
                         } catch (e: Exception) {
                         }
                     }
                 }
 
-                if (allWords.isEmpty()) {
+                if (allWords.isEmpty() && allWrongAnswers.isEmpty()) {
                     _importResultDialogState.value = ImportResultDialogState(
                         isVisible = true,
                         result = ImportResult(
@@ -326,6 +328,7 @@ class SettingsViewModel(
                     _importDialogState.value = ImportDialogState(
                         isVisible = true,
                         pendingWords = allWords,
+                        pendingWrongAnswers = allWrongAnswers,
                         duplicateWords = duplicateWords
                     )
                 } else {
@@ -333,6 +336,9 @@ class SettingsViewModel(
                         repository.importWords(allWords, DuplicateStrategy.SKIP)
                     } else {
                         ImportResult(0, 0, 0, 0, 0, emptyList())
+                    }
+                    if (allWrongAnswers.isNotEmpty()) {
+                        repository.importWrongAnswers(allWrongAnswers)
                     }
                     _importResultDialogState.value = ImportResultDialogState(
                         isVisible = true,
@@ -359,13 +365,16 @@ class SettingsViewModel(
 
     fun onDuplicateStrategySelected(strategy: DuplicateStrategy) {
         viewModelScope.launch {
-            val pendingWords = _importDialogState.value.pendingWords
-            _importDialogState.value = _importDialogState.value.copy(isVisible = false)
+            val state = _importDialogState.value
+            _importDialogState.value = state.copy(isVisible = false)
             
-            val wordResult = if (pendingWords.isNotEmpty()) {
-                repository.importWords(pendingWords, strategy)
+            val wordResult = if (state.pendingWords.isNotEmpty()) {
+                repository.importWords(state.pendingWords, strategy)
             } else {
                 ImportResult(0, 0, 0, 0, 0, emptyList())
+            }
+            if (state.pendingWrongAnswers.isNotEmpty()) {
+                repository.importWrongAnswers(state.pendingWrongAnswers)
             }
             _importResultDialogState.value = ImportResultDialogState(
                 isVisible = true,
