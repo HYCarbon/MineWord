@@ -1,9 +1,11 @@
 package io.github.nwma_fywf.mineword.ui.screen.editword
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.ui.component.WordFormData
@@ -18,6 +20,7 @@ fun EditWordScreen(
     val wordData by viewModel.wordData.collectAsState()
     val existingTags by viewModel.existingTags.collectAsState()
     val existingWords by viewModel.existingWords.collectAsState()
+    val context = LocalContext.current
 
     LaunchedEffect(wordId) {
         viewModel.loadWord(wordId)
@@ -55,6 +58,9 @@ fun EditWordScreen(
             wordData?.let { wd ->
                 viewModel.checkDuplicate(word, wd.word.id)
             } ?: viewModel.checkDuplicate(word, -1)
+        },
+        onSaved = {
+            Toast.makeText(context, context.getString(R.string.word_saved_success), Toast.LENGTH_SHORT).show()
         }
     )
 }

@@ -80,6 +80,7 @@ fun WordFormScreen(
     onNavigateBack: () -> Unit,
     onSave: suspend (WordFormData) -> Unit,
     onCheckDuplicate: suspend (word: String) -> Boolean,
+    onSaved: () -> Unit = {},
 ) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -213,6 +214,7 @@ fun WordFormScreen(
                                             personalNotes = personalNotes.trim(),
                                         )
                                     )
+                                    onSaved()
                                 }
                             }
                         },

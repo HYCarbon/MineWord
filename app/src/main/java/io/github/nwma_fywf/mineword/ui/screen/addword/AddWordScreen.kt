@@ -1,8 +1,10 @@
 package io.github.nwma_fywf.mineword.ui.screen.addword
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.ui.component.WordFormData
@@ -15,6 +17,7 @@ fun AddWordScreen(
 ) {
     val existingTags by viewModel.existingTags.collectAsState()
     val existingWords by viewModel.existingWords.collectAsState()
+    val context = LocalContext.current
 
     WordFormScreen(
         title = stringResource(R.string.add_word),
@@ -40,6 +43,9 @@ fun AddWordScreen(
         },
         onCheckDuplicate = { word ->
             viewModel.checkDuplicate(word)
+        },
+        onSaved = {
+            Toast.makeText(context, context.getString(R.string.word_saved_success), Toast.LENGTH_SHORT).show()
         }
     )
 }
