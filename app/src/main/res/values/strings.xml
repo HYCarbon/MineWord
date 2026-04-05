@@ -127,6 +127,8 @@
     <string name="exit">退出</string>
     <string name="quiz_not_enough_words">单词不足4个，无法进入选择题模式</string>
     <string name="quiz_no_meaning">该单词暂无释义</string>
+    <string name="exit_quiz_confirm_title">确定要退出测验吗？</string>
+    <string name="exit_quiz_confirm_message">当前进度将丢失。</string>
 
     <!-- Wrong Answer -->
     <string name="clear_wrong_answers">清空</string>

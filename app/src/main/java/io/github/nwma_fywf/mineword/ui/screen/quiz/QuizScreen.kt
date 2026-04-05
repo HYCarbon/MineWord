@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.activity.compose.BackHandler
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,10 +23,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -45,6 +51,11 @@ fun QuizScreen(
     val quizState by viewModel.quizState.collectAsState()
     val quizMode by viewModel.quizMode.collectAsState()
     val totalCount by viewModel.totalCount.collectAsState()
+    var showExitConfirm by remember { mutableStateOf(false) }
+
+    BackHandler(enabled = quizState !is QuizViewModel.QuizState.Finished && quizState !is QuizViewModel.QuizState.Idle) {
+        showExitConfirm = true
+    }
 
     Scaffold(
         topBar = {
@@ -61,7 +72,7 @@ fun QuizScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
+                    IconButton(onClick = { showExitConfirm = true }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(R.string.back)
@@ -97,7 +108,7 @@ fun QuizScreen(
                             totalCount = totalCount,
                             onUserInputChanged = viewModel::onUserInputChanged,
                             onSubmit = viewModel::submitAnswer,
-                            onFinish = viewModel::finishQuiz,
+                            onFinish = { showExitConfirm = true },
                         )
                     }
                 }
@@ -110,7 +121,7 @@ fun QuizScreen(
                         totalCount = totalCount,
                         onUserInputChanged = viewModel::onUserInputChanged,
                         onSubmit = viewModel::submitAnswer,
-                        onFinish = viewModel::finishQuiz,
+                        onFinish = { showExitConfirm = true },
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
@@ -136,7 +147,7 @@ fun QuizScreen(
                         totalCount = totalCount,
                         onSelectOption = viewModel::selectChoiceOption,
                         onNext = viewModel::nextChoiceWord,
-                        onFinish = viewModel::finishQuiz,
+                        onFinish = { showExitConfirm = true },
                     )
                 }
                 is QuizViewModel.QuizState.Incorrect -> {
@@ -159,6 +170,27 @@ fun QuizScreen(
                 }
             }
         }
+    }
+
+    if (showExitConfirm) {
+        AlertDialog(
+            onDismissRequest = { showExitConfirm = false },
+            title = { Text(stringResource(R.string.exit_quiz_confirm_title)) },
+            text = { Text(stringResource(R.string.exit_quiz_confirm_message)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    showExitConfirm = false
+                    onNavigateBack()
+                }) {
+                    Text(stringResource(R.string.confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showExitConfirm = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        )
     }
 }
 
