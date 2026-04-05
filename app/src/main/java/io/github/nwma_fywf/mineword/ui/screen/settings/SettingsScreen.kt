@@ -45,7 +45,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.FontStyle
 import io.github.nwma_fywf.mineword.data.local.ThemeMode
 import io.github.nwma_fywf.mineword.data.repository.DuplicateStrategy
@@ -225,24 +227,24 @@ private fun ThemeSettingsSection(
     onCustomColorClick: () -> Unit
 ) {
     Text(
-        text = "主题设置",
+        text = stringResource(R.string.theme_settings),
         style = MaterialTheme.typography.titleLarge,
         modifier = Modifier.padding(bottom = 16.dp)
     )
 
     SettingsSectionCard {
         RadioOption(
-            text = "跟随系统",
+            text = stringResource(R.string.theme_system),
             selected = themeMode == ThemeMode.SYSTEM,
             onClick = { onThemeModeChange(ThemeMode.SYSTEM) }
         )
         RadioOption(
-            text = "亮色模式",
+            text = stringResource(R.string.theme_light),
             selected = themeMode == ThemeMode.LIGHT,
             onClick = { onThemeModeChange(ThemeMode.LIGHT) }
         )
         RadioOption(
-            text = "暗色模式",
+            text = stringResource(R.string.theme_dark),
             selected = themeMode == ThemeMode.DARK,
             onClick = { onThemeModeChange(ThemeMode.DARK) }
         )
@@ -250,8 +252,8 @@ private fun ThemeSettingsSection(
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
         SwitchOption(
-            title = "莫奈取色",
-            subtitle = "使用系统壁纸颜色（Android 12+）",
+            title = stringResource(R.string.theme_monet),
+            subtitle = stringResource(R.string.theme_monet_subtitle),
             checked = useDynamicColor,
             onCheckedChange = onUseDynamicColorChange
         )
@@ -259,7 +261,7 @@ private fun ThemeSettingsSection(
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
         Text(
-            text = "主题颜色",
+            text = stringResource(R.string.theme_color),
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp)
         )
@@ -300,19 +302,19 @@ private fun ThemeSettingsSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "已选择自定义颜色",
+                    text = stringResource(R.string.custom_color_selected),
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.weight(1f)
                 )
                 TextButton(onClick = onClearThemeColor) {
-                    Text("清除")
+                    Text(stringResource(R.string.clear))
                 }
             }
         }
 
         ClickableOption(
-            title = "自定义 RGB 颜色",
-            subtitle = "输入 RGB 值自定义主题色",
+            title = stringResource(R.string.custom_rgb_color),
+            subtitle = stringResource(R.string.custom_rgb_subtitle),
             onClick = onCustomColorClick
         )
     }
@@ -327,29 +329,29 @@ private fun FontSettingsSection(
     onClearFont: () -> Unit
 ) {
     Text(
-        text = "字体设置",
+        text = stringResource(R.string.font_settings),
         style = MaterialTheme.typography.titleLarge,
         modifier = Modifier.padding(bottom = 16.dp)
     )
 
     SettingsSectionCard {
         RadioOption(
-            text = "默认",
+            text = stringResource(R.string.font_default),
             selected = fontStyle == FontStyle.DEFAULT,
             onClick = { onFontStyleChange(FontStyle.DEFAULT) }
         )
         RadioOption(
-            text = "衬线体 (Serif)",
+            text = stringResource(R.string.font_serif),
             selected = fontStyle == FontStyle.SERIF,
             onClick = { onFontStyleChange(FontStyle.SERIF) }
         )
         RadioOption(
-            text = "无衬线体 (Sans Serif)",
+            text = stringResource(R.string.font_sans_serif),
             selected = fontStyle == FontStyle.SANS_SERIF,
             onClick = { onFontStyleChange(FontStyle.SANS_SERIF) }
         )
         RadioOption(
-            text = "等宽字体 (Monospace)",
+            text = stringResource(R.string.font_monospace),
             selected = fontStyle == FontStyle.MONOSPACE,
             onClick = { onFontStyleChange(FontStyle.MONOSPACE) }
         )
@@ -357,7 +359,7 @@ private fun FontSettingsSection(
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
         Text(
-            text = "自定义字体",
+            text = stringResource(R.string.custom_font),
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp)
         )
@@ -370,19 +372,19 @@ private fun FontSettingsSection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "已选择自定义字体",
+                    text = stringResource(R.string.custom_font_selected),
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.weight(1f)
                 )
                 TextButton(onClick = onClearFont) {
-                    Text("清除")
+                    Text(stringResource(R.string.clear))
                 }
             }
         }
 
         ClickableOption(
-            title = "从文件选择字体",
-            subtitle = "选择 .ttf 或 .otf 字体文件",
+            title = stringResource(R.string.select_font_file),
+            subtitle = stringResource(R.string.select_font_file_subtitle),
             onClick = onSelectFontFile
         )
     }
@@ -393,7 +395,7 @@ private fun DataStatsSection(
     wordCount: Int
 ) {
     Text(
-        text = "词汇统计",
+        text = stringResource(R.string.data_stats),
         style = MaterialTheme.typography.titleLarge,
         modifier = Modifier.padding(bottom = 16.dp)
     )
@@ -412,7 +414,7 @@ private fun DataStatsSection(
                     color = MaterialTheme.colorScheme.primary
                 )
                 Text(
-                    text = "单词",
+                    text = stringResource(R.string.word_count_label),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -430,15 +432,15 @@ private fun DataManagementSection(
     onClearData: () -> Unit
 ) {
     Text(
-        text = "数据管理",
+        text = stringResource(R.string.data_management),
         style = MaterialTheme.typography.titleLarge,
         modifier = Modifier.padding(bottom = 16.dp)
     )
 
     SettingsClickableCard {
         ClickableOption(
-            title = "导出数据",
-            subtitle = "将所有单词导出为JSON文件",
+            title = stringResource(R.string.export_data),
+            subtitle = stringResource(R.string.export_data_subtitle),
             isLoading = isExporting,
             onClick = onExport
         )
@@ -446,8 +448,8 @@ private fun DataManagementSection(
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
         ClickableOption(
-            title = "批量导入",
-            subtitle = "选择多个JSON文件批量导入单词",
+            title = stringResource(R.string.batch_import),
+            subtitle = stringResource(R.string.batch_import_subtitle),
             isLoading = isImporting,
             onClick = onImport
         )
@@ -455,8 +457,8 @@ private fun DataManagementSection(
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
         ClickableOption(
-            title = "清除所有数据",
-            subtitle = "删除所有单词、词组和学习记录",
+            title = stringResource(R.string.clear_all_data),
+            subtitle = stringResource(R.string.clear_all_data_subtitle),
             onClick = onClearData
         )
     }
@@ -471,15 +473,15 @@ private fun LearningSettingsSection(
     onTimeClick: () -> Unit
 ) {
     Text(
-        text = "学习设置",
+        text = stringResource(R.string.learning_settings),
         style = MaterialTheme.typography.titleLarge,
         modifier = Modifier.padding(bottom = 16.dp)
     )
 
     SettingsClickableCard {
         SwitchOption(
-            title = "复习提醒",
-            subtitle = "基于艾宾浩斯遗忘曲线定时提醒复习",
+            title = stringResource(R.string.review_reminder),
+            subtitle = stringResource(R.string.review_reminder_subtitle),
             checked = reviewReminderEnabled,
             onCheckedChange = onReviewReminderChange
         )
@@ -496,7 +498,7 @@ private fun LearningSettingsSection(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "提醒时间",
+                        text = stringResource(R.string.reminder_time),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Text(
@@ -506,7 +508,7 @@ private fun LearningSettingsSection(
                     )
                 }
                 Text(
-                    text = "修改",
+                    text = stringResource(R.string.modify),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -530,7 +532,7 @@ private fun TimePickerDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("设置提醒时间") },
+        title = { Text(stringResource(R.string.set_reminder_time)) },
         text = {
             Box(
                 modifier = Modifier.fillMaxWidth(),
@@ -541,12 +543,12 @@ private fun TimePickerDialog(
         },
         confirmButton = {
             Button(onClick = { onTimeSelected(timePickerState.hour, timePickerState.minute) }) {
-                Text("确定")
+                Text(stringResource(R.string.confirm))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
@@ -563,10 +565,10 @@ private fun DuplicateStrategyDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("发现重复单词") },
+        title = { Text(stringResource(R.string.duplicate_words_found)) },
         text = {
             Column {
-                Text("检测到 $duplicateCount 个重复单词：")
+                Text(stringResource(R.string.duplicate_words_detected, duplicateCount))
                 Spacer(modifier = Modifier.height(8.dp))
                 LazyColumn(
                     modifier = Modifier.height(150.dp)
@@ -581,7 +583,7 @@ private fun DuplicateStrategyDialog(
                     if (duplicateWords.size > 10) {
                         item {
                             Text(
-                                text = "...等 ${duplicateWords.size} 个",
+                                text = stringResource(R.string.etc_count, duplicateWords.size),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -589,7 +591,7 @@ private fun DuplicateStrategyDialog(
                     }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Text("请选择处理方式：")
+                Text(stringResource(R.string.choose_strategy))
                 Spacer(modifier = Modifier.height(8.dp))
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Row(
@@ -605,8 +607,8 @@ private fun DuplicateStrategyDialog(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
-                            Text("替换现有数据", style = MaterialTheme.typography.bodyMedium)
-                            Text("用导入的数据覆盖重复的单词", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(stringResource(R.string.strategy_replace), style = MaterialTheme.typography.bodyMedium)
+                            Text(stringResource(R.string.strategy_replace_subtitle), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                     Row(
@@ -622,8 +624,8 @@ private fun DuplicateStrategyDialog(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
-                            Text("跳过重复项", style = MaterialTheme.typography.bodyMedium)
-                            Text("保留原数据，忽略重复项", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(stringResource(R.string.strategy_skip), style = MaterialTheme.typography.bodyMedium)
+                            Text(stringResource(R.string.strategy_skip_subtitle), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                     Row(
@@ -639,8 +641,8 @@ private fun DuplicateStrategyDialog(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
-                            Text("合并", style = MaterialTheme.typography.bodyMedium)
-                            Text("合并释义和例句，去重", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(stringResource(R.string.strategy_merge), style = MaterialTheme.typography.bodyMedium)
+                            Text(stringResource(R.string.strategy_merge_subtitle), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }
@@ -648,12 +650,12 @@ private fun DuplicateStrategyDialog(
         },
         confirmButton = {
             Button(onClick = { onStrategySelected(selectedStrategy) }) {
-                Text("确定")
+                Text(stringResource(R.string.confirm))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
@@ -666,21 +668,21 @@ private fun ImportResultDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("导入结果") },
+        title = { Text(stringResource(R.string.import_result)) },
         text = {
             if (result == null || result.totalCount == 0) {
-                Text("导入失败，请检查文件格式是否正确。")
+                Text(stringResource(R.string.import_failed))
             } else {
                 Column {
-                    Text("共 ${result.totalCount} 个单词")
-                    if (result.successCount > 0) Text("新增: ${result.successCount}")
-                    if (result.replacedCount > 0) Text("替换: ${result.replacedCount}")
-                    if (result.mergedCount > 0) Text("合并: ${result.mergedCount}")
-                    if (result.skipCount > 0) Text("跳过: ${result.skipCount}")
+                    Text(stringResource(R.string.import_total_count, result.totalCount))
+                    if (result.successCount > 0) Text(stringResource(R.string.import_new_count, result.successCount))
+                    if (result.replacedCount > 0) Text(stringResource(R.string.import_replaced_count, result.replacedCount))
+                    if (result.mergedCount > 0) Text(stringResource(R.string.import_merged_count, result.mergedCount))
+                    if (result.skipCount > 0) Text(stringResource(R.string.import_skipped_count, result.skipCount))
                     if (result.duplicateWords.isNotEmpty()) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "注意: ${result.duplicateWords.size} 个重复单词未处理",
+                            text = stringResource(R.string.import_duplicate_warning, result.duplicateWords.size),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.error
                         )
@@ -690,7 +692,7 @@ private fun ImportResultDialog(
         },
         confirmButton = {
             Button(onClick = onDismiss) {
-                Text("确定")
+                Text(stringResource(R.string.confirm))
             }
         }
     )
@@ -713,7 +715,7 @@ private fun CustomColorPickerDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("自定义 RGB 颜色") },
+        title = { Text(stringResource(R.string.custom_rgb_color)) },
         text = {
             Column {
                 Row(
@@ -726,7 +728,7 @@ private fun CustomColorPickerDialog(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "预览",
+                        text = stringResource(R.string.preview),
                         color = if ((red.toIntOrNull() ?: 0) > 127 ||
                             (green.toIntOrNull() ?: 0) > 127 ||
                             (blue.toIntOrNull() ?: 0) > 127) Color.Black else Color.White
@@ -748,7 +750,7 @@ private fun CustomColorPickerDialog(
                     TextField(value = blue, onValueChange = { if (it.length <= 3) blue = it.filter { c -> c.isDigit() } }, modifier = Modifier.weight(1f), singleLine = true)
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("范围: 0-255", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(stringResource(R.string.range_0_255), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         },
         confirmButton = {
@@ -761,12 +763,12 @@ private fun CustomColorPickerDialog(
                     onColorSelected(color, color, color)
                 }
             ) {
-                Text("应用")
+                Text(stringResource(R.string.apply))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
@@ -780,16 +782,16 @@ private fun ClearDataConfirmDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("确认清除所有数据？") },
+        title = { Text(stringResource(R.string.confirm_clear_data)) },
         text = {
             Column {
-                Text("此操作将删除以下数据：")
+                Text(stringResource(R.string.clear_data_description))
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("• $wordCount 个单词")
-                Text("• 所有学习记录和错题")
+                Text(stringResource(R.string.clear_data_word_count, wordCount))
+                Text(stringResource(R.string.clear_data_records))
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "此操作不可撤销，请确保已备份重要数据。",
+                    text = stringResource(R.string.clear_data_warning),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.error
                 )
@@ -800,12 +802,12 @@ private fun ClearDataConfirmDialog(
                 onClick = onConfirm,
                 colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
             ) {
-                Text("确认删除")
+                Text(stringResource(R.string.confirm_delete_all))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.cancel))
             }
         }
     )

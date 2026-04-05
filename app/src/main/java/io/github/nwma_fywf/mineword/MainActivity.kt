@@ -120,7 +120,7 @@ class MainActivity : ComponentActivity() {
             } else {
                 Toast.makeText(
                     this,
-                    "通知权限已拒绝，复习提醒将无法正常工作",
+                    getString(R.string.notification_permission_denied),
                     Toast.LENGTH_LONG
                 ).show()
                 checkBatteryOptimization()

@@ -3,6 +3,8 @@ package io.github.nwma_fywf.mineword.ui.screen.addword
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.ui.component.WordFormData
 import io.github.nwma_fywf.mineword.ui.component.WordFormScreen
 
@@ -15,7 +17,7 @@ fun AddWordScreen(
     val existingWords by viewModel.existingWords.collectAsState()
 
     WordFormScreen(
-        title = "添加单词",
+        title = stringResource(R.string.add_word),
         existingTags = existingTags,
         existingWords = existingWords,
         onNavigateBack = onNavigateBack,

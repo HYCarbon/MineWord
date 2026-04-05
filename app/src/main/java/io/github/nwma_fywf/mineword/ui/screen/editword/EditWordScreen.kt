@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.ui.component.WordFormData
 import io.github.nwma_fywf.mineword.ui.component.WordFormScreen
 
@@ -22,7 +24,7 @@ fun EditWordScreen(
     }
 
     WordFormScreen(
-        title = "编辑单词",
+        title = stringResource(R.string.edit_word),
         initialWord = wordData?.word,
         initialMeanings = wordData?.meanings ?: emptyList(),
         initialExampleSentences = wordData?.exampleSentences ?: emptyList(),

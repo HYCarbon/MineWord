@@ -16,7 +16,9 @@ import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
@@ -48,13 +50,13 @@ fun WordCard(
                 Text(
                     text = buildString {
                         if (!word.phoneticUK.isNullOrBlank()) {
-                            append("英 ${word.phoneticUK}")
+                            append(stringResource(R.string.phonetic_uk_prefix, word.phoneticUK))
                         }
                         if (!word.phoneticUK.isNullOrBlank() && !word.phoneticUS.isNullOrBlank()) {
                             append("  ")
                         }
                         if (!word.phoneticUS.isNullOrBlank()) {
-                            append("美 ${word.phoneticUS}")
+                            append(stringResource(R.string.phonetic_us_prefix, word.phoneticUS))
                         }
                     },
                     style = MaterialTheme.typography.bodySmall,
@@ -87,14 +89,14 @@ fun WordCard(
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     if (synonyms.isNotEmpty()) {
                         Text(
-                            text = "同义: ${synonyms.joinToString(", ")}",
+                            text = stringResource(R.string.synonyms_prefix, synonyms.joinToString(", ")),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }
                     if (antonyms.isNotEmpty()) {
                         Text(
-                            text = "反义: ${antonyms.joinToString(", ")}",
+                            text = stringResource(R.string.antonyms_prefix, antonyms.joinToString(", ")),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
@@ -106,7 +108,7 @@ fun WordCard(
             if (phrases.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "短语: ${phrases.joinToString(", ")}",
+                    text = stringResource(R.string.phrases_prefix, phrases.joinToString(", ")),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.primary,
                 )
@@ -116,7 +118,7 @@ fun WordCard(
             if (wordForms.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "词形: ${wordForms.joinToString(", ")}",
+                    text = stringResource(R.string.word_forms_prefix, wordForms.joinToString(", ")),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.tertiary,
                 )
@@ -129,7 +131,7 @@ fun WordCard(
                     if (confusionNote != null) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "辨析: $confusionNote",
+                            text = stringResource(R.string.confusion_prefix, confusionNote),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.error,
                         )
@@ -145,7 +147,7 @@ fun WordCard(
 private fun MeaningsContent(meanings: List<Meaning>) {
     if (meanings.isEmpty()) {
         Text(
-            text = "（无释义）",
+            text = stringResource(R.string.no_meaning),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )

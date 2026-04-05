@@ -24,7 +24,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -46,21 +45,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
-import io.github.nwma_fywf.mineword.ui.component.ExampleSentenceEntry
 
 data class MeaningEntry(
     val partOfSpeech: String = "",
     val definition: String = ""
 )
 
-private val COMMON_PARTS_OF_SPEECH = listOf("动词", "名词", "形容词", "副词", "介词", "连词", "代词", "感叹词")
+@Composable
+private fun getCommonPartsOfSpeech(): List<String> {
+    val context = LocalContext.current
+    return context.resources.getStringArray(R.array.parts_of_speech).toList()
+}
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -74,6 +79,8 @@ fun WordDialog(
     duplicateWarning: String? = null,
 ) {
     val isEditing = existingWord != null
+    val context = LocalContext.current
+    val commonPartsOfSpeech = getCommonPartsOfSpeech()
     var word by remember { mutableStateOf(existingWord?.word ?: "") }
     var phoneticUK by remember { mutableStateOf(existingWord?.phoneticUK ?: "") }
     var phoneticUS by remember { mutableStateOf(existingWord?.phoneticUS ?: "") }
@@ -119,7 +126,7 @@ fun WordDialog(
                 .padding(bottom = 32.dp),
         ) {
             Text(
-                text = if (isEditing) "编辑单词" else "添加单词",
+                text = if (isEditing) stringResource(R.string.edit_word) else stringResource(R.string.add_word),
                 style = MaterialTheme.typography.titleLarge,
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -127,7 +134,7 @@ fun WordDialog(
                 value = word,
                 onValueChange = { word = it },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("单词") },
+                label = { Text(stringResource(R.string.word_label)) },
                 singleLine = true,
                 isError = duplicateWarning != null,
             )
@@ -148,7 +155,7 @@ fun WordDialog(
                     value = phoneticUK,
                     onValueChange = { phoneticUK = it },
                     modifier = Modifier.weight(1f),
-                    label = { Text("英式音标") },
+                    label = { Text(stringResource(R.string.phonetic_uk)) },
                     singleLine = true,
                     placeholder = { Text("/brɪtɪʃ/") },
                 )
@@ -156,14 +163,14 @@ fun WordDialog(
                     value = phoneticUS,
                     onValueChange = { phoneticUS = it },
                     modifier = Modifier.weight(1f),
-                    label = { Text("美式音标") },
+                    label = { Text(stringResource(R.string.phonetic_us)) },
                     singleLine = true,
                     placeholder = { Text("/ˈæmerɪkən/") },
                 )
             }
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "释义",
+                text = stringResource(R.string.meanings),
                 style = MaterialTheme.typography.labelLarge,
             )
             Spacer(modifier = Modifier.height(4.dp))
@@ -198,12 +205,12 @@ fun WordDialog(
             ) {
                 Icon(Icons.Filled.Add, contentDescription = null)
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("添加释义")
+                Text(stringResource(R.string.add_meaning))
             }
 
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "例句",
+                text = stringResource(R.string.example_sentences),
                 style = MaterialTheme.typography.labelLarge,
             )
             Spacer(modifier = Modifier.height(4.dp))
@@ -218,12 +225,12 @@ fun WordDialog(
                             value = entry.sentence,
                             onValueChange = { exampleSentenceEntries[index] = entry.copy(sentence = it) },
                             modifier = Modifier.weight(1f),
-                            label = { Text("例句 ${index + 1}", style = MaterialTheme.typography.bodySmall) },
+                            label = { Text(stringResource(R.string.example_sentence_label, index + 1), style = MaterialTheme.typography.bodySmall) },
                             minLines = 2,
                         )
                         if (exampleSentenceEntries.size > 1) {
                             IconButton(onClick = { exampleSentenceEntries.removeAt(index) }) {
-                                Icon(Icons.Filled.Close, contentDescription = "删除")
+                                Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.delete))
                             }
                         }
                     }
@@ -232,7 +239,7 @@ fun WordDialog(
                         value = entry.translation,
                         onValueChange = { exampleSentenceEntries[index] = entry.copy(translation = it) },
                         modifier = Modifier.fillMaxWidth(),
-                        label = { Text("翻译", style = MaterialTheme.typography.bodySmall) },
+                        label = { Text(stringResource(R.string.translation), style = MaterialTheme.typography.bodySmall) },
                         singleLine = true,
                     )
                 }
@@ -245,7 +252,7 @@ fun WordDialog(
             ) {
                 Icon(Icons.Filled.Add, contentDescription = null)
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("添加例句")
+                Text(stringResource(R.string.add_example))
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -253,9 +260,9 @@ fun WordDialog(
                 value = tags,
                 onValueChange = { tags = it },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("标签（逗号分隔）") },
+                label = { Text(stringResource(R.string.tags_label)) },
                 singleLine = true,
-                placeholder = { Text("如: CET-4, 动词") },
+                placeholder = { Text(stringResource(R.string.tags_placeholder)) },
             )
             if (existingTags.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
@@ -263,7 +270,7 @@ fun WordDialog(
                     tags.text.split(",").map { it.trim() }.filter { it.isNotEmpty() }.toSet()
                 }
                 Text(
-                    text = "已有标签",
+                    text = stringResource(R.string.existing_tags),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -314,7 +321,7 @@ fun WordDialog(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = canSave,
             ) {
-                Text("保存")
+                Text(stringResource(R.string.save))
             }
         }
     }
@@ -330,9 +337,11 @@ fun MeaningEntryRow(
     focusRequester: FocusRequester? = null,
     nextFocusRequester: FocusRequester? = null,
 ) {
+    val context = LocalContext.current
+    val commonPartsOfSpeech = getCommonPartsOfSpeech()
     var posExpanded by remember { mutableStateOf(false) }
     var posInput by remember { mutableStateOf(entry.partOfSpeech) }
-    var showCustomInput by remember { mutableStateOf(entry.partOfSpeech.isNotEmpty() && entry.partOfSpeech !in COMMON_PARTS_OF_SPEECH) }
+    var showCustomInput by remember { mutableStateOf(entry.partOfSpeech.isNotEmpty() && entry.partOfSpeech !in commonPartsOfSpeech) }
     val definitionFocusRequester = remember { FocusRequester() }
 
     Row(
@@ -355,7 +364,7 @@ fun MeaningEntryRow(
                     .menuAnchor(MenuAnchorType.PrimaryNotEditable)
                     .fillMaxWidth()
                     .then(focusRequester?.let { Modifier.focusRequester(it) } ?: Modifier),
-                label = { Text("词性", style = MaterialTheme.typography.bodySmall) },
+                label = { Text(stringResource(R.string.part_of_speech), style = MaterialTheme.typography.bodySmall) },
                 singleLine = true,
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = posExpanded) },
                 readOnly = !showCustomInput,
@@ -369,7 +378,7 @@ fun MeaningEntryRow(
                 onDismissRequest = { posExpanded = false },
             ) {
                 DropdownMenuItem(
-                    text = { Text("无") },
+                    text = { Text(stringResource(R.string.pos_none)) },
                     onClick = {
                         posExpanded = false
                         showCustomInput = false
@@ -378,7 +387,7 @@ fun MeaningEntryRow(
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
                 )
-                COMMON_PARTS_OF_SPEECH.forEach { pos ->
+                commonPartsOfSpeech.forEach { pos ->
                     DropdownMenuItem(
                         text = { Text(pos) },
                         onClick = {
@@ -391,7 +400,7 @@ fun MeaningEntryRow(
                     )
                 }
                 DropdownMenuItem(
-                    text = { Text("自定义...") },
+                    text = { Text(stringResource(R.string.pos_custom)) },
                     onClick = {
                         posExpanded = false
                         showCustomInput = true
@@ -410,7 +419,7 @@ fun MeaningEntryRow(
             modifier = Modifier
                 .weight(1f)
                 .focusRequester(definitionFocusRequester),
-            label = { Text("释义", style = MaterialTheme.typography.bodySmall) },
+            label = { Text(stringResource(R.string.meanings), style = MaterialTheme.typography.bodySmall) },
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             keyboardActions = KeyboardActions(
@@ -420,7 +429,7 @@ fun MeaningEntryRow(
 
         if (showDelete) {
             IconButton(onClick = onDelete) {
-                Icon(Icons.Filled.Close, contentDescription = "删除")
+                Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.delete))
             }
         }
     }
@@ -435,24 +444,24 @@ fun ConfirmDeleteDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("确认删除") },
+        title = { Text(stringResource(R.string.confirm_delete)) },
         text = {
             Text(
                 if (meaningCount > 0) {
-                    "确定要删除单词 \"$word\" 吗？将同时删除 $meaningCount 条释义。"
+                    stringResource(R.string.confirm_delete_word_with_meanings, word, meaningCount)
                 } else {
-                    "确定要删除单词 \"$word\" 吗？"
+                    stringResource(R.string.confirm_delete_word, word)
                 }
             )
         },
         confirmButton = {
             TextButton(onClick = onConfirm) {
-                Text("删除")
+                Text(stringResource(R.string.delete))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.cancel))
             }
         },
     )

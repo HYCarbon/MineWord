@@ -53,10 +53,10 @@ class ReviewReminderWorker(
             if (existingChannel == null) {
                 val channel = NotificationChannel(
                     CHANNEL_ID,
-                    "复习提醒",
+                    applicationContext.getString(R.string.notification_channel_name),
                     NotificationManager.IMPORTANCE_HIGH
                 ).apply {
-                    description = "基于艾宾浩斯遗忘曲线的单词复习提醒"
+                    description = applicationContext.getString(R.string.notification_channel_description)
                     enableVibration(true)
                 }
                 notificationManager.createNotificationChannel(channel)
@@ -73,8 +73,8 @@ class ReviewReminderWorker(
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle("复习提醒")
-            .setContentText("您有 $count 个单词需要复习")
+            .setContentTitle(applicationContext.getString(R.string.notification_title))
+            .setContentText(applicationContext.getString(R.string.notification_review_count, count))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setContentIntent(pendingIntent)

@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.ExportData
 import io.github.nwma_fywf.mineword.data.local.ExportWord
 import io.github.nwma_fywf.mineword.data.repository.DuplicateStrategy
@@ -191,7 +192,7 @@ class SettingsViewModel(
                 themePreferences.setFontStyle(FontStyle.CUSTOM)
                 themePreferences.setCustomFontPath(fontFile.absolutePath)
             } catch (e: Exception) {
-                Toast.makeText(context, "字体加载失败: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.font_load_failed, e.message), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -254,12 +255,12 @@ class SettingsViewModel(
                 val wordCount = exportData.words.size
                 _exportResult.value = ExportResultState(
                     isSuccess = true,
-                    message = if (wordCount > 0) "导出 $wordCount 个单词" else "没有数据可导出"
+                    message = if (wordCount > 0) context.getString(R.string.export_success, wordCount) else context.getString(R.string.export_no_data)
                 )
             } catch (e: Exception) {
                 _exportResult.value = ExportResultState(
                     isSuccess = false,
-                    message = "导出失败: ${e.message}"
+                    message = context.getString(R.string.export_failed, e.message)
                 )
             } finally {
                 _isExporting.value = false
@@ -284,7 +285,6 @@ class SettingsViewModel(
                             allWords.addAll(exportData.words)
                             fileCount++
                         } catch (e: Exception) {
-                            // 忽略格式错误的文件
                         }
                     }
                 }
@@ -391,9 +391,9 @@ class SettingsViewModel(
             try {
                 repository.deleteAllWords()
                 repository.clearAllWrongAnswers()
-                Toast.makeText(context, "数据已清除", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.data_cleared), Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
-                Toast.makeText(context, "清除失败: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.clear_failed, e.message), Toast.LENGTH_SHORT).show()
             }
             _clearDataDialogState.value = ClearDataDialogState()
         }

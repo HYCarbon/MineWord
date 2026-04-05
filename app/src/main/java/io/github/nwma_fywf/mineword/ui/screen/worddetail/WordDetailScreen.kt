@@ -29,8 +29,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.R
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -49,15 +51,15 @@ fun WordDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("单词详情") },
+                title = { Text(stringResource(R.string.word_detail)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "返回")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
                 actions = {
                     IconButton(onClick = { onNavigateToEdit(wordId) }) {
-                        Icon(Icons.Filled.Edit, contentDescription = "编辑")
+                        Icon(Icons.Filled.Edit, contentDescription = stringResource(R.string.edit))
                     }
                 }
             )
@@ -84,7 +86,7 @@ fun WordDetailScreen(
                     ) {
                         data.word.phoneticUK?.let { phonetic ->
                             Text(
-                                text = "英 $phonetic",
+                                text = stringResource(R.string.phonetic_uk_prefix, phonetic),
                                 style = MaterialTheme.typography.bodyLarge,
                                 fontStyle = FontStyle.Italic,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -92,7 +94,7 @@ fun WordDetailScreen(
                         }
                         data.word.phoneticUS?.let { phonetic ->
                             Text(
-                                text = "美 $phonetic",
+                                text = stringResource(R.string.phonetic_us_prefix, phonetic),
                                 style = MaterialTheme.typography.bodyLarge,
                                 fontStyle = FontStyle.Italic,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -104,7 +106,7 @@ fun WordDetailScreen(
                 if (data.meanings.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "释义",
+                        text = stringResource(R.string.meanings),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -132,7 +134,7 @@ fun WordDetailScreen(
                 if (data.exampleSentences.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "例句",
+                        text = stringResource(R.string.example_sentences),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -157,7 +159,7 @@ fun WordDetailScreen(
                 if (!data.word.tags.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "标签",
+                        text = stringResource(R.string.existing_tags),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -177,7 +179,7 @@ fun WordDetailScreen(
                 if (!data.word.synonyms.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "同义词",
+                        text = stringResource(R.string.synonyms),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.height(4.dp))
@@ -190,7 +192,7 @@ fun WordDetailScreen(
                 if (!data.word.antonyms.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "反义词",
+                        text = stringResource(R.string.antonyms),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.height(4.dp))
@@ -203,7 +205,7 @@ fun WordDetailScreen(
                 if (!data.word.phrases.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "短语搭配",
+                        text = stringResource(R.string.phrases),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.height(4.dp))
@@ -216,7 +218,7 @@ fun WordDetailScreen(
                 if (!data.word.wordForms.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "词形变化",
+                        text = stringResource(R.string.word_forms),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.height(4.dp))
@@ -229,7 +231,7 @@ fun WordDetailScreen(
                 if (!data.word.personalNotes.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "个人笔记",
+                        text = stringResource(R.string.personal_notes),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.height(4.dp))
@@ -242,7 +244,7 @@ fun WordDetailScreen(
                 if (!data.word.source.isNullOrBlank()) {
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "来源",
+                        text = stringResource(R.string.source),
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.height(4.dp))

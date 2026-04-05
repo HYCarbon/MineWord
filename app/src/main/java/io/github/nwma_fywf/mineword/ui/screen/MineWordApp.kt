@@ -14,11 +14,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import io.github.nwma_fywf.mineword.MineWordApplication
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.FontStyle
 import io.github.nwma_fywf.mineword.data.local.ThemeMode
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
@@ -52,10 +54,10 @@ fun MineWordApp(
         val currentDestination = navBackStackEntry?.destination
 
         val bottomNavItems = listOf(
-            Triple(Screen.WordList, "词汇", Icons.AutoMirrored.Outlined.List),
-            Triple(Screen.Review, "复习", Icons.Filled.Refresh),
-            Triple(Screen.QuizMode, "测验", Icons.Filled.Star),
-            Triple(Screen.Settings, "设置", Icons.Outlined.Settings),
+            Triple(Screen.WordList, stringResource(R.string.nav_word_list), Icons.AutoMirrored.Outlined.List),
+            Triple(Screen.Review, stringResource(R.string.nav_review), Icons.Filled.Refresh),
+            Triple(Screen.QuizMode, stringResource(R.string.nav_quiz), Icons.Filled.Star),
+            Triple(Screen.Settings, stringResource(R.string.nav_settings), Icons.Outlined.Settings),
         )
 
         Scaffold(

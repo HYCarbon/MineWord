@@ -27,8 +27,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +42,7 @@ fun QuizHomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("模式选择") }
+                title = { Text(stringResource(R.string.mode_selection)) }
             )
         }
     ) { innerPadding ->
@@ -94,7 +96,7 @@ fun QuizHomeScreen(
                         tint = MaterialTheme.colorScheme.onTertiaryContainer
                     )
                     Text(
-                        text = "错题本",
+                        text = stringResource(R.string.wrong_answer_book),
                         style = MaterialTheme.typography.titleMedium,
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onTertiaryContainer
@@ -129,11 +131,11 @@ private fun ModeCard(
         ) {
             Text(
                 text = when (mode) {
-                    QuizViewModel.QuizMode.EN_TO_CN -> "英译汉"
-                    QuizViewModel.QuizMode.CN_TO_EN -> "汉译英"
-                    QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> "选择中文"
-                    QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> "选择英文"
-                    QuizViewModel.QuizMode.REVIEW -> "复习"
+                    QuizViewModel.QuizMode.EN_TO_CN -> stringResource(R.string.quiz_en_to_cn)
+                    QuizViewModel.QuizMode.CN_TO_EN -> stringResource(R.string.quiz_cn_to_en)
+                    QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> stringResource(R.string.quiz_choice_cn)
+                    QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> stringResource(R.string.quiz_choice_en)
+                    QuizViewModel.QuizMode.REVIEW -> stringResource(R.string.quiz_review_mode)
                 },
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center
@@ -141,11 +143,11 @@ private fun ModeCard(
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = when (mode) {
-                    QuizViewModel.QuizMode.EN_TO_CN -> "看英文写中文"
-                    QuizViewModel.QuizMode.CN_TO_EN -> "看中文写英文"
-                    QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> "看英文选中文"
-                    QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> "看中文选英文"
-                    QuizViewModel.QuizMode.REVIEW -> "复习模式"
+                    QuizViewModel.QuizMode.EN_TO_CN -> stringResource(R.string.desc_en_to_cn)
+                    QuizViewModel.QuizMode.CN_TO_EN -> stringResource(R.string.desc_cn_to_en)
+                    QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> stringResource(R.string.desc_choice_en_to_cn)
+                    QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> stringResource(R.string.desc_choice_cn_to_en)
+                    QuizViewModel.QuizMode.REVIEW -> stringResource(R.string.desc_review_mode)
                 },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,

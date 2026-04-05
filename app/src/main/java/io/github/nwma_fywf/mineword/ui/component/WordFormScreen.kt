@@ -41,10 +41,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
@@ -79,6 +82,7 @@ fun WordFormScreen(
     onCheckDuplicate: suspend (word: String) -> Boolean,
 ) {
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     val wordFocusRequester = remember { FocusRequester() }
     val phoneticUKFocusRequester = remember { FocusRequester() }
@@ -165,7 +169,7 @@ fun WordFormScreen(
                 title = { Text(title) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "返回")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
                 actions = {
@@ -173,7 +177,7 @@ fun WordFormScreen(
                         onClick = {
                             scope.launch {
                                 if (onCheckDuplicate(word.trim())) {
-                                    duplicateWarning = "单词 \"${word.trim()}\" 已存在"
+                                    duplicateWarning = context.getString(R.string.word_already_exists, word.trim())
                                 } else {
                                     val validMeanings = meaningEntries.filter { it.definition.isNotBlank() }
                                     val meanings = validMeanings.mapIndexed { index, entry ->
@@ -214,7 +218,7 @@ fun WordFormScreen(
                         },
                         enabled = canSave,
                     ) {
-                        Text("保存")
+                        Text(stringResource(R.string.save))
                     }
                 }
             )
@@ -237,7 +241,7 @@ fun WordFormScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(wordFocusRequester),
-                label = { Text("单词") },
+                label = { Text(stringResource(R.string.word_label)) },
                 singleLine = true,
                 isError = duplicateWarning != null,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
@@ -264,7 +268,7 @@ fun WordFormScreen(
                     modifier = Modifier
                         .weight(1f)
                         .focusRequester(phoneticUKFocusRequester),
-                    label = { Text("英式音标") },
+                    label = { Text(stringResource(R.string.phonetic_uk)) },
                     singleLine = true,
                     placeholder = { Text("/brɪtɪʃ/") },
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
@@ -278,7 +282,7 @@ fun WordFormScreen(
                     modifier = Modifier
                         .weight(1f)
                         .focusRequester(phoneticUSFocusRequester),
-                    label = { Text("美式音标") },
+                    label = { Text(stringResource(R.string.phonetic_us)) },
                     singleLine = true,
                     placeholder = { Text("/ˈæmerɪkən/") },
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
@@ -289,7 +293,7 @@ fun WordFormScreen(
             }
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "释义",
+                text = stringResource(R.string.meanings),
                 style = MaterialTheme.typography.labelLarge,
             )
             Spacer(modifier = Modifier.height(4.dp))
@@ -318,12 +322,12 @@ fun WordFormScreen(
             ) {
                 Icon(Icons.Filled.Add, contentDescription = null)
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("添加释义")
+                Text(stringResource(R.string.add_meaning))
             }
 
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "例句",
+                text = stringResource(R.string.example_sentences),
                 style = MaterialTheme.typography.labelLarge,
             )
             Spacer(modifier = Modifier.height(4.dp))
@@ -340,7 +344,7 @@ fun WordFormScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .focusRequester(exampleFocusRequesters.getOrElse(index) { FocusRequester() }),
-                            label = { Text("例句 ${index + 1}", style = MaterialTheme.typography.bodySmall) },
+                            label = { Text(stringResource(R.string.example_sentence_label, index + 1), style = MaterialTheme.typography.bodySmall) },
                             minLines = 2,
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                             keyboardActions = KeyboardActions(
@@ -354,7 +358,7 @@ fun WordFormScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .focusRequester(exampleTranslationFocusRequesters.getOrElse(index) { FocusRequester() }),
-                            label = { Text("翻译", style = MaterialTheme.typography.bodySmall) },
+                            label = { Text(stringResource(R.string.translation), style = MaterialTheme.typography.bodySmall) },
                             singleLine = true,
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                             keyboardActions = KeyboardActions(
@@ -370,7 +374,7 @@ fun WordFormScreen(
                     }
                     if (exampleSentences.size > 1) {
                         IconButton(onClick = { exampleSentences.removeAt(index) }) {
-                            Icon(Icons.Filled.Close, contentDescription = "删除")
+                            Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.delete))
                         }
                     }
                 }
@@ -383,7 +387,7 @@ fun WordFormScreen(
             ) {
                 Icon(Icons.Filled.Add, contentDescription = null)
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("添加例句")
+                Text(stringResource(R.string.add_example))
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -393,9 +397,9 @@ fun WordFormScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(tagsFocusRequester),
-                label = { Text("标签（逗号分隔）") },
+                label = { Text(stringResource(R.string.tags_label)) },
                 singleLine = true,
-                placeholder = { Text("如: CET-4, 动词") },
+                placeholder = { Text(stringResource(R.string.tags_placeholder)) },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
                     onNext = { synonymsFocusRequester.requestFocus() }
@@ -407,7 +411,7 @@ fun WordFormScreen(
                     tags.text.split(",").map { it.trim() }.filter { it.isNotEmpty() }.toSet()
                 }
                 Text(
-                    text = "已有标签",
+                    text = stringResource(R.string.existing_tags),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -449,8 +453,8 @@ fun WordFormScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(synonymsFocusRequester),
-                label = { Text("同义词") },
-                placeholder = { Text("如: happy, joyful, delighted") },
+                label = { Text(stringResource(R.string.synonyms)) },
+                placeholder = { Text(stringResource(R.string.synonyms_placeholder)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
@@ -464,7 +468,7 @@ fun WordFormScreen(
             if (availableWordsForSynonyms.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "从词库选择同义词",
+                    text = stringResource(R.string.select_synonyms_from_vocab),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -498,8 +502,8 @@ fun WordFormScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(antonymsFocusRequester),
-                label = { Text("反义词") },
-                placeholder = { Text("如: sad, unhappy, miserable") },
+                label = { Text(stringResource(R.string.antonyms)) },
+                placeholder = { Text(stringResource(R.string.antonyms_placeholder)) },
                 minLines = 2,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
@@ -514,8 +518,8 @@ fun WordFormScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(phrasesFocusRequester),
-                label = { Text("短语搭配") },
-                placeholder = { Text("如: account for (解释); take part in (参加)") },
+                label = { Text(stringResource(R.string.phrases)) },
+                placeholder = { Text(stringResource(R.string.phrases_placeholder)) },
                 minLines = 2,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
@@ -530,8 +534,8 @@ fun WordFormScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(wordFormsFocusRequester),
-                label = { Text("词形变化") },
-                placeholder = { Text("如: happy → happiness, happily") },
+                label = { Text(stringResource(R.string.word_forms)) },
+                placeholder = { Text(stringResource(R.string.word_forms_placeholder)) },
                 minLines = 2,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(
@@ -546,7 +550,7 @@ fun WordFormScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(sourceFocusRequester),
-                label = { Text("来源") },
+                label = { Text(stringResource(R.string.source)) },
                 placeholder = { Text("manual") },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
@@ -562,8 +566,8 @@ fun WordFormScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(personalNotesFocusRequester),
-                label = { Text("个人笔记") },
-                placeholder = { Text("添加你的个人笔记...") },
+                label = { Text(stringResource(R.string.personal_notes)) },
+                placeholder = { Text(stringResource(R.string.personal_notes_placeholder)) },
                 minLines = 3,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(

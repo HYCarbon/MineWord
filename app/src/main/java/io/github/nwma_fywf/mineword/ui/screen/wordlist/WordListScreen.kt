@@ -38,8 +38,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.ui.component.ConfirmDeleteDialog
 import io.github.nwma_fywf.mineword.ui.component.WordCard
@@ -59,12 +61,12 @@ fun WordListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("词汇") }
+                title = { Text(stringResource(R.string.nav_word_list)) }
             )
         },
         floatingActionButton = {
             FloatingActionButton(onClick = onNavigateToAddWord) {
-                Icon(Icons.Filled.Add, contentDescription = "添加")
+                Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add))
             }
         }
     ) { innerPadding ->
@@ -80,12 +82,12 @@ fun WordListScreen(
                     value = searchQuery,
                     onValueChange = viewModel::onSearchQueryChanged,
                     modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text("搜索单词...") },
-                    leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "搜索") },
+                    placeholder = { Text(stringResource(R.string.search_words)) },
+                    leadingIcon = { Icon(Icons.Filled.Search, contentDescription = stringResource(R.string.search)) },
                     trailingIcon = {
                         if (searchQuery.isNotEmpty()) {
                             IconButton(onClick = { viewModel.clearSearch() }) {
-                                Icon(Icons.Filled.Close, contentDescription = "清除搜索")
+                                Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.clear_search))
                             }
                         }
                     },
@@ -105,7 +107,7 @@ fun WordListScreen(
                         contentAlignment = Alignment.Center,
                     ) {
                         Text(
-                            text = if (searchQuery.isNotEmpty()) "未找到匹配的单词" else "还没有单词，点击右下角 + 添加",
+                            text = if (searchQuery.isNotEmpty()) stringResource(R.string.no_matching_words) else stringResource(R.string.no_words_yet),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )

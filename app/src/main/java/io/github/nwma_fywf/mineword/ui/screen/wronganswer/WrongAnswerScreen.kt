@@ -1,5 +1,6 @@
 package io.github.nwma_fywf.mineword.ui.screen.wronganswer
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,8 +34,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,11 +52,11 @@ fun WrongAnswerScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("错题本") },
+                title = { Text(stringResource(R.string.wrong_answer_book)) },
                 actions = {
                     if (wrongAnswersWithWords.isNotEmpty()) {
                         IconButton(onClick = { showClearDialog = true }) {
-                            Icon(Icons.Default.Clear, contentDescription = "清空")
+                            Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.clear_wrong_answers))
                         }
                     }
                 }
@@ -68,7 +71,7 @@ fun WrongAnswerScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "暂无错题",
+                    text = stringResource(R.string.no_wrong_answers),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -97,8 +100,8 @@ fun WrongAnswerScreen(
     if (showClearDialog) {
         AlertDialog(
             onDismissRequest = { showClearDialog = false },
-            title = { Text("清空错题") },
-            text = { Text("确定要清空所有错题记录吗？") },
+            title = { Text(stringResource(R.string.clear_wrong_answer_title)) },
+            text = { Text(stringResource(R.string.clear_wrong_answer_confirm)) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -106,12 +109,12 @@ fun WrongAnswerScreen(
                         showClearDialog = false
                     }
                 ) {
-                    Text("确定")
+                    Text(stringResource(R.string.confirm))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showClearDialog = false }) {
-                    Text("取消")
+                    Text(stringResource(R.string.cancel))
                 }
             }
         )
@@ -145,13 +148,13 @@ private fun WrongAnswerCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = word?.word ?: "单词已删除",
+                    text = word?.word ?: stringResource(R.string.word_deleted),
                     style = MaterialTheme.typography.titleMedium
                 )
                 IconButton(onClick = onDelete) {
                     Icon(
                         Icons.Default.Delete,
-                        contentDescription = "删除",
+                        contentDescription = stringResource(R.string.delete),
                         tint = MaterialTheme.colorScheme.error
                     )
                 }
@@ -160,7 +163,7 @@ private fun WrongAnswerCard(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "你的答案: ${wrongAnswer.userAnswer}",
+                text = stringResource(R.string.your_answer_label, wrongAnswer.userAnswer),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.error
             )
@@ -168,7 +171,7 @@ private fun WrongAnswerCard(
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = "正确答案: ${wrongAnswer.correctAnswer}",
+                text = stringResource(R.string.correct_answer_label, wrongAnswer.correctAnswer),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.primary
             )
@@ -176,7 +179,7 @@ private fun WrongAnswerCard(
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = "测验模式: ${formatQuizMode(wrongAnswer.quizMode)}",
+                text = stringResource(formatQuizModeRes(wrongAnswer.quizMode)),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -193,7 +196,7 @@ private fun WrongAnswerCard(
 
             if (timeText.isNotEmpty()) {
                 Text(
-                    text = "错误时间: $timeText",
+                    text = stringResource(R.string.wrong_time_label, timeText),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -202,13 +205,14 @@ private fun WrongAnswerCard(
     }
 }
 
-private fun formatQuizMode(mode: String): String {
+@StringRes
+private fun formatQuizModeRes(mode: String): Int {
     return when (mode) {
-        "EN_TO_CN" -> "英译汉"
-        "CN_TO_EN" -> "汉译英"
-        "CHOICE_EN_TO_CN" -> "选择中文"
-        "CHOICE_CN_TO_EN" -> "选择英文"
-        "REVIEW" -> "复习"
-        else -> mode
+        "EN_TO_CN" -> R.string.mode_en_to_cn
+        "CN_TO_EN" -> R.string.mode_cn_to_en
+        "CHOICE_EN_TO_CN" -> R.string.mode_choice_cn
+        "CHOICE_CN_TO_EN" -> R.string.mode_choice_en
+        "REVIEW" -> R.string.mode_review
+        else -> R.string.mode_en_to_cn
     }
 }

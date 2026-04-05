@@ -27,8 +27,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.Word
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,11 +52,11 @@ fun QuizScreen(
                 title = {
                     Text(
                         when (quizMode) {
-                            QuizViewModel.QuizMode.EN_TO_CN -> "英译汉"
-                            QuizViewModel.QuizMode.CN_TO_EN -> "汉译英"
-                            QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> "选择中文"
-                            QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> "选择英文"
-                            QuizViewModel.QuizMode.REVIEW -> "复习"
+                            QuizViewModel.QuizMode.EN_TO_CN -> stringResource(R.string.quiz_en_to_cn)
+                            QuizViewModel.QuizMode.CN_TO_EN -> stringResource(R.string.quiz_cn_to_en)
+                            QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> stringResource(R.string.quiz_choice_cn)
+                            QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> stringResource(R.string.quiz_choice_en)
+                            QuizViewModel.QuizMode.REVIEW -> stringResource(R.string.quiz_review_mode)
                         }
                     )
                 },
@@ -62,7 +64,7 @@ fun QuizScreen(
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "返回"
+                            contentDescription = stringResource(R.string.back)
                         )
                     }
                 }
@@ -80,7 +82,7 @@ fun QuizScreen(
             when (val state = quizState) {
                 is QuizViewModel.QuizState.Idle -> {
                     Text(
-                        text = "没有单词可供测验",
+                        text = stringResource(R.string.no_words_for_quiz),
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -112,7 +114,7 @@ fun QuizScreen(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = state.message,
+                        text = stringResource(state.messageResId),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.error,
                     )
@@ -188,7 +190,7 @@ private fun WordQuizContent(
                 )
             } else {
                 Text(
-                    text = "无释义",
+                    text = stringResource(R.string.no_meaning_short),
                     style = MaterialTheme.typography.headlineLarge,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colorScheme.error,
@@ -197,7 +199,7 @@ private fun WordQuizContent(
         }
         else -> {
             Text(
-                text = "选择题模式",
+                text = stringResource(R.string.choice_mode_label),
                 style = MaterialTheme.typography.headlineLarge,
                 textAlign = TextAlign.Center,
             )
@@ -205,7 +207,7 @@ private fun WordQuizContent(
     }
     Spacer(modifier = Modifier.height(8.dp))
     Text(
-        text = "已答 $totalCount 题",
+        text = stringResource(R.string.answered_count, totalCount),
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
@@ -216,9 +218,9 @@ private fun WordQuizContent(
         label = {
             Text(
                 when (mode) {
-                    QuizViewModel.QuizMode.EN_TO_CN -> "输入词义"
-                    QuizViewModel.QuizMode.CN_TO_EN -> "输入单词"
-                    else -> "输入答案"
+                    QuizViewModel.QuizMode.EN_TO_CN -> stringResource(R.string.input_meaning)
+                    QuizViewModel.QuizMode.CN_TO_EN -> stringResource(R.string.input_word)
+                    else -> stringResource(R.string.input_answer)
                 }
             )
         },
@@ -233,14 +235,14 @@ private fun WordQuizContent(
         enabled = userInput.isNotBlank(),
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Text("提交")
+        Text(stringResource(R.string.submit))
     }
     Spacer(modifier = Modifier.height(8.dp))
     OutlinedButton(
         onClick = onFinish,
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Text("完成测验")
+        Text(stringResource(R.string.finish_quiz))
     }
 }
 
@@ -253,18 +255,18 @@ private fun UserJudgmentContent(
     onIncorrect: () -> Unit,
 ) {
     Text(
-        text = "释义不完全匹配",
+        text = stringResource(R.string.meaning_not_match),
         style = MaterialTheme.typography.headlineSmall,
         color = MaterialTheme.colorScheme.secondary,
     )
     Spacer(modifier = Modifier.height(8.dp))
     Text(
-        text = "你的释义：$userInput",
+        text = stringResource(R.string.your_meaning, userInput),
         style = MaterialTheme.typography.bodyMedium,
     )
     Spacer(modifier = Modifier.height(16.dp))
     Text(
-        text = "已记录的释义：",
+        text = stringResource(R.string.recorded_meaning),
         style = MaterialTheme.typography.bodyLarge,
     )
     existingMeanings.forEach { meaning ->
@@ -276,7 +278,7 @@ private fun UserJudgmentContent(
     }
     Spacer(modifier = Modifier.height(16.dp))
     Text(
-        text = "请判断你的释义是否正确：",
+        text = stringResource(R.string.judge_meaning),
         style = MaterialTheme.typography.bodyLarge,
     )
     Spacer(modifier = Modifier.height(24.dp))
@@ -284,14 +286,14 @@ private fun UserJudgmentContent(
         onClick = onCorrect,
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Text("正确，添加新释义")
+        Text(stringResource(R.string.correct_add_meaning))
     }
     Spacer(modifier = Modifier.height(8.dp))
     Button(
         onClick = onIncorrect,
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Text("错误")
+        Text(stringResource(R.string.incorrect))
     }
 }
 
@@ -303,18 +305,18 @@ private fun IncorrectContent(
     onNext: () -> Unit,
 ) {
     Text(
-        text = "回答错误",
+        text = stringResource(R.string.answer_wrong),
         style = MaterialTheme.typography.headlineMedium,
         color = MaterialTheme.colorScheme.error,
     )
     Spacer(modifier = Modifier.height(8.dp))
     Text(
-        text = "你的答案：$userInput",
+        text = stringResource(R.string.your_answer, userInput),
         style = MaterialTheme.typography.bodyMedium,
     )
     Spacer(modifier = Modifier.height(16.dp))
     Text(
-        text = "正确答案：",
+        text = stringResource(R.string.correct_answer),
         style = MaterialTheme.typography.bodyLarge,
     )
     Text(
@@ -327,7 +329,7 @@ private fun IncorrectContent(
         onClick = onNext,
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Text("下一个单词")
+        Text(stringResource(R.string.next_word))
     }
 }
 
@@ -352,7 +354,7 @@ private fun ChoiceQuizContent(
     )
     Spacer(modifier = Modifier.height(8.dp))
     Text(
-        text = "已答 $totalCount 题",
+        text = stringResource(R.string.answered_count, totalCount),
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
@@ -392,14 +394,14 @@ private fun ChoiceQuizContent(
             onClick = onFinish,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text("完成测验")
+            Text(stringResource(R.string.finish_quiz))
         }
     }
 
     if (state.isCorrectAnswered != null) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = if (state.isCorrectAnswered) "回答正确！" else "回答错误！",
+            text = if (state.isCorrectAnswered) stringResource(R.string.answer_correct) else stringResource(R.string.answer_incorrect),
             style = MaterialTheme.typography.titleMedium,
             color = if (state.isCorrectAnswered) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.error,
         )
@@ -408,7 +410,7 @@ private fun ChoiceQuizContent(
             onClick = onNext,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text("下一个单词")
+            Text(stringResource(R.string.next_word))
         }
     }
 }
@@ -429,7 +431,7 @@ private fun QuizFinishedContent(
         modifier = Modifier.fillMaxSize()
     ) {
         Text(
-            text = "测验完成",
+            text = stringResource(R.string.quiz_finished),
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center,
         )
@@ -441,7 +443,7 @@ private fun QuizFinishedContent(
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "正确率 $percentage%",
+            text = stringResource(R.string.accuracy_rate, percentage),
             style = MaterialTheme.typography.titleLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -450,14 +452,14 @@ private fun QuizFinishedContent(
             onClick = onRestart,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text("再来一组")
+            Text(stringResource(R.string.retry_quiz))
         }
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedButton(
             onClick = onExit,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text("退出")
+            Text(stringResource(R.string.exit))
         }
     }
 }

@@ -1,3 +1,259 @@
 <resources>
     <string name="app_name">MineWord</string>
+
+    <!-- Navigation -->
+    <string name="nav_word_list">词汇</string>
+    <string name="nav_review">复习</string>
+    <string name="nav_quiz">测验</string>
+    <string name="nav_settings">设置</string>
+
+    <!-- General -->
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="back">返回</string>
+    <string name="edit">编辑</string>
+    <string name="add">添加</string>
+    <string name="clear">清除</string>
+    <string name="modify">修改</string>
+    <string name="apply">应用</string>
+    <string name="preview">预览</string>
+    <string name="search">搜索</string>
+    <string name="clear_search">清除搜索</string>
+
+    <!-- Add/Edit Word Form -->
+    <string name="add_word">添加单词</string>
+    <string name="edit_word">编辑单词</string>
+    <string name="word_label">单词</string>
+    <string name="phonetic_uk">英式音标</string>
+    <string name="phonetic_us">美式音标</string>
+    <string name="meanings">释义</string>
+    <string name="add_meaning">添加释义</string>
+    <string name="example_sentences">例句</string>
+    <string name="example_sentence_label">例句 %d</string>
+    <string name="translation">翻译</string>
+    <string name="add_example">添加例句</string>
+    <string name="tags_label">标签（逗号分隔）</string>
+    <string name="tags_placeholder">如: CET-4, 动词</string>
+    <string name="existing_tags">已有标签</string>
+    <string name="part_of_speech">词性</string>
+    <string name="synonyms">同义词</string>
+    <string name="synonyms_placeholder">如: happy, joyful, delighted</string>
+    <string name="select_synonyms_from_vocab">从词库选择同义词</string>
+    <string name="antonyms">反义词</string>
+    <string name="antonyms_placeholder">如: sad, unhappy, miserable</string>
+    <string name="phrases">短语搭配</string>
+    <string name="phrases_placeholder">如: account for (解释); take part in (参加)</string>
+    <string name="word_forms">词形变化</string>
+    <string name="word_forms_placeholder">如: happy → happiness, happily</string>
+    <string name="source">来源</string>
+    <string name="personal_notes">个人笔记</string>
+    <string name="personal_notes_placeholder">添加你的个人笔记…</string>
+    <string name="word_already_exists">单词 \"%s\" 已存在</string>
+
+    <!-- Delete Confirmation -->
+    <string name="confirm_delete">确认删除</string>
+    <string name="confirm_delete_word_with_meanings">确定要删除单词 \"%s\" 吗？将同时删除 %d 条释义。</string>
+    <string name="confirm_delete_word">确定要删除单词 \"%s\" 吗？</string>
+
+    <!-- Word Card -->
+    <string name="phonetic_uk_prefix">英 %s</string>
+    <string name="phonetic_us_prefix">美 %s</string>
+    <string name="synonyms_prefix">同义: %s</string>
+    <string name="antonyms_prefix">反义: %s</string>
+    <string name="phrases_prefix">短语: %s</string>
+    <string name="word_forms_prefix">词形: %s</string>
+    <string name="confusion_prefix">辨析: %s</string>
+    <string name="no_meaning">（无释义）</string>
+    <string name="no_meaning_short">无释义</string>
+
+    <!-- Word Detail -->
+    <string name="word_detail">单词详情</string>
+
+    <!-- Word List -->
+    <string name="search_words">搜索单词…</string>
+    <string name="no_matching_words">未找到匹配的单词</string>
+    <string name="no_words_yet">还没有单词，点击右下角 + 添加</string>
+
+    <!-- Review -->
+    <string name="start_review">开始复习</string>
+    <string name="no_words_to_review">没有需要复习的单词</string>
+    <string name="review_summary_total">共 %d 个单词待复习</string>
+    <string name="status_overdue">已过期</string>
+    <string name="status_today">今日</string>
+    <string name="status_tomorrow">明日</string>
+    <string name="status_due_today">今日到期</string>
+    <string name="status_due_tomorrow">明日到期</string>
+    <string name="status_days_until_due">%d天后到期</string>
+
+    <!-- Quiz -->
+    <string name="mode_selection">模式选择</string>
+    <string name="wrong_answer_book">错题本</string>
+    <string name="quiz_en_to_cn">英译汉</string>
+    <string name="quiz_cn_to_en">汉译英</string>
+    <string name="quiz_choice_cn">选择中文</string>
+    <string name="quiz_choice_en">选择英文</string>
+    <string name="quiz_review_mode">复习</string>
+    <string name="desc_en_to_cn">看英文写中文</string>
+    <string name="desc_cn_to_en">看中文写英文</string>
+    <string name="desc_choice_en_to_cn">看英文选中文</string>
+    <string name="desc_choice_cn_to_en">看中文选英文</string>
+    <string name="desc_review_mode">复习模式</string>
+    <string name="no_words_for_quiz">没有单词可供测验</string>
+    <string name="choice_mode_label">选择题模式</string>
+    <string name="answered_count">已答 %d 题</string>
+    <string name="input_meaning">输入词义</string>
+    <string name="input_word">输入单词</string>
+    <string name="input_answer">输入答案</string>
+    <string name="submit">提交</string>
+    <string name="finish_quiz">完成测验</string>
+    <string name="meaning_not_match">释义不完全匹配</string>
+    <string name="your_meaning">你的释义：%s</string>
+    <string name="recorded_meaning">已记录的释义：</string>
+    <string name="judge_meaning">请判断你的释义是否正确：</string>
+    <string name="correct_add_meaning">正确，添加新释义</string>
+    <string name="incorrect">错误</string>
+    <string name="answer_wrong">回答错误</string>
+    <string name="your_answer">你的答案：%s</string>
+    <string name="correct_answer">正确答案：</string>
+    <string name="next_word">下一个单词</string>
+    <string name="answer_correct">回答正确！</string>
+    <string name="answer_incorrect">回答错误！</string>
+    <string name="quiz_finished">测验完成</string>
+    <string name="accuracy_rate">正确率 %d%%</string>
+    <string name="retry_quiz">再来一组</string>
+    <string name="exit">退出</string>
+    <string name="quiz_not_enough_words">单词不足4个，无法进入选择题模式</string>
+    <string name="quiz_no_meaning">该单词暂无释义</string>
+
+    <!-- Wrong Answer -->
+    <string name="clear_wrong_answers">清空</string>
+    <string name="no_wrong_answers">暂无错题</string>
+    <string name="clear_wrong_answer_title">清空错题</string>
+    <string name="clear_wrong_answer_confirm">确定要清空所有错题记录吗？</string>
+    <string name="word_deleted">单词已删除</string>
+    <string name="your_answer_label">你的答案: %s</string>
+    <string name="correct_answer_label">正确答案: %s</string>
+    <string name="quiz_mode_label">测验模式: %s</string>
+    <string name="wrong_time_label">错误时间: %s</string>
+    <string name="mode_en_to_cn">英译汉</string>
+    <string name="mode_cn_to_en">汉译英</string>
+    <string name="mode_choice_cn">选择中文</string>
+    <string name="mode_choice_en">选择英文</string>
+    <string name="mode_review">复习</string>
+
+    <!-- Settings - Theme -->
+    <string name="theme_settings">主题设置</string>
+    <string name="theme_system">跟随系统</string>
+    <string name="theme_light">亮色模式</string>
+    <string name="theme_dark">暗色模式</string>
+    <string name="theme_monet">莫奈取色</string>
+    <string name="theme_monet_subtitle">使用系统壁纸颜色（Android 12+）</string>
+    <string name="theme_color">主题颜色</string>
+    <string name="custom_color_selected">已选择自定义颜色</string>
+    <string name="custom_rgb_color">自定义 RGB 颜色</string>
+    <string name="custom_rgb_subtitle">输入 RGB 值自定义主题色</string>
+    <string name="range_0_255">范围: 0-255</string>
+
+    <!-- Settings - Font -->
+    <string name="font_settings">字体设置</string>
+    <string name="font_default">默认</string>
+    <string name="font_serif">衬线体 (Serif)</string>
+    <string name="font_sans_serif">无衬线体 (Sans Serif)</string>
+    <string name="font_monospace">等宽字体 (Monospace)</string>
+    <string name="custom_font">自定义字体</string>
+    <string name="custom_font_selected">已选择自定义字体</string>
+    <string name="select_font_file">从文件选择字体</string>
+    <string name="select_font_file_subtitle">选择 .ttf 或 .otf 字体文件</string>
+    <string name="font_load_failed">字体加载失败: %s</string>
+
+    <!-- Settings - Data Stats -->
+    <string name="data_stats">词汇统计</string>
+    <string name="word_count_label">单词</string>
+
+    <!-- Settings - Data Management -->
+    <string name="data_management">数据管理</string>
+    <string name="export_data">导出数据</string>
+    <string name="export_data_subtitle">将所有单词导出为JSON文件</string>
+    <string name="batch_import">批量导入</string>
+    <string name="batch_import_subtitle">选择多个JSON文件批量导入单词</string>
+    <string name="clear_all_data">清除所有数据</string>
+    <string name="clear_all_data_subtitle">删除所有单词、词组和学习记录</string>
+    <string name="export_success">导出 %d 个单词</string>
+    <string name="export_no_data">没有数据可导出</string>
+    <string name="export_failed">导出失败: %s</string>
+    <string name="data_cleared">数据已清除</string>
+    <string name="clear_failed">清除失败: %s</string>
+
+    <!-- Settings - Learning -->
+    <string name="learning_settings">学习设置</string>
+    <string name="review_reminder">复习提醒</string>
+    <string name="review_reminder_subtitle">基于艾宾浩斯遗忘曲线定时提醒复习</string>
+    <string name="reminder_time">提醒时间</string>
+
+    <!-- Settings - Time Picker -->
+    <string name="set_reminder_time">设置提醒时间</string>
+
+    <!-- Settings - Import/Export Dialogs -->
+    <string name="duplicate_words_found">发现重复单词</string>
+    <string name="duplicate_words_detected">检测到 %d 个重复单词：</string>
+    <string name="etc_count">…等 %d 个</string>
+    <string name="choose_strategy">请选择处理方式：</string>
+    <string name="strategy_replace">替换现有数据</string>
+    <string name="strategy_replace_subtitle">用导入的数据覆盖重复的单词</string>
+    <string name="strategy_skip">跳过重复项</string>
+    <string name="strategy_skip_subtitle">保留原数据，忽略重复项</string>
+    <string name="strategy_merge">合并</string>
+    <string name="strategy_merge_subtitle">合并释义和例句，去重</string>
+    <string name="import_result">导入结果</string>
+    <string name="import_failed">导入失败，请检查文件格式是否正确。</string>
+    <string name="import_total_count">共 %d 个单词</string>
+    <string name="import_new_count">新增: %d</string>
+    <string name="import_replaced_count">替换: %d</string>
+    <string name="import_merged_count">合并: %d</string>
+    <string name="import_skipped_count">跳过: %d</string>
+    <string name="import_duplicate_warning">注意: %d 个重复单词未处理</string>
+
+    <!-- Settings - Clear Data Dialog -->
+    <string name="confirm_clear_data">确认清除所有数据？</string>
+    <string name="clear_data_description">此操作将删除以下数据：</string>
+    <string name="clear_data_word_count">• %d 个单词</string>
+    <string name="clear_data_records">• 所有学习记录和错题</string>
+    <string name="clear_data_warning">此操作不可撤销，请确保已备份重要数据。</string>
+    <string name="confirm_delete_all">确认删除</string>
+
+    <!-- Notification -->
+    <string name="notification_channel_name">复习提醒</string>
+    <string name="notification_channel_description">基于艾宾浩斯遗忘曲线的单词复习提醒</string>
+    <string name="notification_title">复习提醒</string>
+    <string name="notification_review_count">您有 %d 个单词需要复习</string>
+    <string name="notification_permission_denied">通知权限已拒绝，复习提醒将无法正常工作</string>
+
+    <!-- Parts of Speech -->
+    <string-array name="parts_of_speech">
+        <item>动词</item>
+        <item>名词</item>
+        <item>形容词</item>
+        <item>副词</item>
+        <item>介词</item>
+        <item>连词</item>
+        <item>代词</item>
+        <item>感叹词</item>
+    </string-array>
+
+    <!-- Dropdown options -->
+    <string name="pos_none">无</string>
+    <string name="pos_custom">自定义…</string>
+
+    <!-- Color names (for reference, not used via stringResource) -->
+    <string name="color_purple">紫</string>
+    <string name="color_blue">蓝</string>
+    <string name="color_cyan">青</string>
+    <string name="color_green">绿</string>
+    <string name="color_orange">橙</string>
+    <string name="color_red">红</string>
+    <string name="color_pink">粉</string>
+    <string name="color_brown">棕</string>
+    <string name="color_gray">灰</string>
 </resources>

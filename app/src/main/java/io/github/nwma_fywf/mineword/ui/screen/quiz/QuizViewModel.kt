@@ -1,8 +1,10 @@
 package io.github.nwma_fywf.mineword.ui.screen.quiz
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.data.local.WrongAnswer
@@ -67,7 +69,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         data class WaitingInputDegraded(
             val word: Word,
             val mode: QuizMode,
-            val message: String
+            @StringRes val messageResId: Int
         ) : QuizState()
         data class UserJudgment(
             val word: Word,
@@ -143,7 +145,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
             _quizState.value = QuizState.WaitingInputDegraded(
                 word = word,
                 mode = _quizMode.value,
-                message = "单词不足4个，无法进入选择题模式"
+                messageResId = R.string.quiz_not_enough_words
             )
             return
         }
@@ -159,7 +161,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                     _quizState.value = QuizState.WaitingInputDegraded(
                         word = word,
                         mode = _quizMode.value,
-                        message = "该单词暂无释义"
+                        messageResId = R.string.quiz_no_meaning
                     )
                     return
                 }

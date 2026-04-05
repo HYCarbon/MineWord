@@ -33,8 +33,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import io.github.nwma_fywf.mineword.R
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.ui.screen.quiz.QuizViewModel
@@ -51,7 +53,7 @@ fun ReviewScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("复习") }
+                title = { Text(stringResource(R.string.nav_review)) }
             )
         },
         floatingActionButton = {
@@ -59,7 +61,7 @@ fun ReviewScreen(
                 ExtendedFloatingActionButton(
                     onClick = { onStartReview(QuizViewModel.QuizMode.REVIEW) },
                     icon = { Icon(Icons.Filled.PlayArrow, contentDescription = null) },
-                    text = { Text("开始复习") }
+                    text = { Text(stringResource(R.string.start_review)) }
                 )
             }
         }
@@ -91,7 +93,7 @@ fun ReviewScreen(
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
-                        text = "没有需要复习的单词",
+                        text = stringResource(R.string.no_words_to_review),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -158,7 +160,7 @@ private fun ReviewSummaryCard(
                 .padding(16.dp)
         ) {
             Text(
-                text = "共 ${totalCount} 个单词待复习",
+                text = stringResource(R.string.review_summary_total, totalCount),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )
@@ -167,9 +169,9 @@ private fun ReviewSummaryCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                SummaryItem(count = overdueCount, label = "已过期", color = MaterialTheme.colorScheme.error)
-                SummaryItem(count = todayCount, label = "今日", color = MaterialTheme.colorScheme.primary)
-                SummaryItem(count = tomorrowCount, label = "明日", color = MaterialTheme.colorScheme.secondary)
+                SummaryItem(count = overdueCount, label = stringResource(R.string.status_overdue), color = MaterialTheme.colorScheme.error)
+                SummaryItem(count = todayCount, label = stringResource(R.string.status_today), color = MaterialTheme.colorScheme.primary)
+                SummaryItem(count = tomorrowCount, label = stringResource(R.string.status_tomorrow), color = MaterialTheme.colorScheme.secondary)
             }
         }
     }
@@ -232,10 +234,10 @@ private fun ReviewWordCard(
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = when (status) {
-                        ReviewStatus.OVERDUE -> "已过期"
-                        ReviewStatus.DUE_TODAY -> "今日到期"
-                        ReviewStatus.DUE_TOMORROW -> "明日到期"
-                        ReviewStatus.DUE_DAYS -> "${daysUntil}天后到期"
+                        ReviewStatus.OVERDUE -> stringResource(R.string.status_overdue)
+                        ReviewStatus.DUE_TODAY -> stringResource(R.string.status_due_today)
+                        ReviewStatus.DUE_TOMORROW -> stringResource(R.string.status_due_tomorrow)
+                        ReviewStatus.DUE_DAYS -> stringResource(R.string.status_days_until_due, daysUntil)
                     },
                     style = MaterialTheme.typography.labelSmall,
                     color = when (status) {
