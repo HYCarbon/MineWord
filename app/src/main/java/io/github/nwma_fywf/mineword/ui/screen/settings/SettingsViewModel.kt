@@ -184,9 +184,19 @@ class SettingsViewModel(
                 val fontFile = java.io.File(context.filesDir, fontFileName)
                 
                 context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                    fontFile.outputStream().use { outputStream ->
-                        inputStream.copyTo(outputStream)
+                    val tempBytes = inputStream.readBytes()
+                    val tempFile = java.io.File(context.cacheDir, "temp_font.ttf")
+                    tempFile.writeBytes(tempBytes)
+                    
+                    val typeface = android.graphics.Typeface.createFromFile(tempFile)
+                    if (typeface == null) {
+                        Toast.makeText(context, context.getString(R.string.font_load_failed, "无效字体文件"), Toast.LENGTH_SHORT).show()
+                        tempFile.delete()
+                        return@launch
                     }
+                    
+                    fontFile.writeBytes(tempBytes)
+                    tempFile.delete()
                 }
                 
                 themePreferences.setFontStyle(FontStyle.CUSTOM)
