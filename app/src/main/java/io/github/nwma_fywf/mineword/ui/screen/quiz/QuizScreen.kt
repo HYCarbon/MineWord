@@ -68,6 +68,7 @@ fun QuizScreen(
                             QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> stringResource(R.string.quiz_choice_cn)
                             QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> stringResource(R.string.quiz_choice_en)
                             QuizViewModel.QuizMode.REVIEW -> stringResource(R.string.quiz_review_mode)
+                            QuizViewModel.QuizMode.QUIZ_WRONG_ANSWERS -> stringResource(R.string.quiz_wrong_answers)
                         }
                     )
                 },

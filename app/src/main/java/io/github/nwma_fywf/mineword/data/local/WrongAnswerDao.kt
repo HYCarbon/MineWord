@@ -28,4 +28,7 @@ interface WrongAnswerDao {
 
     @Query("SELECT COUNT(*) FROM wrong_answers")
     fun getWrongAnswerCount(): Flow<Int>
+
+    @Query("SELECT DISTINCT wordId FROM wrong_answers")
+    suspend fun getWrongAnswerWordIds(): List<Long>
 }

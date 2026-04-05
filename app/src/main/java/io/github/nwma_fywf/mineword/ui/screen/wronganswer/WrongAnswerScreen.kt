@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -46,6 +47,7 @@ fun WrongAnswerScreen(
     viewModel: WrongAnswerViewModel,
     onNavigateBack: () -> Unit,
     onNavigateToWordDetail: (Long) -> Unit,
+    onNavigateToQuiz: () -> Unit,
 ) {
     val wrongAnswersWithWords by viewModel.wrongAnswersWithWords.collectAsState()
     var showClearDialog by remember { mutableStateOf(false) }
@@ -64,6 +66,9 @@ fun WrongAnswerScreen(
                 },
                 actions = {
                     if (wrongAnswersWithWords.isNotEmpty()) {
+                        IconButton(onClick = onNavigateToQuiz) {
+                            Icon(Icons.Default.PlayArrow, contentDescription = stringResource(R.string.quiz_wrong_answers))
+                        }
                         IconButton(onClick = { showClearDialog = true }) {
                             Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.clear_wrong_answers))
                         }

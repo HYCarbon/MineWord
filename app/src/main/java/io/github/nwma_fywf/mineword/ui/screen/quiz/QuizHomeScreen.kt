@@ -53,7 +53,7 @@ fun QuizHomeScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            val modes = QuizViewModel.QuizMode.entries.filter { it != QuizViewModel.QuizMode.REVIEW }
+            val modes = QuizViewModel.QuizMode.entries.filter { it != QuizViewModel.QuizMode.REVIEW && it != QuizViewModel.QuizMode.QUIZ_WRONG_ANSWERS }
             modes.chunked(2).forEach { rowModes ->
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -136,6 +136,7 @@ private fun ModeCard(
                     QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> stringResource(R.string.quiz_choice_cn)
                     QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> stringResource(R.string.quiz_choice_en)
                     QuizViewModel.QuizMode.REVIEW -> stringResource(R.string.quiz_review_mode)
+                    QuizViewModel.QuizMode.QUIZ_WRONG_ANSWERS -> ""
                 },
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center
@@ -148,6 +149,7 @@ private fun ModeCard(
                     QuizViewModel.QuizMode.CHOICE_EN_TO_CN -> stringResource(R.string.desc_choice_en_to_cn)
                     QuizViewModel.QuizMode.CHOICE_CN_TO_EN -> stringResource(R.string.desc_choice_cn_to_en)
                     QuizViewModel.QuizMode.REVIEW -> stringResource(R.string.desc_review_mode)
+                    QuizViewModel.QuizMode.QUIZ_WRONG_ANSWERS -> ""
                 },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,

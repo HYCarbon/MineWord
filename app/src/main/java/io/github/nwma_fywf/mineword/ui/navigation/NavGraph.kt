@@ -181,6 +181,8 @@ fun NavGraph(
             }
             if (mode == QuizViewModel.QuizMode.REVIEW) {
                 viewModel.loadReviewWords()
+            } else if (mode == QuizViewModel.QuizMode.QUIZ_WRONG_ANSWERS) {
+                viewModel.loadWrongAnswerWords()
             } else {
                 viewModel.setModeAndStart(mode)
             }
@@ -205,7 +207,8 @@ fun NavGraph(
             WrongAnswerScreen(
                 viewModel = viewModel,
                 onNavigateBack = { navController.popBackStack() },
-                onNavigateToWordDetail = { wordId -> navController.navigate(Screen.WordDetail.createRoute(wordId)) }
+                onNavigateToWordDetail = { wordId -> navController.navigate(Screen.WordDetail.createRoute(wordId)) },
+                onNavigateToQuiz = { navController.navigate(Screen.QuizPlay.createRoute(QuizViewModel.QuizMode.QUIZ_WRONG_ANSWERS.name)) }
             )
         }
         composable(Screen.Settings.route) {

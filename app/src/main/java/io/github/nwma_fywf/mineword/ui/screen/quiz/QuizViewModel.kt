@@ -21,7 +21,8 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         CN_TO_EN,
         CHOICE_EN_TO_CN,
         CHOICE_CN_TO_EN,
-        REVIEW
+        REVIEW,
+        QUIZ_WRONG_ANSWERS
     }
 
     data class ChoiceOption(
@@ -99,7 +100,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                     }
                 }
                 _allMeaningsMap.value = meaningsMap
-                if (words.isNotEmpty() && _currentWord.value == null && _quizMode.value != QuizMode.REVIEW) {
+                if (words.isNotEmpty() && _currentWord.value == null && _quizMode.value != QuizMode.REVIEW && _quizMode.value != QuizMode.QUIZ_WRONG_ANSWERS) {
                     selectRandomWord()
                 }
             }
@@ -107,10 +108,10 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
     }
 
     fun selectRandomWord() {
-        val words = if (_quizMode.value == QuizMode.REVIEW) {
-            reviewWords
-        } else {
-            _allWords.value
+        val words = when (_quizMode.value) {
+            QuizMode.REVIEW -> reviewWords
+            QuizMode.QUIZ_WRONG_ANSWERS -> _allWords.value
+            else -> _allWords.value
         }
         if (words.isEmpty()) {
             _currentWord.value = null
@@ -366,6 +367,19 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
             _reviewWords.value = dueWords
             if (dueWords.isNotEmpty()) {
                 selectRandomWord()
+            }
+        }
+    }
+
+    fun loadWrongAnswerWords() {
+        viewModelScope.launch {
+            val wordIds = repository.getWrongAnswerWordIds()
+            val words = wordIds.mapNotNull { repository.getWordById(it) }
+            if (words.isNotEmpty()) {
+                _allWords.value = words
+                selectRandomWord()
+            } else {
+                _quizState.value = QuizState.Idle
             }
         }
     }

@@ -298,6 +298,10 @@ class WordRepository(
         return wordDao.getDueReviewCount(System.currentTimeMillis())
     }
 
+    suspend fun getWrongAnswerWordIds(): List<Long> {
+        return wrongAnswerDao.getWrongAnswerWordIds()
+    }
+
     fun getDueReviewCountFlow(): kotlinx.coroutines.flow.Flow<Int> = kotlinx.coroutines.flow.flow {
         emit(getDueReviewCount())
     }
