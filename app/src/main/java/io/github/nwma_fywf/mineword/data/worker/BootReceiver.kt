@@ -3,6 +3,7 @@ package io.github.nwma_fywf.mineword.data.worker
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
@@ -14,6 +15,7 @@ class BootReceiver : BroadcastReceiver() {
                     ReviewScheduler.scheduleReviewReminder(context)
                 }
             } catch (e: Exception) {
+                Log.e("BootReceiver", "Failed to schedule reminder on boot", e)
             }
         }
     }
