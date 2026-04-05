@@ -237,6 +237,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
             _correctCount.value++
             _totalCount.value++
             viewModelScope.launch {
+                repository.recordReviewStats(word.id, true)
                 _currentWord.value?.let { word ->
                     if (_quizMode.value == QuizMode.REVIEW) {
                         repository.recordReview(word.id, word.learningStage)
@@ -249,6 +250,9 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
         } else {
             _wrongCount.value++
             _totalCount.value++
+            viewModelScope.launch {
+                repository.recordReviewStats(word.id, false)
+            }
             val correctAnswer = when (_quizMode.value) {
                 QuizMode.EN_TO_CN -> existingMeanings.firstOrNull()?.definition ?: ""
                 QuizMode.CN_TO_EN -> word.word
@@ -334,6 +338,11 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
             if (!option.isCorrect) {
                 _wrongCount.value++
                 _totalCount.value++
+                viewModelScope.launch {
+                    _currentWord.value?.let { word ->
+                        repository.recordReviewStats(word.id, false)
+                    }
+                }
                 val correctAnswer = when (_quizMode.value) {
                     QuizMode.CHOICE_EN_TO_CN -> _currentMeanings.value.firstOrNull()?.definition ?: ""
                     QuizMode.CHOICE_CN_TO_EN -> _currentWord.value?.word ?: ""
@@ -344,6 +353,7 @@ class QuizViewModel(private val repository: WordRepository) : ViewModel() {
                 _correctCount.value++
                 _totalCount.value++
                 viewModelScope.launch {
+                    repository.recordReviewStats(_currentWord.value?.id ?: 0, true)
                     _currentWord.value?.let { word ->
                         if (_quizMode.value == QuizMode.REVIEW) {
                             repository.recordReview(word.id, word.learningStage)

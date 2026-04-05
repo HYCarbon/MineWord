@@ -1,5 +1,7 @@
 package io.github.nwma_fywf.mineword.data.repository
 
+import io.github.nwma_fywf.mineword.data.local.DailyStats
+import io.github.nwma_fywf.mineword.data.local.DailyStatsDao
 import io.github.nwma_fywf.mineword.data.local.ExportData
 import io.github.nwma_fywf.mineword.data.local.ExportExampleSentence
 import io.github.nwma_fywf.mineword.data.local.ExportMeaning
@@ -15,6 +17,7 @@ import io.github.nwma_fywf.mineword.data.local.WrongAnswer
 import io.github.nwma_fywf.mineword.data.local.WrongAnswerDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import java.util.concurrent.TimeUnit
 
 data class ImportResult(
     val totalCount: Int,
@@ -35,7 +38,8 @@ class WordRepository(
     private val wordDao: WordDao,
     private val meaningDao: MeaningDao,
     private val exampleSentenceDao: ExampleSentenceDao,
-    private val wrongAnswerDao: WrongAnswerDao
+    private val wrongAnswerDao: WrongAnswerDao,
+    private val dailyStatsDao: DailyStatsDao
 ) {
     fun getAllWords(): Flow<List<Word>> = wordDao.getAllWords()
 
@@ -316,6 +320,44 @@ class WordRepository(
 
     fun getDueReviewCountFlow(): kotlinx.coroutines.flow.Flow<Int> = kotlinx.coroutines.flow.flow {
         emit(getDueReviewCount())
+    }
+
+    fun getRecentStats(limit: Int): Flow<List<DailyStats>> = dailyStatsDao.getRecentStats(limit)
+
+    suspend fun getTotalNewWords(): Int = runCatching { dailyStatsDao.getTotalNewWords() }.getOrDefault(0)
+
+    suspend fun getTotalReviewedWords(): Int = runCatching { dailyStatsDao.getTotalReviewedWords() }.getOrDefault(0)
+
+    suspend fun getTotalCorrect(): Int = runCatching { dailyStatsDao.getTotalCorrect() }.getOrDefault(0)
+
+    suspend fun getTotalWrong(): Int = runCatching { dailyStatsDao.getTotalWrong() }.getOrDefault(0)
+
+    suspend fun recordNewWord() {
+        val today = getTodayTimestamp()
+        val existing = dailyStatsDao.getStatsForDate(today)
+        if (existing != null) {
+            dailyStatsDao.upsert(existing.copy(newWordsCount = existing.newWordsCount + 1))
+        } else {
+            dailyStatsDao.upsert(DailyStats(date = today, newWordsCount = 1))
+        }
+    }
+
+    suspend fun recordReviewStats(wordId: Long, isCorrect: Boolean) {
+        val today = getTodayTimestamp()
+        val existing = dailyStatsDao.getStatsForDate(today)
+        val stats = existing ?: DailyStats(date = today)
+        dailyStatsDao.upsert(
+            stats.copy(
+                reviewedWordsCount = stats.reviewedWordsCount + 1,
+                correctCount = if (isCorrect) stats.correctCount + 1 else stats.correctCount,
+                wrongCount = if (!isCorrect) stats.wrongCount + 1 else stats.wrongCount
+            )
+        )
+    }
+
+    private fun getTodayTimestamp(): Long {
+        val now = System.currentTimeMillis()
+        return TimeUnit.MILLISECONDS.toDays(now) * TimeUnit.DAYS.toMillis(1)
     }
 
     suspend fun importWrongAnswers(exportWrongAnswers: List<ExportWrongAnswer>) {

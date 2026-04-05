@@ -6,6 +6,7 @@ import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.InsertChart
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -57,6 +58,7 @@ fun MineWordApp(
             Triple(Screen.WordList, stringResource(R.string.nav_word_list), Icons.AutoMirrored.Outlined.List),
             Triple(Screen.Review, stringResource(R.string.nav_review), Icons.Filled.Refresh),
             Triple(Screen.QuizMode, stringResource(R.string.nav_quiz), Icons.Filled.Star),
+            Triple(Screen.Stats, stringResource(R.string.nav_stats), Icons.Outlined.InsertChart),
             Triple(Screen.Settings, stringResource(R.string.nav_settings), Icons.Outlined.Settings),
         )
 

@@ -26,6 +26,8 @@ import io.github.nwma_fywf.mineword.ui.screen.review.ReviewScreen
 import io.github.nwma_fywf.mineword.ui.screen.review.ReviewViewModel
 import io.github.nwma_fywf.mineword.ui.screen.settings.SettingsScreen
 import io.github.nwma_fywf.mineword.ui.screen.settings.SettingsViewModel
+import io.github.nwma_fywf.mineword.ui.screen.stats.StatsScreen
+import io.github.nwma_fywf.mineword.ui.screen.stats.StatsViewModel
 import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailScreen
 import io.github.nwma_fywf.mineword.ui.screen.worddetail.WordDetailViewModel
 import io.github.nwma_fywf.mineword.ui.screen.wordlist.WordListScreen
@@ -46,6 +48,7 @@ fun NavGraph(
         Screen.WordList.route,
         Screen.Review.route,
         Screen.QuizMode.route,
+        Screen.Stats.route,
         Screen.Settings.route
     )
 
@@ -58,6 +61,7 @@ fun NavGraph(
                 Screen.WordList.route,
                 Screen.Review.route,
                 Screen.QuizMode.route,
+                Screen.Stats.route,
                 Screen.Settings.route
             )
             val initialIndex = bottomNavOrder.indexOf(initialRoute)
@@ -210,6 +214,12 @@ fun NavGraph(
                 onNavigateToWordDetail = { wordId -> navController.navigate(Screen.WordDetail.createRoute(wordId)) },
                 onNavigateToQuiz = { navController.navigate(Screen.QuizPlay.createRoute(QuizViewModel.QuizMode.QUIZ_WRONG_ANSWERS.name)) }
             )
+        }
+        composable(Screen.Stats.route) {
+            val viewModel: StatsViewModel = viewModel(
+                factory = StatsViewModel.provideFactory(repository)
+            )
+            StatsScreen(viewModel = viewModel)
         }
         composable(Screen.Settings.route) {
             val settingsVm: SettingsViewModel = viewModel(

@@ -75,6 +75,7 @@ class AddWordViewModel(private val repository: WordRepository) : ViewModel() {
             if (exampleSentences.isNotEmpty()) {
                 repository.saveExampleSentences(id, exampleSentences)
             }
+            repository.recordNewWord()
             onComplete()
         }
     }
