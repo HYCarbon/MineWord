@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 data class ReviewWord(
     val word: Word,
     val meanings: List<Meaning>,
-    val status: ReviewStatus
+    val status: ReviewStatus,
+    val daysUntil: Int = 0
 )
 
 enum class ReviewStatus {
@@ -45,7 +46,8 @@ class ReviewViewModel(private val repository: WordRepository) : ViewModel() {
             val reviewWords = words.map { word ->
                 val meanings = repository.getMeaningsByWordId(word.id).first()
                 val status = calculateReviewStatus(word.nextReviewTime, currentTime)
-                ReviewWord(word, meanings, status)
+                val daysUntil = calculateDaysUntil(word.nextReviewTime, currentTime)
+                ReviewWord(word, meanings, status, daysUntil)
             }.sortedBy { it.status.ordinal }
             _reviewWords.value = reviewWords
             _isLoading.value = false
@@ -62,6 +64,12 @@ class ReviewViewModel(private val repository: WordRepository) : ViewModel() {
             diff < 2 * oneDay -> ReviewStatus.DUE_TOMORROW
             else -> ReviewStatus.DUE_DAYS
         }
+    }
+
+    private fun calculateDaysUntil(nextReviewTime: Long, currentTime: Long): Int {
+        val diff = nextReviewTime - currentTime
+        val oneDay = 24 * 60 * 60 * 1000L
+        return (diff / oneDay).toInt().coerceAtLeast(0)
     }
 
     fun skipWord(wordId: Long) {
@@ -87,10 +95,6 @@ class ReviewViewModel(private val repository: WordRepository) : ViewModel() {
                 loadReviewWords()
             }
         }
-    }
-
-    fun startReview(mode: QuizViewModel.QuizMode) {
-        // This will be called to start the quiz with review mode
     }
 
     companion object {

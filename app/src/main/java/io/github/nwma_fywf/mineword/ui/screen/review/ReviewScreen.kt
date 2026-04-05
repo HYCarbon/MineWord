@@ -126,6 +126,7 @@ fun ReviewScreen(
                         word = reviewWord.word,
                         meanings = reviewWord.meanings,
                         status = reviewWord.status,
+                        daysUntil = reviewWord.daysUntil,
                         onSkip = { viewModel.skipWord(reviewWord.word.id) }
                     )
                 }
@@ -197,6 +198,7 @@ private fun ReviewWordCard(
     word: Word,
     meanings: List<Meaning>,
     status: ReviewStatus,
+    daysUntil: Int,
     onSkip: () -> Unit
 ) {
     Card(
@@ -233,7 +235,7 @@ private fun ReviewWordCard(
                         ReviewStatus.OVERDUE -> "已过期"
                         ReviewStatus.DUE_TODAY -> "今日到期"
                         ReviewStatus.DUE_TOMORROW -> "明日到期"
-                        ReviewStatus.DUE_DAYS -> "${formatDaysUntil(status)}天后到期"
+                        ReviewStatus.DUE_DAYS -> "${daysUntil}天后到期"
                     },
                     style = MaterialTheme.typography.labelSmall,
                     color = when (status) {
@@ -262,11 +264,4 @@ private fun StatusIndicator(status: ReviewStatus) {
         modifier = Modifier.size(24.dp),
         tint = color
     )
-}
-
-private fun formatDaysUntil(status: ReviewStatus): Int {
-    return when (status) {
-        ReviewStatus.DUE_DAYS -> 2
-        else -> 0
-    }
 }
