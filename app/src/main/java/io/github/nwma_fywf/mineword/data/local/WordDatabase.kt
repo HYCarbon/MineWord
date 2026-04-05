@@ -27,8 +27,6 @@ abstract class WordDatabase : RoomDatabase() {
 
         private val MIGRATION_5_6 = object : Migration(5, 6) {
             override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
-                db.execSQL("CREATE TABLE IF NOT EXISTS phrases (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `phrase` TEXT NOT NULL, `meaning` TEXT NOT NULL DEFAULT '', `tags` TEXT NOT NULL DEFAULT '', `personalNotes` TEXT NOT NULL DEFAULT '', `createdAt` INTEGER NOT NULL DEFAULT 0)")
-                db.execSQL("CREATE INDEX IF NOT EXISTS `index_phrases_phrase` ON `phrases` (`phrase`)")
             }
         }
 
@@ -49,7 +47,6 @@ abstract class WordDatabase : RoomDatabase() {
 
         private val MIGRATION_8_9 = object : Migration(8, 9) {
             override fun migrate(db: androidx.sqlite.db.SupportSQLiteDatabase) {
-                db.execSQL("DROP TABLE IF EXISTS phrases")
             }
         }
 
