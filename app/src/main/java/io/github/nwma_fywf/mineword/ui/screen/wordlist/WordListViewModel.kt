@@ -12,6 +12,7 @@ import io.github.nwma_fywf.mineword.ui.component.MeaningEntry
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -22,6 +23,24 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery
+
+    private val _selectedWordIds = MutableStateFlow<Set<Long>>(emptySet())
+    val selectedWordIds: StateFlow<Set<Long>> = _selectedWordIds
+
+    private val _pendingDeletedWords = MutableStateFlow<List<Word>>(emptyList())
+    val pendingDeletedWords: StateFlow<List<Word>> = _pendingDeletedWords
+
+    private val _pendingDeletedMeanings = MutableStateFlow<List<Meaning>>(emptyList())
+    private val pendingDeletedMeanings: List<Meaning> get() = _pendingDeletedMeanings.value
+
+    private val _pendingDeletedExampleSentences = MutableStateFlow<List<ExampleSentence>>(emptyList())
+    private val pendingDeletedExampleSentences: List<ExampleSentence> get() = _pendingDeletedExampleSentences.value
+
+    val isSelectionMode: StateFlow<Boolean> = _selectedWordIds.map { it.isNotEmpty() }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    val isUndoMode: StateFlow<Boolean> = _pendingDeletedWords.map { it.isNotEmpty() }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     val words: StateFlow<List<Word>> = _searchQuery
         .flatMapLatest { query ->
@@ -108,7 +127,85 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
 
     fun deleteWord(word: Word) {
         viewModelScope.launch {
+            val meanings = repository.getMeaningsByWordId(word.id).first()
+            val exampleSentences = repository.getExampleSentencesByWordId(word.id).first()
             repository.deleteWord(word)
+            _pendingDeletedWords.value = listOf(word.copy(id = 0))
+            _pendingDeletedMeanings.value = meanings.map { it.copy(id = 0, wordId = 0) }
+            _pendingDeletedExampleSentences.value = exampleSentences.map { it.copy(id = 0, wordId = 0) }
+        }
+    }
+
+    fun deleteSelectedWords(words: List<Word>) {
+        viewModelScope.launch {
+            val selectedWords = words.filter { it.id in _selectedWordIds.value }
+            val allMeanings = mutableListOf<Meaning>()
+            val allExampleSentences = mutableListOf<ExampleSentence>()
+            val wordsToRestore = mutableListOf<Word>()
+            
+            selectedWords.forEach { word ->
+                val meanings = repository.getMeaningsByWordId(word.id).first()
+                val exampleSentences = repository.getExampleSentencesByWordId(word.id).first()
+                allMeanings.addAll(meanings)
+                allExampleSentences.addAll(exampleSentences)
+                wordsToRestore.add(word.copy(id = 0))
+                repository.deleteWord(word)
+            }
+            
+            _pendingDeletedWords.value = wordsToRestore
+            _pendingDeletedMeanings.value = allMeanings.map { it.copy(id = 0, wordId = 0) }
+            _pendingDeletedExampleSentences.value = allExampleSentences.map { it.copy(id = 0, wordId = 0) }
+            _selectedWordIds.value = emptySet()
+        }
+    }
+
+    fun undoDelete() {
+        viewModelScope.launch {
+            _pendingDeletedWords.value.forEach { word ->
+                val restoredWord = word.copy(id = 0)
+                val newId = repository.insertWord(restoredWord)
+                val wordMeanings = pendingDeletedMeanings.filter { it.wordId == 0L }
+                val wordExamples = pendingDeletedExampleSentences.filter { it.wordId == 0L }
+                repository.saveMeanings(newId, wordMeanings.map { it.copy(wordId = newId) })
+                repository.saveExampleSentences(newId, wordExamples.map { it.copy(wordId = newId) })
+            }
+            clearPendingDelete()
+        }
+    }
+
+    fun clearPendingDelete() {
+        _pendingDeletedWords.value = emptyList()
+        _pendingDeletedMeanings.value = emptyList()
+        _pendingDeletedExampleSentences.value = emptyList()
+    }
+
+    fun toggleSelection(wordId: Long) {
+        val current = _selectedWordIds.value
+        _selectedWordIds.value = if (wordId in current) {
+            current - wordId
+        } else {
+            current + wordId
+        }
+    }
+
+    fun clearSelection() {
+        _selectedWordIds.value = emptySet()
+    }
+
+    fun selectAll(wordList: List<Word>) {
+        _selectedWordIds.value = wordList.map { it.id }.toSet()
+    }
+
+    fun addTagsToSelected(tags: String) {
+        viewModelScope.launch {
+            val selectedWords = words.value.filter { it.id in _selectedWordIds.value }
+            selectedWords.forEach { word ->
+                val existingTags = word.tags.split(",").map { it.trim() }.filter { it.isNotEmpty() }.toMutableSet()
+                val newTags = tags.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+                existingTags.addAll(newTags)
+                repository.updateWord(word.copy(tags = existingTags.joinToString(",")))
+            }
+            _selectedWordIds.value = emptySet()
         }
     }
 

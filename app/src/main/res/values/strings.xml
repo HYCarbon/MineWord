@@ -161,6 +161,9 @@
     <string name="stats_new_words_short">新增</string>
     <string name="stats_reviewed_short">复习</string>
     <string name="stats_correct_wrong">正确/总题</string>
+    <string name="select_all">全选</string>
+    <string name="add_tags">添加标签</string>
+    <string name="confirm_delete_selected">确定要删除选中的 %d 个单词吗？</string>
 
     <!-- Settings - Theme -->
     <string name="theme_settings">主题设置</string>

@@ -1,12 +1,17 @@
 package io.github.nwma_fywf.mineword.ui.screen.wordlist
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
@@ -14,7 +19,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Label
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.SelectAll
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -23,9 +33,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
@@ -46,7 +61,7 @@ import io.github.nwma_fywf.mineword.data.local.Word
 import io.github.nwma_fywf.mineword.ui.component.ConfirmDeleteDialog
 import io.github.nwma_fywf.mineword.ui.component.WordCard
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun WordListScreen(
     viewModel: WordListViewModel,
@@ -55,20 +70,77 @@ fun WordListScreen(
 ) {
     val words by viewModel.words.collectAsState()
     val searchQuery by viewModel.searchQuery.collectAsState()
-    var wordToDelete by remember { mutableStateOf<Word?>(null) }
-    var deleteMeaningCount by remember { mutableIntStateOf(0) }
+    val selectedWordIds by viewModel.selectedWordIds.collectAsState()
+    val isSelectionMode by viewModel.isSelectionMode.collectAsState()
+    var showBatchDeleteDialog by remember { mutableStateOf(false) }
+    var showAddTagsDialog by remember { mutableStateOf(false) }
+    val snackbarHostState = remember { SnackbarHostState() }
+    val pendingDeletedWords by viewModel.pendingDeletedWords.collectAsState()
+
+    LaunchedEffect(pendingDeletedWords) {
+        if (pendingDeletedWords.isNotEmpty()) {
+            val count = pendingDeletedWords.size
+            val message = if (count == 1) {
+                "已删除 \"${pendingDeletedWords.first().word}\""
+            } else {
+                "已删除 $count 个单词"
+            }
+            val result = snackbarHostState.showSnackbar(
+                message = message,
+                actionLabel = "撤销",
+                duration = SnackbarDuration.Short
+            )
+            if (result == SnackbarResult.ActionPerformed) {
+                viewModel.undoDelete()
+            } else {
+                viewModel.clearPendingDelete()
+            }
+        }
+    }
+
+    LaunchedEffect(isSelectionMode) {
+        if (!isSelectionMode) {
+            showBatchDeleteDialog = false
+            showAddTagsDialog = false
+        }
+    }
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.nav_word_list)) }
-            )
+            if (isSelectionMode) {
+                TopAppBar(
+                    title = { Text("${selectedWordIds.size}") },
+                    navigationIcon = {
+                        IconButton(onClick = { viewModel.clearSelection() }) {
+                            Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.cancel))
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = { viewModel.selectAll(words) }) {
+                            Icon(Icons.Filled.SelectAll, contentDescription = stringResource(R.string.select_all))
+                        }
+                        IconButton(onClick = { showBatchDeleteDialog = true }) {
+                            Icon(Icons.Filled.Delete, contentDescription = stringResource(R.string.delete))
+                        }
+                        IconButton(onClick = { showAddTagsDialog = true }) {
+                            Icon(Icons.Filled.Label, contentDescription = stringResource(R.string.add_tags))
+                        }
+                    }
+                )
+            } else {
+                TopAppBar(
+                    title = { Text(stringResource(R.string.nav_word_list)) }
+                )
+            }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = onNavigateToAddWord) {
-                Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add))
+            if (!isSelectionMode) {
+                FloatingActionButton(onClick = onNavigateToAddWord) {
+                    Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add))
+                }
             }
-        }
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
@@ -121,39 +193,133 @@ fun WordListScreen(
                     val meanings by viewModel.getMeanings(word.id).collectAsState(initial = emptyList())
                     val exampleSentences by viewModel.getExampleSentences(word.id).collectAsState(initial = emptyList())
                     val dismissState = rememberSwipeToDismissBoxState()
+                    val isSelected = selectedWordIds.contains(word.id)
+
                     LaunchedEffect(dismissState.currentValue) {
-                        if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
-                            wordToDelete = word
-                            deleteMeaningCount = meanings.size
+                        if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart && !isSelectionMode) {
+                            viewModel.deleteWord(word)
                             dismissState.reset()
                         }
                     }
-                    SwipeToDismissBox(
-                        state = dismissState,
-                        backgroundContent = {},
-                        enableDismissFromStartToEnd = false,
-                    ) {
-                        WordCard(
+
+                    if (isSelectionMode) {
+                        WordCardSelectable(
                             word = word,
                             meanings = meanings,
                             exampleSentences = exampleSentences,
-                            onClick = { onNavigateToWordDetail(word.id) },
+                            isSelected = isSelected,
+                            onClick = { viewModel.toggleSelection(word.id) },
+                            onLongClick = { viewModel.toggleSelection(word.id) },
                         )
+                    } else {
+                        SwipeToDismissBox(
+                            state = dismissState,
+                            backgroundContent = {},
+                            enableDismissFromStartToEnd = false,
+                        ) {
+                            WordCard(
+                                word = word,
+                                meanings = meanings,
+                                exampleSentences = exampleSentences,
+                                onClick = { onNavigateToWordDetail(word.id) },
+                                onLongClick = { viewModel.toggleSelection(word.id) },
+                            )
+                        }
                     }
                 }
             }
         }
     }
 
-    wordToDelete?.let { word ->
-        ConfirmDeleteDialog(
-            word = word.word,
-            meaningCount = deleteMeaningCount,
-            onConfirm = {
-                viewModel.deleteWord(word)
-                wordToDelete = null
+    if (showBatchDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showBatchDeleteDialog = false },
+            title = { Text(stringResource(R.string.confirm_delete)) },
+            text = { Text(stringResource(R.string.confirm_delete_selected, selectedWordIds.size)) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.deleteSelectedWords(words)
+                        showBatchDeleteDialog = false
+                    }
+                ) {
+                    Text(stringResource(R.string.delete))
+                }
             },
-            onDismiss = { wordToDelete = null }
+            dismissButton = {
+                TextButton(onClick = { showBatchDeleteDialog = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        )
+    }
+
+    if (showAddTagsDialog) {
+        var tagsInput by remember { mutableStateOf("") }
+        AlertDialog(
+            onDismissRequest = { showAddTagsDialog = false },
+            title = { Text(stringResource(R.string.add_tags)) },
+            text = {
+                OutlinedTextField(
+                    value = tagsInput,
+                    onValueChange = { tagsInput = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = { Text(stringResource(R.string.tags_placeholder)) },
+                    singleLine = true,
+                )
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        if (tagsInput.isNotBlank()) {
+                            viewModel.addTagsToSelected(tagsInput)
+                            showAddTagsDialog = false
+                        }
+                    }
+                ) {
+                    Text(stringResource(R.string.confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showAddTagsDialog = false }) {
+                    Text(stringResource(R.string.cancel))
+                }
+            }
+        )
+    }
+}
+
+@Composable
+@OptIn(ExperimentalFoundationApi::class)
+private fun WordCardSelectable(
+    word: Word,
+    meanings: List<io.github.nwma_fywf.mineword.data.local.Meaning>,
+    exampleSentences: List<io.github.nwma_fywf.mineword.data.local.ExampleSentence>,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    onLongClick: () -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = onLongClick
+            )
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(
+            checked = isSelected,
+            onCheckedChange = { onClick() },
+            modifier = Modifier.padding(end = 8.dp)
+        )
+        WordCard(
+            word = word,
+            meanings = meanings,
+            exampleSentences = exampleSentences,
+            onClick = onClick,
+            modifier = Modifier.weight(1f)
         )
     }
 }
