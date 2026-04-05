@@ -15,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -28,6 +29,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import android.content.Intent
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -43,9 +46,24 @@ fun WordDetailScreen(
     onNavigateToEdit: (Long) -> Unit,
 ) {
     val wordDetailData by viewModel.wordDetailData.collectAsState()
+    val shareIntent by viewModel.shareIntent.collectAsState()
+    val context = LocalContext.current
 
     LaunchedEffect(wordId) {
         viewModel.loadWord(wordId)
+    }
+
+    LaunchedEffect(shareIntent) {
+        shareIntent?.let { intent ->
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, intent.text)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            context.startActivity(shareIntent)
+            viewModel.clearShareIntent()
+        }
     }
 
     Scaffold(
@@ -60,6 +78,9 @@ fun WordDetailScreen(
                 actions = {
                     IconButton(onClick = { onNavigateToEdit(wordId) }) {
                         Icon(Icons.Filled.Edit, contentDescription = stringResource(R.string.edit))
+                    }
+                    IconButton(onClick = { viewModel.shareWord() }) {
+                        Icon(Icons.Filled.Share, contentDescription = stringResource(R.string.share))
                     }
                 }
             )
