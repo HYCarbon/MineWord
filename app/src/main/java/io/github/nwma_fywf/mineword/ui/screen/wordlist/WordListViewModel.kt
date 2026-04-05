@@ -6,12 +6,14 @@ import androidx.lifecycle.viewModelScope
 import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
+import io.github.nwma_fywf.mineword.data.repository.SortBy
 import io.github.nwma_fywf.mineword.data.repository.WordRepository
 import io.github.nwma_fywf.mineword.ui.component.ExampleSentenceEntry
 import io.github.nwma_fywf.mineword.ui.component.MeaningEntry
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
@@ -23,6 +25,9 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery
+
+    private val _sortBy = MutableStateFlow(SortBy.CREATED_TIME)
+    val sortBy: StateFlow<SortBy> = _sortBy
 
     private val _selectedWordIds = MutableStateFlow<Set<Long>>(emptySet())
     val selectedWordIds: StateFlow<Set<Long>> = _selectedWordIds
@@ -42,15 +47,15 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
     val isUndoMode: StateFlow<Boolean> = _pendingDeletedWords.map { it.isNotEmpty() }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
-    val words: StateFlow<List<Word>> = _searchQuery
-        .flatMapLatest { query ->
-            if (query.isBlank()) {
-                repository.getAllWords()
-            } else {
-                repository.searchWords(query.trim())
-            }
+    val words: StateFlow<List<Word>> = kotlinx.coroutines.flow.combine(_searchQuery, _sortBy) { query, sort ->
+        Pair(query, sort)
+    }.flatMapLatest { (query, sort) ->
+        if (query.isBlank()) {
+            repository.getAllWordsSorted(sort)
+        } else {
+            repository.searchWords(query.trim())
         }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     val existingTags: StateFlow<List<String>> = repository.getAllTagsRaw()
         .map { rawList ->
@@ -69,6 +74,10 @@ class WordListViewModel(private val repository: WordRepository) : ViewModel() {
 
     fun clearSearch() {
         _searchQuery.value = ""
+    }
+
+    fun setSortBy(sort: SortBy) {
+        _sortBy.value = sort
     }
 
     suspend fun checkDuplicate(word: String, excludeId: Long? = null): Boolean {

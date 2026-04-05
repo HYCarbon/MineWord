@@ -19,6 +19,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import java.util.concurrent.TimeUnit
 
+enum class SortBy {
+    CREATED_TIME,
+    ALPHABETIC,
+    REVIEW_TIME,
+    MASTERY
+}
+
 data class ImportResult(
     val totalCount: Int,
     val successCount: Int,
@@ -42,6 +49,13 @@ class WordRepository(
     private val dailyStatsDao: DailyStatsDao
 ) {
     fun getAllWords(): Flow<List<Word>> = wordDao.getAllWords()
+
+    fun getAllWordsSorted(sortBy: SortBy): Flow<List<Word>> = when (sortBy) {
+        SortBy.CREATED_TIME -> wordDao.getAllWords()
+        SortBy.ALPHABETIC -> wordDao.getAllWordsSortedByName()
+        SortBy.REVIEW_TIME -> wordDao.getAllWordsSortedByReviewTime()
+        SortBy.MASTERY -> wordDao.getAllWordsSortedByMastery()
+    }
 
     suspend fun getWordById(id: Long): Word? = wordDao.getWordById(id)
 

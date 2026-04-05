@@ -13,6 +13,15 @@ interface WordDao {
     @Query("SELECT * FROM words ORDER BY createdAt DESC")
     fun getAllWords(): Flow<List<Word>>
 
+    @Query("SELECT * FROM words ORDER BY word ASC")
+    fun getAllWordsSortedByName(): Flow<List<Word>>
+
+    @Query("SELECT * FROM words ORDER BY nextReviewTime ASC")
+    fun getAllWordsSortedByReviewTime(): Flow<List<Word>>
+
+    @Query("SELECT * FROM words ORDER BY learningStage DESC")
+    fun getAllWordsSortedByMastery(): Flow<List<Word>>
+
     @Query("SELECT * FROM words WHERE id = :id")
     suspend fun getWordById(id: Long): Word?
 
