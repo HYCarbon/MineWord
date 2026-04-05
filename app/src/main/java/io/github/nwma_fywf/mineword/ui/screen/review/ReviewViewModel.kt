@@ -76,22 +76,7 @@ class ReviewViewModel(private val repository: WordRepository) : ViewModel() {
         viewModelScope.launch {
             val word = repository.getWordById(wordId)
             word?.let {
-                val intervals = listOf(
-                    1L * 24 * 60 * 60 * 1000,
-                    3L * 24 * 60 * 60 * 1000,
-                    7L * 24 * 60 * 60 * 1000,
-                    15L * 24 * 60 * 60 * 1000,
-                    30L * 24 * 60 * 60 * 1000
-                )
-                val nextStage = (it.learningStage + 1).coerceAtMost(intervals.size - 1)
-                val interval = intervals[nextStage]
-                val now = System.currentTimeMillis()
-                val updatedWord = it.copy(
-                    learningStage = nextStage,
-                    lastReviewTime = now,
-                    nextReviewTime = now + interval
-                )
-                repository.updateWord(updatedWord)
+                repository.recordReview(it.id, it.learningStage)
                 loadReviewWords()
             }
         }
