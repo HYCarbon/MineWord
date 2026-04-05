@@ -48,14 +48,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.Meaning
+import io.github.nwma_fywf.mineword.ui.component.ExampleSentenceEntry
 import io.github.nwma_fywf.mineword.ui.component.MeaningEntry
 import io.github.nwma_fywf.mineword.ui.component.MeaningEntryRow
 import kotlinx.coroutines.launch
-
-data class ExampleSentenceEntry(
-    val sentence: String = "",
-    val translation: String = ""
-)
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable

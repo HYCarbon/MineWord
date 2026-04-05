@@ -53,15 +53,11 @@ import androidx.compose.ui.unit.dp
 import io.github.nwma_fywf.mineword.data.local.ExampleSentence
 import io.github.nwma_fywf.mineword.data.local.Meaning
 import io.github.nwma_fywf.mineword.data.local.Word
+import io.github.nwma_fywf.mineword.ui.component.ExampleSentenceEntry
 
 data class MeaningEntry(
     val partOfSpeech: String = "",
     val definition: String = ""
-)
-
-data class ExampleSentenceEntry(
-    val sentence: String = "",
-    val translation: String = ""
 )
 
 private val COMMON_PARTS_OF_SPEECH = listOf("动词", "名词", "形容词", "副词", "介词", "连词", "代词", "感叹词")
