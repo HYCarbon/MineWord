@@ -99,6 +99,9 @@ class WordRepository(
                 audioUrl = word.audioUrl,
                 tags = word.tags,
                 synonyms = word.synonyms,
+                antonyms = word.antonyms,
+                phrases = word.phrases,
+                wordForms = word.wordForms,
                 personalNotes = word.personalNotes,
                 meanings = meanings.map { m ->
                     ExportMeaning(
@@ -145,6 +148,9 @@ class WordRepository(
                             audioUrl = exportWord.audioUrl,
                             tags = exportWord.tags,
                             synonyms = exportWord.synonyms,
+                            antonyms = exportWord.antonyms,
+                            phrases = exportWord.phrases,
+                            wordForms = exportWord.wordForms,
                             personalNotes = exportWord.personalNotes
                         )
                         wordDao.updateWord(newWord)
@@ -183,6 +189,9 @@ class WordRepository(
                         val newWord = existingWord.copy(
                             tags = updatedTags,
                             synonyms = if (exportWord.synonyms.isNotEmpty()) exportWord.synonyms else existingWord.synonyms,
+                            antonyms = if (exportWord.antonyms.isNotEmpty()) exportWord.antonyms else existingWord.antonyms,
+                            phrases = if (exportWord.phrases.isNotEmpty()) exportWord.phrases else existingWord.phrases,
+                            wordForms = if (exportWord.wordForms.isNotEmpty()) exportWord.wordForms else existingWord.wordForms,
                             personalNotes = if (exportWord.personalNotes.isNotEmpty()) exportWord.personalNotes else existingWord.personalNotes
                         )
                         wordDao.updateWord(newWord)
@@ -199,7 +208,10 @@ class WordRepository(
                     audioUrl = exportWord.audioUrl,
                     tags = exportWord.tags,
                     synonyms = exportWord.synonyms,
-                    personalNotes = exportWord.personalNotes
+                    antonyms = exportWord.antonyms,
+                    phrases = exportWord.phrases,
+                    wordForms = exportWord.wordForms,
+                    personalNotes = exportWord.personalNotes,
                 )
                 val wordId = wordDao.insertWord(newWord)
                 saveMeanings(wordId, exportWord.meanings.map { m ->

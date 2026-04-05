@@ -24,6 +24,9 @@ data class ExportWord(
     val audioUrl: String? = null,
     val tags: String = "",
     val synonyms: String = "",
+    val antonyms: String = "",
+    val phrases: String = "",
+    val wordForms: String = "",
     val personalNotes: String = "",
     val meanings: List<ExportMeaning> = emptyList(),
     val exampleSentences: List<ExportExampleSentence> = emptyList()
