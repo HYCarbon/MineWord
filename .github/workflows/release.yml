@@ -44,7 +44,7 @@ jobs:
         run: |
           echo "Creating keystore.properties..."
           cat > keystore.properties << EOF
-          storeFile=app/release.keystore
+          storeFile=release.keystore
           storePassword=${{ secrets.KEYSTORE_PASSWORD }}
           keyAlias=${{ secrets.KEY_ALIAS }}
           keyPassword=${{ secrets.KEY_PASSWORD }}
@@ -55,12 +55,17 @@ jobs:
           ./gradlew assembleRelease --no-daemon
 
       - name: List built APKs
-        run: ls -la app/build/outputs/apk/release/
+        run: ls -la app/release/
 
       - name: Upload APKs to Release
         uses: softprops/action-gh-release@v2
         with:
-          files: app/build/outputs/apk/release/*.apk
+          files: app/release/*.apk
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup sensitive files
+        run: |
+          rm -f app/release.keystore
+          rm -f keystore.properties

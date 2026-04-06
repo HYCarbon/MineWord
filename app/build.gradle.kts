@@ -93,3 +93,27 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
+
+tasks.register("renameReleaseApks") {
+    doLast {
+        val versionName = android.defaultConfig.versionName
+        val outputDir = file("release")
+        val apkFiles = outputDir.listFiles()?.filter { it.name.endsWith(".apk") && !it.name.startsWith("mineword") } ?: return@doLast
+        
+        apkFiles.forEach { apk ->
+            val abiName = when {
+                apk.name.contains("arm64-v8a") -> "arm64-v8a"
+                apk.name.contains("armeabi-v7a") -> "armeabi-v7a"
+                else -> "universal"
+            }
+            val newName = "mineword-${abiName}-release-v$versionName.apk"
+            apk.renameTo(file("$outputDir/$newName"))
+        }
+    }
+}
+
+afterEvaluate {
+    tasks.named("assembleRelease") {
+        finalizedBy("renameReleaseApks")
+    }
+}
